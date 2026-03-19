@@ -32,12 +32,19 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
+        if: ${{ hashFiles('package.json') != '' }}
         run: npm ci
 
       - name: Build static site
+        if: ${{ hashFiles('package.json') != '' }}
         run: npm run build
 
+      - name: Skip deploy until site code exists
+        if: ${{ hashFiles('package.json') == '' }}
+        run: echo "No package.json found yet. Skipping deploy for now."
+
       - name: Deploy to GoDaddy via FTP
+        if: ${{ hashFiles('package.json') != '' }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
