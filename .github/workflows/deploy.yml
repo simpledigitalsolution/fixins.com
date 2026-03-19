@@ -1,0 +1,48 @@
+# Deploy to GoDaddy cPanel hosting via FTP
+#
+# REQUIRED GitHub Secrets (Settings -> Secrets and variables -> Actions):
+#   FTP_SERVER    - your FTP hostname, e.g. ftp.fixinsapp.com
+#   FTP_USERNAME  - your cPanel FTP username
+#   FTP_PASSWORD  - your cPanel FTP password
+#
+# This workflow assumes the FTP user is rooted at the active web document root.
+# For dedicated/chrooted users, keep server-dir as ./
+
+name: Deploy to GoDaddy cPanel
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Deploy to GoDaddy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
+          server-dir: ./
+          dangerous-clean-slate: false
