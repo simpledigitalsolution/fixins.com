@@ -1,0 +1,2030 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fixins - Free Meal Planning App</title>
+  <meta name="description" content="Fixins is the free meal planning app that helps families plan dinners, build grocery lists, and cook with less stress." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #F2EBD9;
+      --paper-dark: #E8DFC8;
+      --paper-deep: #DDD0B4;
+      --paper-edge: #C8BA98;
+      --ink: #2A2318;
+      --ink-mid: #4A3D2C;
+      --ink-faded: rgba(42,35,24,0.45);
+      --ink-ghost: rgba(42,35,24,0.18);
+      --tomato: #C13B2A;
+      --tomato-dim: rgba(193,59,42,0.12);
+      --olive: #5C6B2E;
+      --olive-pale: rgba(92,107,46,0.12);
+      --mustard: #B8860B;
+      --mustard-pale: rgba(184,134,11,0.12);
+      --terra: #B8685A;
+      --sage: #5A6B52;
+      --rule: rgba(42,35,24,0.12);
+      --rule-dark: rgba(42,35,24,0.22);
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Lato', system-ui, sans-serif;
+      --shadow-soft: 0 16px 34px rgba(44,31,18,0.12);
+      --shadow-card: 0 14px 22px rgba(44,31,18,0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      scroll-behavior: smooth;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.028;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.87' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.72'/%3E%3C/svg%3E");
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1160px, calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+    .section { padding: 104px 0; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--mustard);
+      margin-bottom: 14px;
+    }
+
+    .h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(34px, 4vw, 54px);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .h2 i { color: var(--tomato); }
+
+    .muted {
+      color: var(--ink-faded);
+      line-height: 1.68;
+      font-size: 18px;
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 14px;
+      padding: 14px 22px;
+      font-weight: 700;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn.tomato {
+      background: var(--tomato);
+      color: var(--paper);
+      box-shadow: 0 14px 26px rgba(193,59,42,0.22);
+    }
+
+    .btn.olive {
+      background: var(--olive);
+      color: var(--paper);
+      box-shadow: 0 14px 24px rgba(92,107,46,0.24);
+    }
+
+    .btn.ghost {
+      background: rgba(255,255,255,0.34);
+      border-color: var(--rule-dark);
+      color: var(--ink);
+      backdrop-filter: blur(3px);
+    }
+
+    .btn.block { width: 100%; }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-delay-1 { transition-delay: 0.1s; }
+    .fade-delay-2 { transition-delay: 0.2s; }
+    .fade-delay-3 { transition-delay: 0.3s; }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 90;
+      border-bottom: 1px solid transparent;
+      transition: background-color 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
+    }
+
+    .navbar.scrolled {
+      background: rgba(242,235,217,0.88);
+      border-color: var(--rule);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--tomato);
+      color: var(--paper);
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 24px;
+      position: relative;
+      box-shadow: 0 10px 20px rgba(193,59,42,0.28);
+    }
+
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      bottom: 2px;
+      height: 2px;
+      border-radius: 10px;
+      background: var(--mustard);
+    }
+
+    .logo-word {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-word .ins { color: var(--tomato); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      color: var(--ink-mid);
+      font-weight: 600;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-ctas {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hamburger {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--rule-dark);
+      background: rgba(255,255,255,0.3);
+      position: relative;
+    }
+
+    .hamburger span {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      height: 2px;
+      background: var(--ink);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .hamburger span:nth-child(1) { top: 14px; }
+    .hamburger span:nth-child(2) { top: 20px; }
+    .hamburger span:nth-child(3) { top: 26px; }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 89;
+      background: rgba(42,35,24,0.44);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .mobile-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-panel {
+      position: absolute;
+      inset: 0;
+      background: var(--paper);
+      display: grid;
+      place-items: center;
+      transform: translateY(100%);
+      transition: transform 0.35s ease;
+    }
+
+    .mobile-overlay.open .mobile-panel { transform: translateY(0); }
+
+    .mobile-menu {
+      width: min(420px, calc(100% - 32px));
+      display: grid;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .mobile-menu a.link {
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid var(--rule);
+      background: rgba(255,255,255,0.42);
+      font-weight: 700;
+      color: var(--ink-mid);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .paper-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(42,35,24,0.035) 0,
+        rgba(42,35,24,0.035) 1px,
+        transparent 1px,
+        transparent 13px
+      );
+      opacity: 0.35;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+      animation: blobFloat 14s ease-in-out infinite;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .blob-1 {
+      width: 480px;
+      height: 480px;
+      top: -140px;
+      right: -120px;
+      background: radial-gradient(circle at 34% 36%, rgba(184,134,11,0.24), rgba(184,134,11,0));
+      animation-duration: 14s;
+    }
+
+    .blob-2 {
+      width: 420px;
+      height: 420px;
+      right: 18%;
+      bottom: -160px;
+      background: radial-gradient(circle at 40% 35%, rgba(193,59,42,0.20), rgba(193,59,42,0));
+      animation-duration: 11s;
+      animation-delay: -4s;
+    }
+
+    .blob-3 {
+      width: 390px;
+      height: 390px;
+      left: -150px;
+      top: 30%;
+      background: radial-gradient(circle at 50% 48%, rgba(92,107,46,0.2), rgba(92,107,46,0));
+      animation-duration: 16s;
+      animation-delay: -8s;
+    }
+
+    @keyframes blobFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-22px) rotate(3deg); }
+      66% { transform: translateY(14px) rotate(-2deg); }
+    }
+
+    .hero-food {
+      position: absolute;
+      right: 4%;
+      top: 17%;
+      width: min(34vw, 390px);
+      height: 68vh;
+      pointer-events: none;
+    }
+
+    .hero-food span {
+      position: absolute;
+      font-size: clamp(22px, 2.2vw, 34px);
+      opacity: 0.14;
+      filter: saturate(0.4);
+      animation: foodFloat 8s ease-in-out infinite;
+    }
+
+    .hero-food span:nth-child(1) { left: 8%; top: 6%; animation-duration: 8s; }
+    .hero-food span:nth-child(2) { left: 42%; top: 2%; animation-duration: 7.4s; animation-delay: -1.2s; }
+    .hero-food span:nth-child(3) { left: 73%; top: 13%; animation-duration: 8.8s; animation-delay: -2.6s; }
+    .hero-food span:nth-child(4) { left: 18%; top: 37%; animation-duration: 9.1s; animation-delay: -3.1s; }
+    .hero-food span:nth-child(5) { left: 56%; top: 43%; animation-duration: 7.8s; animation-delay: -1.8s; }
+    .hero-food span:nth-child(6) { left: 70%; top: 64%; animation-duration: 8.3s; animation-delay: -2.8s; }
+    .hero-food span:nth-child(7) { left: 28%; top: 74%; animation-duration: 9.2s; animation-delay: -3.9s; }
+
+    @keyframes foodFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(640px, 100%);
+      padding-top: 88px;
+      padding-bottom: 40px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--tomato-dim);
+      color: var(--tomato);
+      border: 1px solid rgba(193,59,42,0.24);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--tomato);
+      animation: dotPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(0.8); opacity: 0.5; }
+    }
+
+    .hero h1 {
+      margin: 18px 0 16px;
+      font-family: var(--serif);
+      font-size: clamp(52px, 9vw, 88px);
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+    }
+
+    .hero h1 i {
+      color: var(--tomato);
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .hero h1 .olive { color: var(--olive); }
+
+    .hero p {
+      margin: 0;
+      font-size: 20px;
+      color: var(--ink-faded);
+      line-height: 1.62;
+      max-width: 500px;
+    }
+
+    .hero-cta {
+      margin-top: 30px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-hint {
+      margin-top: 12px;
+      color: var(--ink-faded);
+      font-size: 14px;
+      font-weight: 600;
+      display: none;
+    }
+
+    .hero-stats {
+      margin-top: 36px;
+      border-top: 1px solid var(--rule);
+      padding-top: 16px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: var(--ink-mid);
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .hero-stats span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-stats span::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--mustard);
+      opacity: 0.7;
+    }
+
+    .phone-wrap {
+      position: absolute;
+      right: max(4%, calc(50% - 560px));
+      top: 50%;
+      transform: translateY(-50%);
+      width: 320px;
+      z-index: 2;
+      animation: phoneFloat 7s ease-in-out infinite;
+    }
+
+    @keyframes phoneFloat {
+      0%, 100% { transform: translateY(-50%) translateX(0); }
+      50% { transform: translateY(calc(-50% - 14px)) translateX(-6px); }
+    }
+
+    .phone {
+      background: #1f1c17;
+      border: 2px solid #3d3428;
+      border-radius: 40px;
+      padding: 16px;
+      box-shadow: 0 36px 48px rgba(42,35,24,0.35);
+      position: relative;
+    }
+
+    .phone-notch {
+      width: 40%;
+      height: 20px;
+      border-radius: 12px;
+      background: #0f0d0a;
+      margin: 0 auto 10px;
+    }
+
+    .screen {
+      border-radius: 28px;
+      min-height: 570px;
+      overflow: hidden;
+      background: radial-gradient(circle at 25% 15%, rgba(193,59,42,0.22), transparent 40%), radial-gradient(circle at 80% 18%, rgba(184,134,11,0.2), transparent 42%), radial-gradient(circle at 64% 80%, rgba(92,107,46,0.26), transparent 48%), var(--paper);
+      border: 1px solid rgba(42,35,24,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px;
+    }
+
+    .screen .logo-mini {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--tomato);
+      color: var(--paper);
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .screen h4 {
+      margin: 0 0 8px;
+      font-family: var(--serif);
+      font-size: 34px;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .screen p {
+      margin: 0 0 18px;
+      color: var(--ink-faded);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .phone-card {
+      margin-top: auto;
+      background: rgba(242,235,217,0.94);
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      padding: 14px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .phone-actions {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .mini-btn {
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .mini-btn.tomato {
+      background: var(--tomato);
+      color: var(--paper);
+    }
+
+    .mini-btn.ghost {
+      border-color: var(--rule-dark);
+      background: rgba(255,255,255,0.55);
+      color: var(--ink);
+    }
+
+    .phone-tabs {
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--ink-faded);
+      font-size: 16px;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      color: var(--ink-faded);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 2px;
+      height: 34px;
+      background: var(--ink-mid);
+      border-radius: 20px;
+      transform-origin: top;
+      animation: scrollPulse 2.2s ease-in-out infinite;
+      opacity: 0.35;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(0.35); opacity: 0.35; }
+      50% { transform: scaleY(1); opacity: 0.8; }
+    }
+
+    .features {
+      background: var(--paper-dark);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .center-head {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 44px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border: 1px solid var(--rule);
+      border-radius: 22px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.34);
+    }
+
+    .feature-card {
+      padding: 40px 36px;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+      transition: background-color 0.2s ease;
+    }
+
+    .feature-card:nth-child(3n) { border-right: 0; }
+    .feature-card:nth-last-child(-n + 3) { border-bottom: 0; }
+
+    .feature-card:hover { background: rgba(255,255,255,0.45); }
+
+    .accent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2.5px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .feature-card:hover .accent { opacity: 1; }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 10px;
+      font-family: var(--serif);
+      font-size: 28px;
+      line-height: 1.15;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--ink-faded);
+      line-height: 1.65;
+      font-size: 17px;
+    }
+
+    .steps {
+      position: relative;
+      margin-top: 46px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .steps::before {
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      top: 26px;
+      height: 1px;
+      background: var(--rule-dark);
+      z-index: 0;
+    }
+
+    .step {
+      text-align: center;
+      padding: 4px 14px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-num {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      border: 1px solid var(--rule-dark);
+      background: rgba(255,255,255,0.4);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: var(--ink-mid);
+      font-size: 17px;
+    }
+
+    .step.active .step-num {
+      background: var(--tomato);
+      color: var(--paper);
+      border-color: transparent;
+      box-shadow: 0 0 0 7px rgba(193,59,42,0.14);
+    }
+
+    .step h3 {
+      margin: 0 0 8px;
+      font-family: var(--serif);
+      font-size: 30px;
+      line-height: 1.15;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--ink-faded);
+      line-height: 1.62;
+      font-size: 17px;
+    }
+
+    .quote-strip {
+      position: relative;
+      overflow: hidden;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 96px 0;
+    }
+
+    .quote-glow-1,
+    .quote-glow-2 {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(6px);
+    }
+
+    .quote-glow-1 {
+      width: 320px;
+      height: 320px;
+      left: 10%;
+      top: -110px;
+      background: radial-gradient(circle at center, rgba(193,59,42,0.34), rgba(193,59,42,0));
+    }
+
+    .quote-glow-2 {
+      width: 360px;
+      height: 360px;
+      right: 6%;
+      bottom: -130px;
+      background: radial-gradient(circle at center, rgba(92,107,46,0.34), rgba(92,107,46,0));
+    }
+
+    .quote-wrap {
+      position: relative;
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .quote-mark {
+      font-family: var(--serif);
+      color: var(--tomato);
+      font-size: 80px;
+      line-height: 0.8;
+      margin-bottom: 10px;
+    }
+
+    .quote-text {
+      margin: 0;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(22px, 3.4vw, 34px);
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+    }
+
+    .quote-attr {
+      margin-top: 18px;
+      color: rgba(242,235,217,0.72);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .download {
+      background: var(--paper-dark);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .download-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .store-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: min(300px, 100%);
+      margin-top: 22px;
+    }
+
+    .store-btn {
+      border-radius: 16px;
+      border: 1px solid transparent;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--paper);
+      font-size: 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .store-btn:hover { transform: translateY(-2px); }
+
+    .store-btn .icon { font-size: 20px; }
+
+    .store-btn small {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.8;
+    }
+
+    .store-btn strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: 0.01em;
+    }
+
+    .store-ios { background: var(--ink); box-shadow: 0 14px 24px rgba(42,35,24,0.27); }
+    .store-android { background: var(--olive); box-shadow: 0 14px 24px rgba(92,107,46,0.22); }
+
+    .scan-divider {
+      margin: 18px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink-faded);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .scan-divider::before,
+    .scan-divider::after {
+      content: "";
+      height: 1px;
+      background: var(--rule-dark);
+      flex: 1;
+    }
+
+    .qr-box {
+      width: 170px;
+      border: 1px dashed var(--rule-dark);
+      border-radius: 16px;
+      padding: 12px;
+      background: rgba(255,255,255,0.42);
+      text-align: center;
+    }
+
+    .qr-grid {
+      width: 100px;
+      margin: 4px auto 8px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+    }
+
+    .qr-grid span {
+      width: 100%;
+      padding-top: 100%;
+      display: block;
+      border-radius: 2px;
+      background: rgba(42,35,24,0.09);
+    }
+
+    .qr-grid span.dark { background: var(--ink); }
+
+    .qr-label {
+      font-size: 11px;
+      color: var(--ink-faded);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .download-right .ital {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 30px;
+      margin: 4px 0 18px;
+    }
+
+    .pill-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .pill {
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.42);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: transform 0.2s ease;
+    }
+
+    .pill:hover { transform: translateX(4px); }
+
+    .pill .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink-mid);
+      font-weight: 600;
+    }
+
+    .pill .check {
+      color: var(--olive);
+      font-weight: 700;
+    }
+
+    .note-box {
+      margin-top: 14px;
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.34);
+      padding: 14px;
+      color: var(--ink-faded);
+      font-weight: 600;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .tag-pill {
+      margin-top: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 999px;
+      border: 1px solid var(--rule);
+      background: rgba(255,255,255,0.45);
+      padding: 10px 14px;
+      color: var(--ink-mid);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .tag-pill .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--olive);
+    }
+
+    .about-cards {
+      display: grid;
+      gap: 14px;
+    }
+
+    .about-card {
+      border: 1px solid var(--rule);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.42);
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .about-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .about-card h4 {
+      margin: 0 0 6px;
+      font-family: var(--serif);
+      font-size: 24px;
+    }
+
+    .about-card p {
+      margin: 0;
+      color: var(--ink-faded);
+      line-height: 1.62;
+      font-size: 16px;
+    }
+
+    .contact {
+      background: var(--paper-dark);
+      border-top: 1px solid var(--rule);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .contact-link {
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.44);
+      padding: 13px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .contact-link:hover {
+      transform: translateY(-1px);
+      border-color: var(--rule-dark);
+    }
+
+    .contact-link .icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: rgba(193,59,42,0.1);
+    }
+
+    .contact-link .meta {
+      display: grid;
+      gap: 2px;
+    }
+
+    .contact-link .meta small {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faded);
+      font-weight: 700;
+    }
+
+    .contact-link .meta strong {
+      color: var(--ink-mid);
+      font-size: 15px;
+    }
+
+    .form-card {
+      border: 1px solid var(--rule);
+      border-radius: 24px;
+      background: var(--paper);
+      box-shadow: var(--shadow-soft);
+      padding: 24px;
+    }
+
+    .form-title {
+      margin: 0 0 14px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 34px;
+      color: var(--ink);
+    }
+
+    .inquiry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .inq-btn {
+      border: 1px solid var(--rule-dark);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.5);
+      color: var(--ink-mid);
+      font-weight: 700;
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .inq-btn.active {
+      background: var(--tomato-dim);
+      border-color: rgba(193,59,42,0.4);
+      color: var(--tomato);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .field { margin-bottom: 10px; }
+
+    .input,
+    .textarea {
+      width: 100%;
+      border: 1px solid var(--rule-dark);
+      background: rgba(255,255,255,0.65);
+      color: var(--ink);
+      border-radius: 12px;
+      font: inherit;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .textarea {
+      min-height: 132px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .input:focus,
+    .textarea:focus {
+      border-color: var(--mustard);
+      box-shadow: 0 0 0 3px rgba(184,134,11,0.14);
+    }
+
+    .invalid { border-color: var(--tomato) !important; box-shadow: 0 0 0 3px rgba(193,59,42,0.14) !important; }
+
+    .privacy {
+      margin: 8px 0 0;
+      text-align: center;
+      color: var(--ink-faded);
+      font-size: 11px;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 34px 12px 24px;
+    }
+
+    .success .emoji {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .success h3 {
+      margin: 0 0 6px;
+      font-family: var(--serif);
+      font-size: 36px;
+    }
+
+    .success p {
+      margin: 0 0 20px;
+      color: var(--ink-faded);
+      line-height: 1.62;
+      font-size: 17px;
+    }
+
+    .footer {
+      position: relative;
+      overflow: hidden;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 88px 0 22px;
+    }
+
+    .footer-glow-1,
+    .footer-glow-2 {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(6px);
+    }
+
+    .footer-glow-1 {
+      width: 300px;
+      height: 300px;
+      right: 14%;
+      top: -130px;
+      background: radial-gradient(circle at center, rgba(193,59,42,0.32), rgba(193,59,42,0));
+    }
+
+    .footer-glow-2 {
+      width: 290px;
+      height: 290px;
+      left: 8%;
+      bottom: -130px;
+      background: radial-gradient(circle at center, rgba(92,107,46,0.3), rgba(92,107,46,0));
+    }
+
+    .footer-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 22px;
+    }
+
+    .footer-brand .logo { margin-bottom: 14px; }
+
+    .footer-brand .name {
+      margin: 0;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 38px;
+      color: var(--paper);
+    }
+
+    .footer-brand p {
+      margin: 8px 0 12px;
+      color: rgba(242,235,217,0.7);
+      max-width: 430px;
+      line-height: 1.66;
+      font-size: 16px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .socials a {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid rgba(242,235,217,0.24);
+      display: grid;
+      place-items: center;
+      color: var(--paper);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .socials a:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .footer-col h4 {
+      margin: 0 0 12px;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 9px;
+    }
+
+    .footer-col li a {
+      color: rgba(242,235,217,0.76);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .footer-col li a:hover { color: var(--paper); }
+
+    .footer-col.tomato h4 { color: var(--tomato); }
+    .footer-col.olive h4 { color: var(--olive); }
+    .footer-col.mustard h4 { color: var(--mustard); }
+
+    .footer-bottom {
+      position: relative;
+      margin-top: 30px;
+      border-top: 1px solid rgba(242,235,217,0.16);
+      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: rgba(242,235,217,0.64);
+      font-size: 13px;
+    }
+
+    .footer-bottom .links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom a:hover { color: var(--paper); }
+
+    @media (max-width: 1023px) {
+      .section { padding: 88px 0; }
+      .phone-wrap,
+      .hero-food { display: none; }
+      .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .feature-card:nth-child(3n) { border-right: 1px solid var(--rule); }
+      .feature-card:nth-child(2n) { border-right: 0; }
+      .feature-card:nth-last-child(-n + 3) { border-bottom: 1px solid var(--rule); }
+      .feature-card:nth-last-child(-n + 2) { border-bottom: 0; }
+      .download-grid,
+      .about-grid,
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 767px) {
+      .container { width: calc(100% - 32px); }
+      .section { padding: 72px 0; }
+      .nav-links,
+      .nav-ctas { display: none; }
+      .hamburger { display: block; }
+      .hero-inner { padding-top: 96px; }
+      .hero p { font-size: 18px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .feature-card { border-right: 0 !important; border-bottom: 1px solid var(--rule) !important; }
+      .feature-card:last-child { border-bottom: 0 !important; }
+      .steps { grid-template-columns: 1fr; gap: 24px; }
+      .steps::before { display: none; }
+      .step { text-align: left; }
+      .step .step-num { margin-left: 0; }
+      .form-row { grid-template-columns: 1fr; }
+      .inquiry-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-brand { margin-bottom: 12px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 479px) {
+      .hero-cta { flex-direction: column; }
+      .hero-cta .btn,
+      .store-btn { width: 100%; }
+      .store-stack { width: 100%; max-width: none; }
+      .qr-box { width: 100%; max-width: 240px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#top" class="logo" aria-label="Fixins home">
+        <span class="logo-mark">F</span>
+        <span class="logo-word">Fix<span class="ins">ins</span></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-ctas">
+        <a href="#download" class="btn ghost">Get the App</a>
+        <a href="#download" class="btn tomato">Download Free</a>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-overlay" id="mobileMenu">
+    <div class="mobile-panel">
+      <div class="mobile-menu">
+        <a class="link" href="#features" onclick="toggleMenu(false)">Features</a>
+        <a class="link" href="#download" onclick="toggleMenu(false)">Download</a>
+        <a class="link" href="#about" onclick="toggleMenu(false)">About</a>
+        <a class="link" href="#contact" onclick="toggleMenu(false)">Contact</a>
+        <a class="btn ghost" href="#download" onclick="toggleMenu(false)">Get the App</a>
+        <a class="btn tomato" href="#download" onclick="toggleMenu(false)">Download Free</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="paper-lines"></div>
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+
+      <div class="hero-food" aria-hidden="true">
+        <span>🍅</span>
+        <span>🥕</span>
+        <span>🧄</span>
+        <span>🫙</span>
+        <span>🌿</span>
+        <span>🫒</span>
+        <span>🍋</span>
+      </div>
+
+      <div class="phone-wrap" aria-hidden="true">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="screen">
+            <div>
+              <div class="logo-mini">F</div>
+              <h4>Fixins</h4>
+              <p>What is for dinner? Already solved.</p>
+            </div>
+            <div class="phone-card">
+              <div style="font-weight:700;color:var(--ink-mid);margin-bottom:6px;">Tonight</div>
+              <div style="font-family:var(--serif);font-size:22px;margin-bottom:10px;">Roasted Veggie Pasta</div>
+              <div class="phone-actions">
+                <div class="mini-btn tomato">Meal Planning</div>
+                <div class="mini-btn ghost">Shopping List</div>
+              </div>
+              <div class="phone-tabs" aria-hidden="true"><span>🍽️</span><span>🛒</span><span>⏱️</span><span>👨‍👩‍👧</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="hero-inner fade-up visible">
+          <div class="hero-badge"><span class="badge-dot"></span> NOW AVAILABLE - FREE TO DOWNLOAD</div>
+          <h1>
+            Dinner's<br />
+            <i>figured out.</i><br />
+            <span class="olive">Finally.</span>
+          </h1>
+          <p>Fixins helps busy families plan meals, build automatic grocery lists, and cook with less chaos. No subscription. No stress spiral at 5:30pm.</p>
+          <div class="hero-cta">
+            <button class="btn tomato" id="heroPrimaryCta" type="button">Download Free</button>
+            <a class="btn ghost" id="heroSecondaryCta" href="#how-it-works">See How It Works</a>
+          </div>
+          <p class="hero-hint" id="deviceHint">Detected: iPhone - we'll take you right there.</p>
+          <div class="hero-stats">
+            <span>4.8★ App Store</span>
+            <span>10k+ Families</span>
+            <span>Free Always</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-hint" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <section class="section features" id="features">
+      <div class="container">
+        <div class="center-head fade-up">
+          <div class="eyebrow">What You Get</div>
+          <h2 class="h2">Everything the kitchen needs. <i>Nothing it doesn't.</i></h2>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card fade-up">
+            <div class="accent" style="background:var(--tomato);"></div>
+            <div class="icon-box" style="background:var(--tomato-dim);">📅</div>
+            <h3>Weekly Meal Planner</h3>
+            <p>Drag and drop your meals for the week and stop deciding dinner from scratch every night.</p>
+          </article>
+
+          <article class="feature-card fade-up fade-delay-1">
+            <div class="accent" style="background:var(--olive);"></div>
+            <div class="icon-box" style="background:var(--olive-pale);">🛒</div>
+            <h3>Auto Grocery Lists</h3>
+            <p>Fixins instantly turns your plan into a shoppable list so the store trip is faster and calmer.</p>
+          </article>
+
+          <article class="feature-card fade-up fade-delay-2">
+            <div class="accent" style="background:var(--mustard);"></div>
+            <div class="icon-box" style="background:var(--mustard-pale);">🥗</div>
+            <h3>Nutrition Tracking</h3>
+            <p>Keep an eye on nutrition trends over time without feeling like you are logging every crumb.</p>
+          </article>
+
+          <article class="feature-card fade-up">
+            <div class="accent" style="background:var(--terra);"></div>
+            <div class="icon-box" style="background:rgba(184,104,90,0.12);">🧑‍🍳</div>
+            <h3>Cook Mode with Timers</h3>
+            <p>Stay in flow while cooking with step timing and clean-screen guidance for each recipe.</p>
+          </article>
+
+          <article class="feature-card fade-up fade-delay-1">
+            <div class="accent" style="background:var(--sage);"></div>
+            <div class="icon-box" style="background:rgba(90,107,82,0.12);">🌱</div>
+            <h3>Pantry-Based Recipes</h3>
+            <p>Find meals from ingredients you already have and reduce wasted groceries every week.</p>
+          </article>
+
+          <article class="feature-card fade-up fade-delay-2">
+            <div class="accent" style="background:var(--tomato);"></div>
+            <div class="icon-box" style="background:var(--tomato-dim);">👨‍👩‍👧</div>
+            <h3>Shared Family Plans</h3>
+            <p>Everyone sees the same plan, updates lists, and stays synced without endless text threads.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="container">
+        <div class="center-head fade-up">
+          <div class="eyebrow" style="color:var(--olive);">How It Works</div>
+          <h2 class="h2">Plan less. Cook better. <i>Enjoy dinner again.</i></h2>
+        </div>
+
+        <div class="steps">
+          <article class="step active fade-up">
+            <div class="step-num">1</div>
+            <h3>Plan Your Week</h3>
+            <p>Drop meals into your week in minutes, based on your family's actual schedule.</p>
+          </article>
+          <article class="step fade-up fade-delay-1">
+            <div class="step-num">2</div>
+            <h3>Shop with Confidence</h3>
+            <p>Your grocery list updates automatically so you only buy what you need for the week.</p>
+          </article>
+          <article class="step fade-up fade-delay-2">
+            <div class="step-num">3</div>
+            <h3>Cook Without Guessing</h3>
+            <p>Use Cook Mode to move from prep to table with timing built into each recipe flow.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-strip">
+      <div class="quote-glow-1"></div>
+      <div class="quote-glow-2"></div>
+      <div class="container">
+        <div class="quote-wrap fade-up">
+          <div class="quote-mark">"</div>
+          <p class="quote-text">Fixins turned Sunday dread into something we actually look forward to. The grocery list alone saved us an hour every week.</p>
+          <div class="quote-attr">- Real Fixins User - Family of 4 - Minneapolis, MN</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section download" id="download">
+      <div class="container">
+        <div class="download-grid">
+          <div class="fade-up">
+            <div class="eyebrow" style="color:var(--tomato);">Get the App</div>
+            <h2 class="h2">Ready when <i>you are.</i></h2>
+            <p class="muted">Fixins is free to download with no subscription required. Available on iOS and Android with smart routing based on your device.</p>
+
+            <div class="store-stack">
+              <button class="store-btn store-ios" id="primary-store-btn" type="button" data-url="https://apps.apple.com/app/fixins">
+                <span class="icon">🍎</span>
+                <span><small>Download on the</small><strong>App Store</strong></span>
+              </button>
+              <button class="store-btn store-android" id="secondary-store-btn" type="button" data-url="https://play.google.com/store/apps/fixins">
+                <span class="icon">▶️</span>
+                <span><small>Get it on</small><strong>Google Play</strong></span>
+              </button>
+            </div>
+
+            <div class="scan-divider">or scan</div>
+            <div class="qr-box">
+              <div class="qr-grid" aria-hidden="true">
+                <span class="dark"></span><span class="dark"></span><span></span><span class="dark"></span><span class="dark"></span>
+                <span class="dark"></span><span></span><span></span><span></span><span class="dark"></span>
+                <span></span><span class="dark"></span><span class="dark"></span><span></span><span></span>
+                <span class="dark"></span><span></span><span></span><span class="dark"></span><span class="dark"></span>
+                <span class="dark"></span><span class="dark"></span><span></span><span class="dark"></span><span class="dark"></span>
+              </div>
+              <div class="qr-label">Scan to Download</div>
+            </div>
+          </div>
+
+          <div class="download-right fade-up fade-delay-1">
+            <div class="ital">Everything in the free version:</div>
+            <div class="pill-list">
+              <div class="pill"><div class="left"><span>📅</span>Weekly planner with drag-and-drop</div><div class="check">✓</div></div>
+              <div class="pill"><div class="left"><span>🛒</span>Auto-generated shopping list</div><div class="check">✓</div></div>
+              <div class="pill"><div class="left"><span>🥗</span>Daily nutrition snapshots</div><div class="check">✓</div></div>
+              <div class="pill"><div class="left"><span>⏲️</span>Cook Mode with in-step timers</div><div class="check">✓</div></div>
+              <div class="pill"><div class="left"><span>🌿</span>Pantry-first recipe discovery</div><div class="check">✓</div></div>
+              <div class="pill"><div class="left"><span>👨‍👩‍👧</span>Shared family syncing</div><div class="check">✓</div></div>
+            </div>
+            <div class="note-box">No tricks. Fixins is free.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="fade-up">
+            <div class="eyebrow" style="color:var(--olive);">About Fixins</div>
+            <h2 class="h2">Built for the kitchen counter, <i>not the app store.</i></h2>
+            <p class="muted">Fixins started with one question: why is planning dinner still the hardest part of family life? We built it to turn that nightly stress into a simple system that works for real households, not ideal schedules.</p>
+            <p class="muted">The core idea is straightforward: if planning is easier, food gets better. Better food means better energy, less waste, and calmer evenings for everyone at the table.</p>
+            <div class="tag-pill">
+              <span class="dot"></span>
+              A product by <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer"><strong>Aerion Health</strong></a> · <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer"><strong>Simple Digital Solution LLC</strong></a>
+            </div>
+          </div>
+
+          <div class="about-cards fade-up fade-delay-1">
+            <article class="about-card">
+              <div class="about-icon" style="background:var(--tomato-dim);">❤️</div>
+              <div>
+                <h4>Family-First Design</h4>
+                <p>Every feature starts with real routines, picky eaters, and packed weekday calendars.</p>
+              </div>
+            </article>
+            <article class="about-card">
+              <div class="about-icon" style="background:var(--olive-pale);">🔒</div>
+              <div>
+                <h4>Privacy-Aware</h4>
+                <p>We collect only what is needed to make the app useful, and never sell personal data.</p>
+              </div>
+            </article>
+            <article class="about-card">
+              <div class="about-icon" style="background:var(--mustard-pale);">🌱</div>
+              <div>
+                <h4>Part of a Bigger Ecosystem</h4>
+                <p>Fixins connects with Gardnz around one vision: grow it, cook it, track it.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="fade-up">
+            <h2 class="h2">Questions? <i>We're real people.</i></h2>
+            <p class="muted">Reach out for bug reports, partnerships, feature ideas, or anything else. We read every message.</p>
+
+            <div class="contact-links">
+              <a class="contact-link" href="mailto:hello@fixinsapp.com">
+                <span class="icon">✉️</span>
+                <span class="meta"><small>Email</small><strong>hello@fixinsapp.com</strong></span>
+              </a>
+              <a class="contact-link" href="https://instagram.com/fixinsapp" target="_blank" rel="noopener noreferrer">
+                <span class="icon">📸</span>
+                <span class="meta"><small>Instagram</small><strong>@fixinsapp</strong></span>
+              </a>
+              <a class="contact-link" href="https://facebook.com/fixinsapp" target="_blank" rel="noopener noreferrer">
+                <span class="icon">👥</span>
+                <span class="meta"><small>Facebook</small><strong>facebook.com/fixinsapp</strong></span>
+              </a>
+              <a class="contact-link" href="https://x.com/fixinsapp" target="_blank" rel="noopener noreferrer">
+                <span class="icon">𝕏</span>
+                <span class="meta"><small>Twitter/X</small><strong>@fixinsapp</strong></span>
+              </a>
+            </div>
+          </div>
+
+          <div class="form-card fade-up fade-delay-1">
+            <div id="contactFormWrap">
+              <h3 class="form-title">Send us a message</h3>
+              <form id="contactForm" novalidate>
+                <div class="inquiry-grid" id="inquiryGrid">
+                  <button class="inq-btn active" type="button" data-type="bug" onclick="selectInquiry(this)">🐛 Bug Report</button>
+                  <button class="inq-btn" type="button" data-type="idea" onclick="selectInquiry(this)">💡 Feature Idea</button>
+                  <button class="inq-btn" type="button" data-type="partnership" onclick="selectInquiry(this)">🤝 Partnership</button>
+                  <button class="inq-btn" type="button" data-type="general" onclick="selectInquiry(this)">💬 General</button>
+                </div>
+
+                <div class="form-row">
+                  <div class="field">
+                    <input class="input" id="name" name="name" type="text" placeholder="Your name" />
+                  </div>
+                  <div class="field">
+                    <input class="input" id="email" name="email" type="email" placeholder="Email address" />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <textarea class="textarea" id="message" name="message" placeholder="Tell us what is going on..."></textarea>
+                </div>
+
+                <button class="btn tomato block" id="submitBtn" type="submit">Send Message</button>
+                <p class="privacy">By sending this message, you agree we may reply to your email. We do not sell your data.</p>
+              </form>
+            </div>
+
+            <div id="contactSuccess" class="success" aria-live="polite">
+              <div class="emoji">🥘</div>
+              <h3>Message sent!</h3>
+              <p>Thanks for reaching out. We will get back to you soon.</p>
+              <button class="btn ghost" type="button" onclick="resetForm()">Send another</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-glow-1"></div>
+    <div class="footer-glow-2"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#top" class="logo" aria-label="Fixins top">
+            <span class="logo-mark">F</span>
+            <span class="logo-word">Fix<span class="ins">ins</span></span>
+          </a>
+          <p class="name">Fixins</p>
+          <p>Free meal planning for real families. Plan less, cook better, and make dinner less chaotic.</p>
+          <div class="socials">
+            <a href="https://instagram.com/fixinsapp" target="_blank" rel="noopener noreferrer" aria-label="Instagram">📸</a>
+            <a href="https://facebook.com/fixinsapp" target="_blank" rel="noopener noreferrer" aria-label="Facebook">👥</a>
+            <a href="https://x.com/fixinsapp" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a>
+            <a href="https://www.tiktok.com/@fixinsapp" target="_blank" rel="noopener noreferrer" aria-label="TikTok">🎵</a>
+          </div>
+        </div>
+
+        <div class="footer-col tomato">
+          <h4>Get the App</h4>
+          <ul>
+            <li><a href="https://apps.apple.com/app/fixins" target="_blank" rel="noopener noreferrer">🍎 App Store</a></li>
+            <li><a href="https://play.google.com/store/apps/fixins" target="_blank" rel="noopener noreferrer">▶️ Google Play</a></li>
+            <li><a href="#download">📲 Smart Download</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col olive">
+          <h4>Features</h4>
+          <ul>
+            <li><a href="#features">Meal Planning</a></li>
+            <li><a href="#features">Grocery Lists</a></li>
+            <li><a href="#features">Cook Mode</a></li>
+            <li><a href="#features">Nutrition</a></li>
+            <li><a href="#features">Family Sharing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col mustard">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About Fixins</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer">Simple Digital Solution</a></li>
+            <li><a href="https://www.gardnzapp.com" target="_blank" rel="noopener noreferrer">Gardnz 🌱</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2025 Simple Digital Solution LLC</div>
+        <div>A product of <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer">Simple Digital Solution LLC</a> · <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer">Aerion Health</a></div>
+        <div class="links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const APPLE_URL = 'https://apps.apple.com/app/fixins';
+    const PLAY_URL = 'https://play.google.com/store/apps/fixins';
+    let currentPrimaryStoreUrl = null;
+
+    function detectDevice() {
+      const ua = navigator.userAgent;
+      if (/iPad|iPhone|iPod/.test(ua)) return 'ios';
+      if (/android/i.test(ua)) return 'android';
+      return 'desktop';
+    }
+
+    function toggleMenu(forceState) {
+      const overlay = document.getElementById('mobileMenu');
+      const button = document.getElementById('hamburger');
+      const willOpen = typeof forceState === 'boolean' ? forceState : !overlay.classList.contains('open');
+      overlay.classList.toggle('open', willOpen);
+      button.classList.toggle('open', willOpen);
+      button.setAttribute('aria-expanded', String(willOpen));
+      document.body.style.overflow = willOpen ? 'hidden' : '';
+    }
+
+    function selectInquiry(btn) {
+      document.querySelectorAll('#inquiryGrid .inq-btn').forEach((item) => item.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function clearInvalid() {
+      ['name', 'email', 'message'].forEach((id) => document.getElementById(id).classList.remove('invalid'));
+    }
+
+    function validateContactForm() {
+      clearInvalid();
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const message = document.getElementById('message');
+      let valid = true;
+
+      if (!name.value.trim()) {
+        name.classList.add('invalid');
+        valid = false;
+      }
+
+      const emailRx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+      if (!email.value.trim() || !emailRx.test(email.value.trim())) {
+        email.classList.add('invalid');
+        valid = false;
+      }
+
+      if (message.value.trim().length < 10) {
+        message.classList.add('invalid');
+        valid = false;
+      }
+
+      return valid;
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      if (!validateContactForm()) return;
+
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      const previousLabel = submitBtn.textContent;
+      submitBtn.textContent = 'Sending…';
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = previousLabel;
+        document.getElementById('contactFormWrap').style.display = 'none';
+        document.getElementById('contactSuccess').style.display = 'block';
+      }, 1400);
+    }
+
+    function resetForm() {
+      document.getElementById('contactForm').reset();
+      clearInvalid();
+      document.getElementById('contactSuccess').style.display = 'none';
+      document.getElementById('contactFormWrap').style.display = 'block';
+      const firstInquiry = document.querySelector('#inquiryGrid .inq-btn');
+      if (firstInquiry) selectInquiry(firstInquiry);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const navbar = document.getElementById('navbar');
+      const hamburger = document.getElementById('hamburger');
+      const overlay = document.getElementById('mobileMenu');
+      const heroPrimaryCta = document.getElementById('heroPrimaryCta');
+      const heroSecondaryCta = document.getElementById('heroSecondaryCta');
+      const primaryStoreBtn = document.getElementById('primary-store-btn');
+      const secondaryStoreBtn = document.getElementById('secondary-store-btn');
+      const hint = document.getElementById('deviceHint');
+
+      window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 14);
+      });
+
+      hamburger.addEventListener('click', () => toggleMenu());
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) toggleMenu(false);
+      });
+
+      const device = detectDevice();
+
+      const setStoreButton = (btn, icon, smallText, strongText, url, className) => {
+        btn.className = 'store-btn ' + className;
+        btn.dataset.url = url;
+        btn.innerHTML = '<span class="icon">' + icon + '</span><span><small>' + smallText + '</small><strong>' + strongText + '</strong></span>';
+      };
+
+      if (device === 'ios') {
+        currentPrimaryStoreUrl = APPLE_URL;
+        heroPrimaryCta.classList.remove('olive');
+        heroPrimaryCta.classList.add('tomato');
+        heroPrimaryCta.textContent = '🍎 Download on the App Store';
+        hint.textContent = /iPad/.test(navigator.userAgent)
+          ? "Detected: iPad — we'll take you right there."
+          : "Detected: iPhone — we'll take you right there.";
+        hint.style.display = 'block';
+
+        primaryStoreBtn.style.order = '0';
+        secondaryStoreBtn.style.order = '1';
+        primaryStoreBtn.style.opacity = '1';
+        secondaryStoreBtn.style.opacity = '0.75';
+
+        setStoreButton(primaryStoreBtn, '🍎', 'Download on the', 'App Store', APPLE_URL, 'store-ios');
+        setStoreButton(secondaryStoreBtn, '▶️', 'Also available on', 'Google Play', APPLE_URL, 'store-android');
+      } else if (device === 'android') {
+        currentPrimaryStoreUrl = PLAY_URL;
+        heroPrimaryCta.classList.remove('tomato');
+        heroPrimaryCta.classList.add('olive');
+        heroPrimaryCta.textContent = '▶️ Get it on Google Play';
+        hint.textContent = "Detected: Android — we'll take you right there.";
+        hint.style.display = 'block';
+
+        primaryStoreBtn.style.order = '1';
+        secondaryStoreBtn.style.order = '0';
+        primaryStoreBtn.style.opacity = '0.75';
+        secondaryStoreBtn.style.opacity = '1';
+
+        setStoreButton(primaryStoreBtn, '🍎', 'Also available on', 'App Store', PLAY_URL, 'store-ios');
+        setStoreButton(secondaryStoreBtn, '▶️', 'Get it on', 'Google Play', PLAY_URL, 'store-android');
+      } else {
+        currentPrimaryStoreUrl = null;
+        heroPrimaryCta.classList.remove('olive');
+        heroPrimaryCta.classList.add('tomato');
+        heroPrimaryCta.textContent = 'Download Free';
+        hint.style.display = 'none';
+
+        primaryStoreBtn.style.order = '0';
+        secondaryStoreBtn.style.order = '1';
+        primaryStoreBtn.style.opacity = '1';
+        secondaryStoreBtn.style.opacity = '1';
+
+        setStoreButton(primaryStoreBtn, '🍎', 'Download on the', 'App Store', APPLE_URL, 'store-ios');
+        setStoreButton(secondaryStoreBtn, '▶️', 'Get it on', 'Google Play', PLAY_URL, 'store-android');
+      }
+
+      heroPrimaryCta.addEventListener('click', () => {
+        if (currentPrimaryStoreUrl) {
+          window.open(currentPrimaryStoreUrl, '_blank', 'noopener,noreferrer');
+        } else {
+          document.getElementById('download').scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      if (heroSecondaryCta) {
+        heroSecondaryCta.addEventListener('click', (e) => {
+          if (detectDevice() !== 'desktop') {
+            e.preventDefault();
+            document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
+      [primaryStoreBtn, secondaryStoreBtn].forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const url = btn.dataset.url || APPLE_URL;
+          window.open(url, '_blank', 'noopener,noreferrer');
+        });
+      });
+
+      document.getElementById('contactForm').addEventListener('submit', handleContactSubmit);
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.fade-up').forEach((el) => {
+        if (!el.classList.contains('visible')) observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -39,11 +39,7 @@ jobs:
         if: ${{ hashFiles('package.json') != '' }}
         run: npm run build
 
-      - name: Skip deploy until site code exists
-        if: ${{ hashFiles('package.json') == '' }}
-        run: echo "No package.json found yet. Skipping deploy for now."
-
-      - name: Deploy to GoDaddy via FTP
+      - name: Deploy built site to GoDaddy via FTP
         if: ${{ hashFiles('package.json') != '' }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -52,4 +48,20 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/
           server-dir: ./
+          dangerous-clean-slate: false
+
+      - name: Deploy single-file static site to GoDaddy via FTP
+        if: ${{ hashFiles('package.json') == '' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/.env*
+            README.md
           dangerous-clean-slate: false
