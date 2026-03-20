@@ -5,9 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fixins - Free Meal Planning App</title>
   <meta name="description" content="Fixins is the free meal planning app that helps families plan dinners, build grocery lists, and cook with less stress." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.fixinsapp.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fixins" />
+  <meta property="og:title" content="Fixins - Free Meal Planning App" />
+  <meta property="og:description" content="Plan dinners in minutes, auto-build grocery lists, and cook with less stress using Fixins." />
+  <meta property="og:url" content="https://www.fixinsapp.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Fixins - Free Meal Planning App" />
+  <meta name="twitter:description" content="A free family meal planning app with smart grocery lists, cook mode, and nutrition tracking." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Fixins",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "iOS, Android",
+      "url": "https://www.fixinsapp.com/",
+      "description": "Fixins is a free meal planning app that helps families plan dinners, generate grocery lists, and cook with less stress.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "sameAs": [
+        "https://www.gardnzapp.com/",
+        "https://simpledigitalsolution.com"
+      ]
+    }
+  </script>
   <style>
     :root {
       --paper: #F2EBD9;
@@ -1344,6 +1374,28 @@
     .footer-col.olive h4 { color: var(--olive); }
     .footer-col.mustard h4 { color: var(--mustard); }
 
+    .partner-tile {
+      margin: 0 0 14px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(242,235,217,0.2);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .partner-tile-label {
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(242,235,217,0.6);
+      margin-bottom: 6px;
+    }
+
+    .partner-tile a {
+      color: var(--paper);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
     .footer-bottom {
       position: relative;
       margin-top: 30px;
@@ -1356,6 +1408,18 @@
       flex-wrap: wrap;
       color: rgba(242,235,217,0.64);
       font-size: 13px;
+    }
+
+    .footer-center-note {
+      width: 100%;
+      text-align: center;
+      color: rgba(242,235,217,0.78);
+      line-height: 1.62;
+    }
+
+    .footer-center-note a {
+      color: var(--paper);
+      font-weight: 700;
     }
 
     .footer-bottom .links {
@@ -1399,7 +1463,7 @@
       .inquiry-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-brand { margin-bottom: 12px; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; align-items: center; }
     }
 
     @media (max-width: 479px) {
@@ -1808,18 +1872,28 @@
 
         <div class="footer-col mustard">
           <h4>Company</h4>
+          <div class="partner-tile">
+            <div class="partner-tile-label">Partner Project</div>
+            <a href="https://www.gardnzapp.com/" target="_blank" rel="noopener noreferrer">Gardnz.com ↗</a>
+          </div>
           <ul>
             <li><a href="#about">About Fixins</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer">Simple Digital Solution</a></li>
-            <li><a href="https://www.gardnzapp.com" target="_blank" rel="noopener noreferrer">Gardnz 🌱</a></li>
+            <li><a href="https://www.gardnzapp.com/" target="_blank" rel="noopener noreferrer">Gardnz 🌱</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
         <div>© 2025 Simple Digital Solution LLC</div>
-        <div>A product of <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer">Simple Digital Solution LLC</a> · <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer">Aerion Health</a></div>
+        <div class="footer-center-note">
+          <a href="https://www.fixinsapp.com/" target="_blank" rel="noopener noreferrer">Fixins.com</a>
+          is a partner with
+          <a href="https://www.gardnzapp.com/" target="_blank" rel="noopener noreferrer">Gardnz.com</a>.
+          Both are Aerion Health projects by
+          <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer">Simple Digital Solution LLC</a>.
+        </div>
         <div class="links">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Use</a>
