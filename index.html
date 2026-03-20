@@ -1129,6 +1129,16 @@
       border-color: var(--rule-dark);
     }
 
+    .contact-link.soon {
+      opacity: 0.82;
+      cursor: default;
+    }
+
+    .contact-link.soon:hover {
+      transform: none;
+      border-color: var(--rule);
+    }
+
     .contact-link .icon {
       width: 38px;
       height: 38px;
@@ -1154,6 +1164,13 @@
     .contact-link .meta strong {
       color: var(--ink-mid);
       font-size: 15px;
+    }
+
+    .social-coming-note {
+      margin: 10px 2px 0;
+      color: var(--ink-faded);
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     .form-card {
@@ -1344,6 +1361,18 @@
     .socials a:hover {
       transform: translateY(-2px);
       background: rgba(255,255,255,0.1);
+    }
+
+    .socials .social-soon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px dashed rgba(242,235,217,0.32);
+      display: grid;
+      place-items: center;
+      color: rgba(242,235,217,0.7);
+      background: rgba(255,255,255,0.02);
+      cursor: default;
     }
 
     .footer-col h4 {
@@ -1774,19 +1803,20 @@
                 <span class="icon">✉️</span>
                 <span class="meta"><small>Email</small><strong>hello@fixinsapp.com</strong></span>
               </a>
-              <a class="contact-link" href="https://instagram.com/fixinsapp" target="_blank" rel="noopener noreferrer">
+              <div class="contact-link soon" aria-label="Instagram coming soon">
                 <span class="icon">📸</span>
-                <span class="meta"><small>Instagram</small><strong>@fixinsapp</strong></span>
-              </a>
-              <a class="contact-link" href="https://facebook.com/fixinsapp" target="_blank" rel="noopener noreferrer">
+                <span class="meta"><small>Instagram</small><strong>@fixinsapp (coming soon)</strong></span>
+              </div>
+              <div class="contact-link soon" aria-label="Facebook coming soon">
                 <span class="icon">👥</span>
-                <span class="meta"><small>Facebook</small><strong>facebook.com/fixinsapp</strong></span>
-              </a>
-              <a class="contact-link" href="https://x.com/fixinsapp" target="_blank" rel="noopener noreferrer">
+                <span class="meta"><small>Facebook</small><strong>facebook.com/fixinsapp (coming soon)</strong></span>
+              </div>
+              <div class="contact-link soon" aria-label="X coming soon">
                 <span class="icon">𝕏</span>
-                <span class="meta"><small>Twitter/X</small><strong>@fixinsapp</strong></span>
-              </a>
+                <span class="meta"><small>Twitter/X</small><strong>@fixinsapp (coming soon)</strong></span>
+              </div>
             </div>
+            <p class="social-coming-note">Official social profiles are being created now. For updates, email hello@fixinsapp.com.</p>
           </div>
 
           <div class="form-card fade-up fade-delay-1">
@@ -1843,10 +1873,10 @@
           <p class="name">Fixins</p>
           <p>Free meal planning for real families. Plan less, cook better, and make dinner less chaotic.</p>
           <div class="socials">
-            <a href="https://instagram.com/fixinsapp" target="_blank" rel="noopener noreferrer" aria-label="Instagram">📸</a>
-            <a href="https://facebook.com/fixinsapp" target="_blank" rel="noopener noreferrer" aria-label="Facebook">👥</a>
-            <a href="https://x.com/fixinsapp" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a>
-            <a href="https://www.tiktok.com/@fixinsapp" target="_blank" rel="noopener noreferrer" aria-label="TikTok">🎵</a>
+            <span class="social-soon" aria-label="Instagram coming soon" title="Instagram coming soon">📸</span>
+            <span class="social-soon" aria-label="Facebook coming soon" title="Facebook coming soon">👥</span>
+            <span class="social-soon" aria-label="X coming soon" title="X coming soon">𝕏</span>
+            <span class="social-soon" aria-label="TikTok coming soon" title="TikTok coming soon">🎵</span>
           </div>
         </div>
 
