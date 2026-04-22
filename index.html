@@ -3,18 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fixins™ - Meal Planning App</title>
+  <title>Fixins™ | Meal Planning App for Busy Families</title>
   <meta name="description" content="Fixins™ is a meal planning app that helps families plan dinners, build grocery lists, and cook with less stress." />
+  <meta name="author" content="Simple Digital Solution LLC" />
+  <meta name="theme-color" content="#F2EBD9" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.fixinsapp.com/" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Fixins™" />
-  <meta property="og:title" content="Fixins™ - Meal Planning App" />
+  <meta property="og:title" content="Fixins™ | Meal Planning App for Busy Families" />
   <meta property="og:description" content="Plan dinners in minutes, auto-build grocery lists, and cook with less stress using Fixins™." />
   <meta property="og:url" content="https://www.fixinsapp.com/" />
+  <meta property="og:image" content="https://www.fixinsapp.com/og-image.svg" />
+  <meta property="og:image:alt" content="Fixins meal planning app branding" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Fixins™ - Free Meal Planning App" />
+  <meta name="twitter:title" content="Fixins™ | Meal Planning App for Busy Families" />
   <meta name="twitter:description" content="A free family meal planning app with smart grocery lists, cook mode, and nutrition tracking." />
+  <meta name="twitter:image" content="https://www.fixinsapp.com/og-image.svg" />
+  <meta name="twitter:image:alt" content="Fixins meal planning app branding" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,7 +35,13 @@
       "applicationCategory": "LifestyleApplication",
       "operatingSystem": "iOS, Android",
       "url": "https://www.fixinsapp.com/",
+      "image": "https://www.fixinsapp.com/og-image.svg",
       "description": "Fixins™ is a meal planning app that helps families plan dinners, generate grocery lists, and cook with less stress.",
+      "creator": {
+        "@type": "Organization",
+        "name": "Simple Digital Solution LLC",
+        "url": "https://simpledigitalsolution.com"
+      },
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -449,6 +462,16 @@
       background: var(--tomato-dim);
       color: var(--tomato);
       border: 1px solid rgba(193,59,42,0.24);
+    }
+
+    .hero-badge a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .hero-badge a:hover {
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
     .badge-dot {
@@ -1393,6 +1416,71 @@
       gap: 9px;
     }
 
+    .app-store-links {
+      gap: 10px;
+    }
+
+    .store-badge-wrap {
+      position: relative;
+    }
+
+    .store-badge {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      min-height: 50px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      pointer-events: none;
+      opacity: 0.94;
+    }
+
+    .store-badge svg {
+      flex-shrink: 0;
+    }
+
+    .store-badge-text {
+      display: inline-flex;
+      flex-direction: column;
+      line-height: 1.1;
+      gap: 2px;
+    }
+
+    .store-badge-text small {
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .store-badge-text strong {
+      font-size: 15px;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .coming-soon-pill {
+      position: absolute;
+      top: -7px;
+      right: -4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1f130b;
+      background: linear-gradient(135deg, #ffd980, #ffb960);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+      pointer-events: none;
+    }
+
     .footer-col li a {
       color: rgba(242,235,217,0.76);
       font-size: 15px;
@@ -1586,7 +1674,7 @@
 
       <div class="container">
         <div class="hero-inner fade-up visible">
-          <div class="hero-badge"><span class="badge-dot"></span> NOW AVAILABLE ON IOS &amp; ANDROID</div>
+          <div class="hero-badge"><span class="badge-dot"></span><a href="mailto:admin@simpledigitalsolution.com?subject=Fixins%20Beta%20Tester%20Request">BETA TESTER? CONTACT US</a></div>
           <h1>
             Dinner's<br />
             <i>figured out.</i><br />
@@ -1801,9 +1889,9 @@
             <p class="muted">Reach out for bug reports, partnerships, feature ideas, or anything else. We read every message.</p>
 
             <div class="contact-links">
-              <a class="contact-link" href="mailto:hello@fixinsapp.com">
+              <a class="contact-link" href="mailto:admin@simpledigitalsolution.com">
                 <span class="icon">✉️</span>
-                <span class="meta"><small>Email</small><strong>hello@fixinsapp.com</strong></span>
+                <span class="meta"><small>Email</small><strong>admin@simpledigitalsolution.com</strong></span>
               </a>
               <a class="contact-link" href="https://instagram.com/simpledigiz" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <span class="icon">📸</span>
@@ -1818,7 +1906,7 @@
                 <span class="meta"><small>Twitter/X</small><strong>@Simpledigiz</strong></span>
               </a>
             </div>
-            <p class="social-coming-note">Follow our parent brand socials for updates, or email hello@fixinsapp.com.</p>
+            <p class="social-coming-note">Follow our parent brand socials for updates, or email admin@simpledigitalsolution.com.</p>
           </div>
 
           <div class="form-card fade-up fade-delay-1">
@@ -1884,10 +1972,30 @@
 
         <div class="footer-col tomato">
           <h4>Get the App</h4>
-          <ul>
-            <li><a href="https://apps.apple.com/app/fixins" target="_blank" rel="noopener noreferrer">🍎 App Store</a></li>
-            <li><a href="https://play.google.com/store/apps/fixins" target="_blank" rel="noopener noreferrer">▶️ Google Play</a></li>
-            <li><a href="#download">📲 Smart Download</a></li>
+          <ul class="app-store-links">
+            <li class="store-badge-wrap">
+              <a class="store-badge" href="#download" aria-label="App Store coming soon" aria-disabled="true" tabindex="-1">
+                <svg width="20" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M17.62 12.96c.01 2.18 1.9 2.91 1.92 2.92-.02.05-.3 1.03-.98 2.02-.59.86-1.21 1.71-2.17 1.72-.95.02-1.26-.56-2.35-.56-1.09 0-1.43.54-2.33.58-.93.04-1.64-.94-2.24-1.8-1.22-1.77-2.15-5-1.1-6.85.52-.9 1.45-1.47 2.46-1.49.77-.01 1.5.51 1.97.51.47 0 1.36-.63 2.29-.54.39.02 1.49.16 2.2 1.19-.05.03-1.31.77-1.3 2.3z" fill="#fff"/>
+                  <path d="M15.37 3.5c.44-.5 1.17-.88 1.77-.9.08.7-.2 1.41-.63 1.91-.41.51-1.1.9-1.78.85-.09-.69.25-1.41.64-1.86z" fill="#fff"/>
+                </svg>
+                <span class="store-badge-text"><small>Download on the</small><strong>App Store</strong></span>
+              </a>
+              <span class="coming-soon-pill">Coming Soon</span>
+            </li>
+            <li class="store-badge-wrap">
+              <a class="store-badge" href="#download" aria-label="Google Play coming soon" aria-disabled="true" tabindex="-1">
+                <svg width="22" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3.2 2.4c.2-.11.45-.11.65 0l10.65 6.07-2.49 2.51L3.2 2.4z" fill="#00D18F"/>
+                  <path d="M3.2 2.4l8.81 8.58-8.81 8.58A.75.75 0 0 1 2.8 19V3a.75.75 0 0 1 .4-.6z" fill="#00A3FF"/>
+                  <path d="M12.01 10.98l2.49 2.51L3.85 19.56l8.16-8.58z" fill="#FFD54F"/>
+                  <path d="M16.16 9.6l2.57 1.46c.7.4.7 1.42 0 1.82l-2.57 1.46-2.66-2.53 2.66-2.21z" fill="#FF6E6E"/>
+                </svg>
+                <span class="store-badge-text"><small>Get it on</small><strong>Google Play</strong></span>
+              </a>
+              <span class="coming-soon-pill">Coming Soon</span>
+            </li>
+            <li><a href="#download">Smart Download</a></li>
           </ul>
         </div>
 

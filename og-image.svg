@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Fixins social preview image">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F2EBD9"/>
+      <stop offset="100%" stop-color="#E8DFC8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1030" cy="120" r="170" fill="#C13B2A" opacity="0.09"/>
+  <circle cx="120" cy="560" r="230" fill="#5C6B2E" opacity="0.08"/>
+  <text x="90" y="220" fill="#2A2318" font-size="104" font-family="Georgia, 'Times New Roman', serif" font-weight="700">Fixins</text>
+  <text x="90" y="300" fill="#C13B2A" font-size="54" font-family="Arial, sans-serif" font-weight="700">Meal Planning App</text>
+  <text x="90" y="380" fill="#4A3D2C" font-size="40" font-family="Arial, sans-serif">Plan meals. Auto-build lists. Cook with less chaos.</text>
+  <text x="90" y="470" fill="#5C6B2E" font-size="32" font-family="Arial, sans-serif">iOS + Android • Built by Simple Digital Solution</text>
+</svg>
