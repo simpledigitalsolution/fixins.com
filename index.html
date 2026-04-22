@@ -449,42 +449,69 @@
       padding-bottom: 40px;
     }
 
-    .hero-badge {
+    .hero-burst {
+      --burst-red: #C8241D;
+      position: relative;
+      width: min(300px, 100%);
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: var(--tomato-dim);
-      color: var(--tomato);
-      border: 1px solid rgba(193,59,42,0.24);
-    }
-
-    .hero-badge a {
-      color: inherit;
+      justify-content: center;
+      gap: 2px;
       text-decoration: none;
+      text-transform: uppercase;
+      color: #fff5ee;
+      font-family: var(--sans);
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      padding: 22px 26px;
+      isolation: isolate;
+      filter: drop-shadow(0 10px 20px rgba(120,26,19,0.25));
     }
 
-    .hero-badge a:hover {
-      text-decoration: underline;
-      text-underline-offset: 2px;
+    .hero-burst::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, #d32d22 0%, var(--burst-red) 60%, #a71914 100%);
+      clip-path: polygon(50% 0%, 55% 9%, 62% 1%, 65% 11%, 73% 3%, 74% 14%, 83% 7%, 82% 18%, 92% 12%, 89% 22%, 99% 19%, 94% 29%, 100% 29%, 93% 38%, 99% 41%, 90% 48%, 95% 54%, 85% 59%, 89% 67%, 78% 70%, 81% 79%, 70% 79%, 71% 89%, 61% 87%, 60% 97%, 50% 92%, 40% 97%, 39% 87%, 29% 89%, 30% 79%, 19% 79%, 22% 70%, 11% 67%, 15% 59%, 5% 54%, 10% 48%, 1% 41%, 7% 38%, 0% 29%, 6% 29%, 1% 19%, 11% 22%, 8% 12%, 18% 18%, 17% 7%, 26% 14%, 27% 3%, 35% 11%, 38% 1%, 45% 9%);
+      z-index: -2;
     }
 
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--tomato);
-      animation: dotPulse 2.5s ease-in-out infinite;
+    .hero-burst::after {
+      content: "";
+      position: absolute;
+      inset: 16px 28px;
+      border: 1px dashed rgba(255,239,214,0.34);
+      border-radius: 999px;
+      z-index: -1;
     }
 
-    @keyframes dotPulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(0.8); opacity: 0.5; }
+    .hero-burst strong {
+      font-size: 44px;
+      line-height: 0.9;
+      font-family: var(--serif);
+      margin-bottom: 2px;
+    }
+
+    .hero-burst span {
+      font-size: 34px;
+      font-family: var(--serif);
+      line-height: 0.9;
+    }
+
+    .hero-burst:hover::before {
+      background: radial-gradient(circle at center, #db3428 0%, #ca241b 62%, #a31712 100%);
+    }
+
+    @media (max-width: 767px) {
+      .hero-burst {
+        width: min(250px, 100%);
+        padding: 19px 22px;
+      }
+
+      .hero-burst strong { font-size: 36px; }
+      .hero-burst span { font-size: 28px; }
     }
 
     .hero h1 {
@@ -916,6 +943,7 @@
     }
 
     .store-btn {
+      position: relative;
       border-radius: 16px;
       border: 1px solid transparent;
       padding: 14px 16px;
@@ -931,7 +959,47 @@
 
     .store-btn:hover { transform: translateY(-2px); }
 
-    .store-btn .icon { font-size: 20px; }
+    .store-btn .icon {
+      width: 20px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .store-btn .icon svg {
+      width: 20px;
+      height: 22px;
+      display: block;
+    }
+
+    .store-btn.coming-soon {
+      cursor: default;
+      opacity: 0.96;
+    }
+
+    .store-btn.coming-soon::after {
+      content: "Coming Soon";
+      position: absolute;
+      top: -8px;
+      right: -5px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1f130b;
+      background: linear-gradient(135deg, #ffd980, #ffb960);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+      pointer-events: none;
+    }
+
+    .store-btn.coming-soon:disabled {
+      opacity: 0.96;
+    }
 
     .store-btn small {
       display: block;
@@ -1674,7 +1742,10 @@
 
       <div class="container">
         <div class="hero-inner fade-up visible">
-          <div class="hero-badge"><span class="badge-dot"></span><a href="mailto:admin@simpledigitalsolution.com?subject=Fixins%20Beta%20Tester%20Request">BETA TESTER? CONTACT US</a></div>
+          <a class="hero-burst" href="mailto:admin@simpledigitalsolution.com?subject=Fixins%20Beta%20Tester%20Request" aria-label="Beta tester contact us">
+            <strong>Beta Tester?</strong>
+            <span>Contact Us</span>
+          </a>
           <h1>
             Dinner's<br />
             <i>figured out.</i><br />
@@ -1801,12 +1872,24 @@
             <p class="muted">Fixins™ is available on iOS and Android with smart routing based on your device. Free to start, with premium features handled through a freemium model.</p>
 
             <div class="store-stack">
-              <button class="store-btn store-ios" id="primary-store-btn" type="button" data-url="https://apps.apple.com/app/fixins">
-                <span class="icon">🍎</span>
+              <button class="store-btn store-ios coming-soon" id="primary-store-btn" type="button" data-url="https://apps.apple.com/app/fixins" aria-disabled="true" disabled>
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M17.62 12.96c.01 2.18 1.9 2.91 1.92 2.92-.02.05-.3 1.03-.98 2.02-.59.86-1.21 1.71-2.17 1.72-.95.02-1.26-.56-2.35-.56-1.09 0-1.43.54-2.33.58-.93.04-1.64-.94-2.24-1.8-1.22-1.77-2.15-5-1.1-6.85.52-.9 1.45-1.47 2.46-1.49.77-.01 1.5.51 1.97.51.47 0 1.36-.63 2.29-.54.39.02 1.49.16 2.2 1.19-.05.03-1.31.77-1.3 2.3z" fill="#fff"/>
+                    <path d="M15.37 3.5c.44-.5 1.17-.88 1.77-.9.08.7-.2 1.41-.63 1.91-.41.51-1.1.9-1.78.85-.09-.69.25-1.41.64-1.86z" fill="#fff"/>
+                  </svg>
+                </span>
                 <span><small>Download on the</small><strong>App Store</strong></span>
               </button>
-              <button class="store-btn store-android" id="secondary-store-btn" type="button" data-url="https://play.google.com/store/apps/fixins">
-                <span class="icon">▶️</span>
+              <button class="store-btn store-android coming-soon" id="secondary-store-btn" type="button" data-url="https://play.google.com/store/apps/fixins" aria-disabled="true" disabled>
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M3.2 2.4c.2-.11.45-.11.65 0l10.65 6.07-2.49 2.51L3.2 2.4z" fill="#00D18F"/>
+                    <path d="M3.2 2.4l8.81 8.58-8.81 8.58A.75.75 0 0 1 2.8 19V3a.75.75 0 0 1 .4-.6z" fill="#00A3FF"/>
+                    <path d="M12.01 10.98l2.49 2.51L3.85 19.56l8.16-8.58z" fill="#FFD54F"/>
+                    <path d="M16.16 9.6l2.57 1.46c.7.4.7 1.42 0 1.82l-2.57 1.46-2.66-2.53 2.66-2.21z" fill="#FF6E6E"/>
+                  </svg>
+                </span>
                 <span><small>Get it on</small><strong>Google Play</strong></span>
               </button>
             </div>
@@ -2127,6 +2210,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      const APPLE_ICON_HTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.62 12.96c.01 2.18 1.9 2.91 1.92 2.92-.02.05-.3 1.03-.98 2.02-.59.86-1.21 1.71-2.17 1.72-.95.02-1.26-.56-2.35-.56-1.09 0-1.43.54-2.33.58-.93.04-1.64-.94-2.24-1.8-1.22-1.77-2.15-5-1.1-6.85.52-.9 1.45-1.47 2.46-1.49.77-.01 1.5.51 1.97.51.47 0 1.36-.63 2.29-.54.39.02 1.49.16 2.2 1.19-.05.03-1.31.77-1.3 2.3z" fill="#fff"/><path d="M15.37 3.5c.44-.5 1.17-.88 1.77-.9.08.7-.2 1.41-.63 1.91-.41.51-1.1.9-1.78.85-.09-.69.25-1.41.64-1.86z" fill="#fff"/></svg>';
+      const PLAY_ICON_HTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.2 2.4c.2-.11.45-.11.65 0l10.65 6.07-2.49 2.51L3.2 2.4z" fill="#00D18F"/><path d="M3.2 2.4l8.81 8.58-8.81 8.58A.75.75 0 0 1 2.8 19V3a.75.75 0 0 1 .4-.6z" fill="#00A3FF"/><path d="M12.01 10.98l2.49 2.51L3.85 19.56l8.16-8.58z" fill="#FFD54F"/><path d="M16.16 9.6l2.57 1.46c.7.4.7 1.42 0 1.82l-2.57 1.46-2.66-2.53 2.66-2.21z" fill="#FF6E6E"/></svg>';
       const navbar = document.getElementById('navbar');
       const hamburger = document.getElementById('hamburger');
       const overlay = document.getElementById('mobileMenu');
@@ -2147,10 +2232,12 @@
 
       const device = detectDevice();
 
-      const setStoreButton = (btn, icon, smallText, strongText, url, className) => {
-        btn.className = 'store-btn ' + className;
+      const setStoreButton = (btn, iconHtml, smallText, strongText, url, className) => {
+        btn.className = 'store-btn ' + className + ' coming-soon';
         btn.dataset.url = url;
-        btn.innerHTML = '<span class="icon">' + icon + '</span><span><small>' + smallText + '</small><strong>' + strongText + '</strong></span>';
+        btn.setAttribute('aria-disabled', 'true');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="icon">' + iconHtml + '</span><span><small>' + smallText + '</small><strong>' + strongText + '</strong></span>';
       };
 
       if (device === 'ios') {
@@ -2168,8 +2255,8 @@
         primaryStoreBtn.style.opacity = '1';
         secondaryStoreBtn.style.opacity = '0.75';
 
-        setStoreButton(primaryStoreBtn, '🍎', 'Download on the', 'App Store', APPLE_URL, 'store-ios');
-        setStoreButton(secondaryStoreBtn, '▶️', 'Also available on', 'Google Play', APPLE_URL, 'store-android');
+        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Download on the', 'App Store', APPLE_URL, 'store-ios');
+        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Also available on', 'Google Play', APPLE_URL, 'store-android');
       } else if (device === 'android') {
         currentPrimaryStoreUrl = PLAY_URL;
         heroPrimaryCta.classList.remove('tomato');
@@ -2183,8 +2270,8 @@
         primaryStoreBtn.style.opacity = '0.75';
         secondaryStoreBtn.style.opacity = '1';
 
-        setStoreButton(primaryStoreBtn, '🍎', 'Also available on', 'App Store', PLAY_URL, 'store-ios');
-        setStoreButton(secondaryStoreBtn, '▶️', 'Get it on', 'Google Play', PLAY_URL, 'store-android');
+        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Also available on', 'App Store', PLAY_URL, 'store-ios');
+        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Get it on', 'Google Play', PLAY_URL, 'store-android');
       } else {
         currentPrimaryStoreUrl = null;
         heroPrimaryCta.classList.remove('olive');
@@ -2197,8 +2284,8 @@
         primaryStoreBtn.style.opacity = '1';
         secondaryStoreBtn.style.opacity = '1';
 
-        setStoreButton(primaryStoreBtn, '🍎', 'Download on the', 'App Store', APPLE_URL, 'store-ios');
-        setStoreButton(secondaryStoreBtn, '▶️', 'Get it on', 'Google Play', PLAY_URL, 'store-android');
+        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Download on the', 'App Store', APPLE_URL, 'store-ios');
+        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Get it on', 'Google Play', PLAY_URL, 'store-android');
       }
 
       heroPrimaryCta.addEventListener('click', () => {
@@ -2220,6 +2307,7 @@
 
       [primaryStoreBtn, secondaryStoreBtn].forEach((btn) => {
         btn.addEventListener('click', () => {
+          if (btn.disabled) return;
           const url = btn.dataset.url || APPLE_URL;
           window.open(url, '_blank', 'noopener,noreferrer');
         });
