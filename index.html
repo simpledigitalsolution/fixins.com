@@ -2233,8 +2233,6 @@
         if (e.target === overlay) toggleMenu(false);
       });
 
-      const device = detectDevice();
-
       const setStoreButton = (btn, iconHtml, smallText, strongText, url, className) => {
         btn.className = 'store-btn ' + className + ' coming-soon';
         btn.dataset.url = url;
@@ -2243,53 +2241,20 @@
         btn.innerHTML = '<span class="icon">' + iconHtml + '</span><span><small>' + smallText + '</small><strong>' + strongText + '</strong></span>';
       };
 
-      if (device === 'ios') {
-        currentPrimaryStoreUrl = APPLE_URL;
-        heroPrimaryCta.classList.remove('olive');
-        heroPrimaryCta.classList.add('tomato');
-        heroPrimaryCta.textContent = '🍎 Download on the App Store';
-        hint.textContent = /iPad/.test(navigator.userAgent)
-          ? "Detected: iPad — we'll take you right there."
-          : "Detected: iPhone — we'll take you right there.";
-        hint.style.display = 'block';
+      // Keep hero CTA consistent across desktop/mobile while stores are not live.
+      currentPrimaryStoreUrl = null;
+      heroPrimaryCta.classList.remove('olive');
+      heroPrimaryCta.classList.add('tomato');
+      heroPrimaryCta.textContent = 'Download App';
+      hint.style.display = 'none';
 
-        primaryStoreBtn.style.order = '0';
-        secondaryStoreBtn.style.order = '1';
-        primaryStoreBtn.style.opacity = '1';
-        secondaryStoreBtn.style.opacity = '0.75';
+      primaryStoreBtn.style.order = '0';
+      secondaryStoreBtn.style.order = '1';
+      primaryStoreBtn.style.opacity = '1';
+      secondaryStoreBtn.style.opacity = '1';
 
-        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Download on the', 'App Store', APPLE_URL, 'store-ios');
-        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Also available on', 'Google Play', APPLE_URL, 'store-android');
-      } else if (device === 'android') {
-        currentPrimaryStoreUrl = PLAY_URL;
-        heroPrimaryCta.classList.remove('tomato');
-        heroPrimaryCta.classList.add('olive');
-        heroPrimaryCta.textContent = '▶️ Get it on Google Play';
-        hint.textContent = "Detected: Android — we'll take you right there.";
-        hint.style.display = 'block';
-
-        primaryStoreBtn.style.order = '1';
-        secondaryStoreBtn.style.order = '0';
-        primaryStoreBtn.style.opacity = '0.75';
-        secondaryStoreBtn.style.opacity = '1';
-
-        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Also available on', 'App Store', PLAY_URL, 'store-ios');
-        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Get it on', 'Google Play', PLAY_URL, 'store-android');
-      } else {
-        currentPrimaryStoreUrl = null;
-        heroPrimaryCta.classList.remove('olive');
-        heroPrimaryCta.classList.add('tomato');
-        heroPrimaryCta.textContent = 'Download App';
-        hint.style.display = 'none';
-
-        primaryStoreBtn.style.order = '0';
-        secondaryStoreBtn.style.order = '1';
-        primaryStoreBtn.style.opacity = '1';
-        secondaryStoreBtn.style.opacity = '1';
-
-        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Download on the', 'App Store', APPLE_URL, 'store-ios');
-        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Get it on', 'Google Play', PLAY_URL, 'store-android');
-      }
+      setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Download on the', 'App Store', APPLE_URL, 'store-ios');
+      setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Get it on', 'Google Play', PLAY_URL, 'store-android');
 
       heroPrimaryCta.addEventListener('click', () => {
         if (currentPrimaryStoreUrl) {
