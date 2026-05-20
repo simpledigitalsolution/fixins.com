@@ -593,6 +593,14 @@
       animation: phoneFloat 7s ease-in-out infinite;
     }
 
+    .phone-shot {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 28px;
+      box-shadow: 0 36px 48px rgba(42,35,24,0.28);
+    }
+
     @keyframes phoneFloat {
       0%, 100% { transform: translateY(-50%) translateX(0); }
       50% { transform: translateY(calc(-50% - 14px)) translateX(-6px); }
@@ -1722,25 +1730,7 @@
       </div>
 
       <div class="phone-wrap" aria-hidden="true">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="screen">
-            <div>
-              <div class="logo-mini">F</div>
-              <h4>Fixins™</h4>
-              <p>What is for dinner? Already solved.</p>
-            </div>
-            <div class="phone-card">
-              <div style="font-weight:700;color:var(--ink-mid);margin-bottom:6px;">Tonight</div>
-              <div style="font-family:var(--serif);font-size:22px;margin-bottom:10px;">Roasted Veggie Pasta</div>
-              <div class="phone-actions">
-                <div class="mini-btn tomato">Meal Planning</div>
-                <div class="mini-btn ghost">Shopping List</div>
-              </div>
-              <div class="phone-tabs" aria-hidden="true"><span>🍽️</span><span>🛒</span><span>⏱️</span><span>👨‍👩‍👧</span></div>
-            </div>
-          </div>
-        </div>
+        <img class="phone-shot" src="/homepage-screenshot.png" alt="Fixins app sign in screen" />
       </div>
 
       <div class="container">
