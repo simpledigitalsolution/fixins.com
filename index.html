@@ -1628,6 +1628,9 @@
     @media (max-width: 1023px) {
       .section { padding: 88px 0; }
       .hero-food { display: none; }
+      /* Compact hero: top-align content instead of centering in 100vh */
+      .hero { min-height: auto; align-items: flex-start; }
+      .scroll-hint { display: none; }
       /* Mini phone fills the hero dead space on scaled screens */
       .phone-wrap {
         --mini-scale: 0.5;
