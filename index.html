@@ -598,6 +598,11 @@
       50% { transform: translateY(calc(-50% - 14px)) translateX(-6px); }
     }
 
+    @keyframes phoneFloatMini {
+      0%, 100% { transform: scale(var(--mini-scale, 0.5)) translateY(0); }
+      50% { transform: scale(var(--mini-scale, 0.5)) translateY(-12px); }
+    }
+
     .phone {
       background: #1f1c17;
       border: 2px solid #3d3428;
@@ -1622,8 +1627,18 @@
 
     @media (max-width: 1023px) {
       .section { padding: 88px 0; }
-      .phone-wrap,
       .hero-food { display: none; }
+      /* Mini phone fills the hero dead space on scaled screens */
+      .phone-wrap {
+        --mini-scale: 0.5;
+        width: 320px;
+        right: 16px;
+        top: 100px;
+        transform: scale(var(--mini-scale));
+        transform-origin: top right;
+        animation: phoneFloatMini 7s ease-in-out infinite;
+        pointer-events: none;
+      }
       .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .feature-card:nth-child(3n) { border-right: 1px solid var(--rule); }
       .feature-card:nth-child(2n) { border-right: 0; }
@@ -1637,6 +1652,7 @@
     @media (max-width: 767px) {
       .container { width: calc(100% - 32px); }
       .section { padding: 72px 0; }
+      .phone-wrap { --mini-scale: 0.44; right: 10px; top: 96px; }
       .nav-links,
       .nav-ctas { display: none; }
       .hamburger { display: block; }
@@ -1657,6 +1673,7 @@
     }
 
     @media (max-width: 479px) {
+      .phone-wrap { display: none; }
       .hero-cta { flex-direction: column; }
       .hero-cta .btn,
       .store-btn { width: 100%; }
