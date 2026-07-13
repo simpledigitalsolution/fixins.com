@@ -598,6 +598,11 @@
       50% { transform: translateY(calc(-50% - 14px)) translateX(-6px); }
     }
 
+    @keyframes phoneFloatMini {
+      0%, 100% { transform: scale(var(--mini-scale, 0.5)) translateY(0); }
+      50% { transform: scale(var(--mini-scale, 0.5)) translateY(-12px); }
+    }
+
     .phone {
       background: #1f1c17;
       border: 2px solid #3d3428;
@@ -1622,8 +1627,18 @@
 
     @media (max-width: 1023px) {
       .section { padding: 88px 0; }
-      .phone-wrap,
       .hero-food { display: none; }
+      /* Mini phone fills the hero dead space on scaled screens */
+      .phone-wrap {
+        --mini-scale: 0.5;
+        width: 320px;
+        right: 16px;
+        top: 100px;
+        transform: scale(var(--mini-scale));
+        transform-origin: top right;
+        animation: phoneFloatMini 7s ease-in-out infinite;
+        pointer-events: none;
+      }
       .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .feature-card:nth-child(3n) { border-right: 1px solid var(--rule); }
       .feature-card:nth-child(2n) { border-right: 0; }
@@ -1637,6 +1652,7 @@
     @media (max-width: 767px) {
       .container { width: calc(100% - 32px); }
       .section { padding: 72px 0; }
+      .phone-wrap { --mini-scale: 0.44; right: 10px; top: 96px; }
       .nav-links,
       .nav-ctas { display: none; }
       .hamburger { display: block; }
@@ -1657,6 +1673,7 @@
     }
 
     @media (max-width: 479px) {
+      .phone-wrap { display: none; }
       .hero-cta { flex-direction: column; }
       .hero-cta .btn,
       .store-btn { width: 100%; }
@@ -1745,7 +1762,7 @@
 
       <div class="container">
         <div class="hero-inner fade-up visible">
-          <a class="hero-burst" href="mailto:admin@simpledigitalsolution.com?subject=Fixins%20Beta%20Tester%20Request" aria-label="Beta tester contact us">
+          <a class="hero-burst js-beta-link" href="#contact" aria-label="Sign up to be a beta tester">
             <strong>Sign Up</strong>
             <span>To Be A Beta Tester</span>
           </a>
@@ -1754,16 +1771,16 @@
             <i>figured out.</i><br />
             <span class="olive">Finally.</span>
           </h1>
-          <p>Fixins™ helps busy families plan meals, build automatic grocery lists, and cook with less chaos. Free to start, with a freemium model that grows with the product.</p>
+          <p>Fixins™ builds your weekly meal plan with AI, turns it into a smart grocery list, compares store prices near you, and walks you through cooking — all in one app. Now in beta on iOS and Android.</p>
           <div class="hero-cta">
-            <button class="btn tomato" id="heroPrimaryCta" type="button">Download App</button>
+            <a class="btn tomato js-beta-link" id="heroBetaCta" href="#contact">✉️ Become a Beta Tester</a>
             <a class="btn ghost" id="heroSecondaryCta" href="#how-it-works">See How It Works</a>
           </div>
-          <p class="hero-hint" id="deviceHint">Detected: iPhone - we'll take you right there.</p>
+          <p class="hero-hint" id="deviceHint">Tapping opens your email app — or write to <span class="js-beta-email">admin [at] simpledigitalsolution.com</span></p>
           <div class="hero-stats">
             <span>iOS + Android</span>
-            <span>Smart Grocery Lists</span>
-            <span>Cook Mode</span>
+            <span>AI Meal Plans</span>
+            <span>Store Price Compare</span>
           </div>
         </div>
       </div>
@@ -1785,43 +1802,43 @@
           <article class="feature-card fade-up">
             <div class="accent" style="background:var(--tomato);"></div>
             <div class="icon-box" style="background:var(--tomato-dim);">📅</div>
-            <h3>Weekly Meal Planner</h3>
-            <p>Build your meal plan for the week in one place so the whole household knows what is for dinner.</p>
+            <h3>AI Weekly Meal Planner</h3>
+            <p>AI builds your week of dinners around what's already in your pantry, with a calendar view the whole household can see.</p>
           </article>
 
           <article class="feature-card fade-up fade-delay-1">
             <div class="accent" style="background:var(--olive);"></div>
             <div class="icon-box" style="background:var(--olive-pale);">🛒</div>
             <h3>Auto Grocery Lists</h3>
-            <p>Fixins™ instantly turns your plan into a shoppable list so the store trip is faster and calmer.</p>
+            <p>Your meal plan becomes a shoppable list instantly, so the store trip is faster and nothing gets forgotten.</p>
           </article>
 
           <article class="feature-card fade-up fade-delay-2">
             <div class="accent" style="background:var(--mustard);"></div>
-            <div class="icon-box" style="background:var(--mustard-pale);">🥗</div>
-            <h3>Nutrition Tracking</h3>
-            <p>Keep an eye on nutrition trends over time without feeling like you are logging every crumb.</p>
+            <div class="icon-box" style="background:var(--mustard-pale);">💰</div>
+            <h3>Store Price Comparison</h3>
+            <p>See nearby store prices for your list and spot the savings before you leave the house.</p>
           </article>
 
           <article class="feature-card fade-up">
             <div class="accent" style="background:var(--terra);"></div>
             <div class="icon-box" style="background:rgba(184,104,90,0.12);">🧑‍🍳</div>
-            <h3>Cook Mode with Timers</h3>
-            <p>Stay in flow while cooking with step timing and clean-screen guidance for each recipe.</p>
+            <h3>Step-by-Step Cooking Guides</h3>
+            <p>Follow each recipe step by step with built-in timers, so dinner comes together without guesswork.</p>
           </article>
 
           <article class="feature-card fade-up fade-delay-1">
             <div class="accent" style="background:var(--sage);"></div>
-            <div class="icon-box" style="background:rgba(90,107,82,0.12);">🌱</div>
-            <h3>Pantry-Based Recipes</h3>
-            <p>Find meals from ingredients you already have and reduce wasted groceries every week.</p>
+            <div class="icon-box" style="background:rgba(90,107,82,0.12);">📸</div>
+            <h3>Scan &amp; Upload Pantry</h3>
+            <p>Snap a receipt, scan a barcode, or photograph your shelf — Fixins™ fills your pantry and suggests meals from what you have.</p>
           </article>
 
           <article class="feature-card fade-up fade-delay-2">
             <div class="accent" style="background:var(--tomato);"></div>
             <div class="icon-box" style="background:var(--tomato-dim);">👨‍👩‍👧</div>
-            <h3>Shared Family Plans</h3>
-            <p>Everyone sees the same plan, updates lists, and stays synced without endless text threads.</p>
+            <h3>Shared Household Plans</h3>
+            <p>Invite your household, vote on meals, and keep plans and lists synced without endless text threads.</p>
           </article>
         </div>
       </div>
@@ -1838,17 +1855,17 @@
           <article class="step active fade-up">
             <div class="step-num">1</div>
             <h3>Plan Your Week</h3>
-            <p>Drop meals into your week in minutes, based on your family's actual schedule.</p>
+            <p>Let AI suggest a week of meals from your pantry and preferences, then tweak it in minutes.</p>
           </article>
           <article class="step fade-up fade-delay-1">
             <div class="step-num">2</div>
             <h3>Shop with Confidence</h3>
-            <p>Your grocery list updates automatically so you only buy what you need for the week.</p>
+            <p>Your grocery list builds itself, and price comparison shows where nearby stores can save you money.</p>
           </article>
           <article class="step fade-up fade-delay-2">
             <div class="step-num">3</div>
             <h3>Cook Without Guessing</h3>
-            <p>Use Cook Mode to move from prep to table with timing built into each recipe flow.</p>
+            <p>Step-by-step cooking guides with timers walk you from prep to table, one step at a time.</p>
           </article>
         </div>
       </div>
@@ -1861,7 +1878,7 @@
         <div class="quote-wrap fade-up">
           <div class="quote-mark">"</div>
           <p class="quote-text">Fixins™ turned Sunday dread into something we actually look forward to. The grocery list alone saved us an hour every week.</p>
-          <div class="quote-attr">- Real Fixins™ User - Family of 4 - Minneapolis, MN</div>
+          <div class="quote-attr">- Fixins™ Beta Family - Family of 4 - Minneapolis, MN</div>
         </div>
       </div>
     </section>
@@ -1872,7 +1889,9 @@
           <div class="fade-up">
             <div class="eyebrow" style="color:var(--tomato);">Get the App</div>
             <h2 class="h2">Ready when <i>you are.</i></h2>
-            <p class="muted">Fixins™ is available on iOS and Android with smart routing based on your device. Free to start, with premium features handled through a freemium model.</p>
+            <p class="muted">Fixins™ is in beta on iOS and Android. Request an invite and we'll get you set up through TestFlight or Google Play testing. Free to start, with premium features arriving as the product grows.</p>
+
+            <a class="btn tomato js-beta-link" id="downloadBetaCta" href="#contact" style="margin-bottom:22px;">✉️ Request a Beta Invite</a>
 
             <div class="store-stack">
               <button class="store-btn store-ios coming-soon" id="primary-store-btn" type="button" data-url="https://apps.apple.com/app/fixins" aria-disabled="true" disabled>
@@ -1897,30 +1916,21 @@
               </button>
             </div>
 
-            <div class="scan-divider">or scan</div>
-            <div class="qr-box">
-              <div class="qr-grid" aria-hidden="true">
-                <span class="dark"></span><span class="dark"></span><span></span><span class="dark"></span><span class="dark"></span>
-                <span class="dark"></span><span></span><span></span><span></span><span class="dark"></span>
-                <span></span><span class="dark"></span><span class="dark"></span><span></span><span></span>
-                <span class="dark"></span><span></span><span></span><span class="dark"></span><span class="dark"></span>
-                <span class="dark"></span><span class="dark"></span><span></span><span class="dark"></span><span class="dark"></span>
-              </div>
-              <div class="qr-label">Scan to Download</div>
-            </div>
+            <div class="scan-divider">store listings</div>
+            <p class="muted" style="font-size:14px;">App Store and Google Play listings go live at public launch. Beta testers get access first.</p>
           </div>
 
           <div class="download-right fade-up fade-delay-1">
-            <div class="ital">Core features available now:</div>
+            <div class="ital">In the beta today:</div>
             <div class="pill-list">
-              <div class="pill"><div class="left"><span>📅</span>Weekly planner with drag-and-drop</div><div class="check">✓</div></div>
+              <div class="pill"><div class="left"><span>🤖</span>AI weekly meal plans from your pantry</div><div class="check">✓</div></div>
               <div class="pill"><div class="left"><span>🛒</span>Auto-generated shopping list</div><div class="check">✓</div></div>
-              <div class="pill"><div class="left"><span>🥗</span>Daily nutrition snapshots</div><div class="check">✓</div></div>
-              <div class="pill"><div class="left"><span>⏲️</span>Cook Mode with in-step timers</div><div class="check">✓</div></div>
-              <div class="pill"><div class="left"><span>🌿</span>Pantry-first recipe discovery</div><div class="check">✓</div></div>
-              <div class="pill"><div class="left"><span>👨‍👩‍👧</span>Shared family syncing</div><div class="check">✓</div></div>
+              <div class="pill"><div class="left"><span>💰</span>Nearby store price comparison</div><div class="check">✓</div></div>
+              <div class="pill"><div class="left"><span>🧑‍🍳</span>Step-by-step cooking guides with timers</div><div class="check">✓</div></div>
+              <div class="pill"><div class="left"><span>📸</span>Receipt, barcode &amp; photo pantry scan</div><div class="check">✓</div></div>
+              <div class="pill"><div class="left"><span>👨‍👩‍👧</span>Shared household plans &amp; meal voting</div><div class="check">✓</div></div>
             </div>
-            <div class="note-box">Free to start, with premium features available as the product evolves.</div>
+            <div class="note-box">Free during beta. Premium features arrive with the public launch.</div>
           </div>
         </div>
       </div>
@@ -1975,9 +1985,9 @@
             <p class="muted">Reach out for bug reports, partnerships, feature ideas, or anything else. We read every message.</p>
 
             <div class="contact-links">
-              <a class="contact-link" href="mailto:admin@simpledigitalsolution.com">
+              <a class="contact-link js-beta-link" href="#contact">
                 <span class="icon">✉️</span>
-                <span class="meta"><small>Email</small><strong>admin@simpledigitalsolution.com</strong></span>
+                <span class="meta"><small>Email</small><strong class="js-beta-email">admin [at] simpledigitalsolution.com</strong></span>
               </a>
               <a class="contact-link" href="https://instagram.com/simpledigiz" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <span class="icon">📸</span>
@@ -1992,7 +2002,7 @@
                 <span class="meta"><small>Twitter/X</small><strong>@Simpledigiz</strong></span>
               </a>
             </div>
-            <p class="social-coming-note">Follow our parent brand socials for updates, or email admin@simpledigitalsolution.com.</p>
+            <p class="social-coming-note">Follow our parent brand socials for updates, or email <span class="js-beta-email">admin [at] simpledigitalsolution.com</span>.</p>
           </div>
 
           <div class="form-card fade-up fade-delay-1">
@@ -2026,8 +2036,8 @@
 
             <div id="contactSuccess" class="success" aria-live="polite">
               <div class="emoji">🥘</div>
-              <h3>Message sent!</h3>
-              <p>Thanks for reaching out. We will get back to you soon.</p>
+              <h3>Almost there!</h3>
+              <p>Your email app should have opened with your message ready — just hit send. If it didn't, email us directly at <strong class="js-beta-email">admin [at] simpledigitalsolution.com</strong>.</p>
               <button class="btn ghost" type="button" onclick="resetForm()">Send another</button>
             </div>
           </div>
@@ -2088,11 +2098,12 @@
         <div class="footer-col olive">
           <h4>Features</h4>
           <ul>
-            <li><a href="#features">Meal Planning</a></li>
+            <li><a href="#features">AI Meal Planning</a></li>
             <li><a href="#features">Grocery Lists</a></li>
-            <li><a href="#features">Cook Mode</a></li>
-            <li><a href="#features">Nutrition</a></li>
-            <li><a href="#features">Family Sharing</a></li>
+            <li><a href="#features">Price Comparison</a></li>
+            <li><a href="#features">Cooking Guides</a></li>
+            <li><a href="#features">Pantry Scan</a></li>
+            <li><a href="#features">Household Sharing</a></li>
           </ul>
         </div>
 
@@ -2112,7 +2123,7 @@
       </div>
 
       <div class="footer-bottom">
-        <div>© 2025 Simple Digital Solution LLC</div>
+        <div>© 2026 Simple Digital Solution LLC</div>
         <div class="footer-center-note">
           <a href="https://www.fixinsapp.com/" target="_blank" rel="noopener noreferrer">Fixins.com</a>
           is a partner with
@@ -2133,6 +2144,22 @@
     const APPLE_URL = 'https://apps.apple.com/app/fixins';
     const PLAY_URL = 'https://play.google.com/store/apps/fixins';
     let currentPrimaryStoreUrl = null;
+
+    // Contact email assembled at runtime so Cloudflare email-protection
+    // cannot rewrite it and break mailto links (the old beta signup bug).
+    const CONTACT_EMAIL = ['admin', 'simpledigitalsolution.com'].join('@');
+
+    function betaMailtoHref() {
+      const subject = encodeURIComponent('Fixins Beta Tester Request');
+      const body = encodeURIComponent(
+        'Hi Fixins team,\n\n' +
+        'I would like to join the Fixins beta.\n\n' +
+        'Name:\n' +
+        'Phone type (iPhone or Android):\n\n' +
+        'Thanks!'
+      );
+      return 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
+    }
 
     function detectDevice() {
       const ua = navigator.userAgent;
@@ -2190,17 +2217,19 @@
       e.preventDefault();
       if (!validateContactForm()) return;
 
-      const submitBtn = document.getElementById('submitBtn');
-      submitBtn.disabled = true;
-      const previousLabel = submitBtn.textContent;
-      submitBtn.textContent = 'Sending…';
+      const typeLabels = { bug: 'Bug Report', idea: 'Feature Idea', partnership: 'Partnership', general: 'General' };
+      const activeInquiry = document.querySelector('#inquiryGrid .inq-btn.active');
+      const inquiryType = activeInquiry ? (typeLabels[activeInquiry.dataset.type] || 'Message') : 'Message';
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
 
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = previousLabel;
-        document.getElementById('contactFormWrap').style.display = 'none';
-        document.getElementById('contactSuccess').style.display = 'block';
-      }, 1400);
+      const subject = encodeURIComponent('Fixins ' + inquiryType + ' — ' + name);
+      const body = encodeURIComponent(message + '\n\n— ' + name + '\nReply to: ' + email);
+      window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
+
+      document.getElementById('contactFormWrap').style.display = 'none';
+      document.getElementById('contactSuccess').style.display = 'block';
     }
 
     function resetForm() {
@@ -2218,11 +2247,16 @@
       const navbar = document.getElementById('navbar');
       const hamburger = document.getElementById('hamburger');
       const overlay = document.getElementById('mobileMenu');
-      const heroPrimaryCta = document.getElementById('heroPrimaryCta');
       const heroSecondaryCta = document.getElementById('heroSecondaryCta');
       const primaryStoreBtn = document.getElementById('primary-store-btn');
       const secondaryStoreBtn = document.getElementById('secondary-store-btn');
       const hint = document.getElementById('deviceHint');
+
+      // Wire every beta CTA to a runtime-built mailto (Cloudflare-proof),
+      // and reveal the real address in fallback text.
+      const betaHref = betaMailtoHref();
+      document.querySelectorAll('.js-beta-link').forEach((el) => el.setAttribute('href', betaHref));
+      document.querySelectorAll('.js-beta-email').forEach((el) => { el.textContent = CONTACT_EMAIL; });
 
       window.addEventListener('scroll', () => {
         navbar.classList.toggle('scrolled', window.scrollY > 14);
@@ -2233,6 +2267,8 @@
         if (e.target === overlay) toggleMenu(false);
       });
 
+      const device = detectDevice();
+
       const setStoreButton = (btn, iconHtml, smallText, strongText, url, className) => {
         btn.className = 'store-btn ' + className + ' coming-soon';
         btn.dataset.url = url;
@@ -2241,28 +2277,44 @@
         btn.innerHTML = '<span class="icon">' + iconHtml + '</span><span><small>' + smallText + '</small><strong>' + strongText + '</strong></span>';
       };
 
-      // Keep hero CTA consistent across desktop/mobile while stores are not live.
-      currentPrimaryStoreUrl = null;
-      heroPrimaryCta.classList.remove('olive');
-      heroPrimaryCta.classList.add('tomato');
-      heroPrimaryCta.textContent = 'Download App';
-      hint.style.display = 'none';
+      if (device === 'ios') {
+        currentPrimaryStoreUrl = APPLE_URL;
+        hint.innerHTML = (/iPad/.test(navigator.userAgent) ? 'iPad' : 'iPhone') +
+          ' detected — beta invites arrive via TestFlight. Tapping opens your email app, or write to <span class="js-beta-email">' + CONTACT_EMAIL + '</span>.';
+        hint.style.display = 'block';
 
-      primaryStoreBtn.style.order = '0';
-      secondaryStoreBtn.style.order = '1';
-      primaryStoreBtn.style.opacity = '1';
-      secondaryStoreBtn.style.opacity = '1';
+        primaryStoreBtn.style.order = '0';
+        secondaryStoreBtn.style.order = '1';
+        primaryStoreBtn.style.opacity = '1';
+        secondaryStoreBtn.style.opacity = '0.75';
 
-      setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Download on the', 'App Store', APPLE_URL, 'store-ios');
-      setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Get it on', 'Google Play', PLAY_URL, 'store-android');
+        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Download on the', 'App Store', APPLE_URL, 'store-ios');
+        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Also available on', 'Google Play', APPLE_URL, 'store-android');
+      } else if (device === 'android') {
+        currentPrimaryStoreUrl = PLAY_URL;
+        hint.innerHTML = 'Android detected — beta invites arrive via Google Play testing. Tapping opens your email app, or write to <span class="js-beta-email">' + CONTACT_EMAIL + '</span>.';
+        hint.style.display = 'block';
 
-      heroPrimaryCta.addEventListener('click', () => {
-        if (currentPrimaryStoreUrl) {
-          window.open(currentPrimaryStoreUrl, '_blank', 'noopener,noreferrer');
-        } else {
-          document.getElementById('download').scrollIntoView({ behavior: 'smooth' });
-        }
-      });
+        primaryStoreBtn.style.order = '1';
+        secondaryStoreBtn.style.order = '0';
+        primaryStoreBtn.style.opacity = '0.75';
+        secondaryStoreBtn.style.opacity = '1';
+
+        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Also available on', 'App Store', PLAY_URL, 'store-ios');
+        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Get it on', 'Google Play', PLAY_URL, 'store-android');
+      } else {
+        currentPrimaryStoreUrl = null;
+        hint.innerHTML = 'Clicking opens your email app — or write to <span class="js-beta-email">' + CONTACT_EMAIL + '</span>.';
+        hint.style.display = 'block';
+
+        primaryStoreBtn.style.order = '0';
+        secondaryStoreBtn.style.order = '1';
+        primaryStoreBtn.style.opacity = '1';
+        secondaryStoreBtn.style.opacity = '1';
+
+        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Download on the', 'App Store', APPLE_URL, 'store-ios');
+        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Get it on', 'Google Play', PLAY_URL, 'store-android');
+      }
 
       if (heroSecondaryCta) {
         heroSecondaryCta.addEventListener('click', (e) => {
