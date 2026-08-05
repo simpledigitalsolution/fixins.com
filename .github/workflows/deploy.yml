@@ -59,9 +59,14 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           server-dir: ./
+          # Patterns are matched with multimatch (matchBase: true, dot: true).
+          # A pattern like **/.git* matches the .git entry itself but NOT the
+          # files inside it, so the /** twin is required to exclude the tree.
           exclude: |
             **/.git*
+            **/.git*/**
             **/.github/**
             **/.env*
+            **/.env*/**
             README.md
           dangerous-clean-slate: false
