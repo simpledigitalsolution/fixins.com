@@ -35,3 +35,14 @@ Notes:
   (see the repo README).
 - Adding the `redesign` or `editorial` looks later: add `redesign-<screen>.jpg` for all seven slots,
   add the look name to `LOOKS` in `index.html`, and add a matching button and CSS token block.
+
+## Capture status (2026-10-02)
+
+Final shots from the stage build at main 83a04f3 (account display name "Sam", no email in frame):
+
+- Final: `pantry` and `settings` (both looks; the inverted Settings shot is a real capture with
+  "inverted" selected; Settings itself still renders light in that look), `meals` (hub, no plan),
+  and `cook` (Safe Cooking Temperatures open; no recipe until the new catalog is on stage).
+- Still stand-ins: `home`, `shopping`, `household`. These need a real week plan, which needs the
+  rewritten recipe catalog on stage, plus the stage API deploy that removes the old starter grocery
+  list. Re-capture `meals` and `cook` mid-recipe at the same time.
