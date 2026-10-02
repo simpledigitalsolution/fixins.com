@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fixins™ | Meal Planning App for Busy Families</title>
-  <meta name="description" content="Fixins™ is a meal planning app that helps families plan dinners, build grocery lists, and cook with less stress." />
+  <title>Fixins™ | Meal Planning App for the Whole Household</title>
+  <meta name="description" content="Fixins™ plans meals for everyone at your table, keeps track of your pantry, builds the shopping list for you, and walks you through cooking step by step. Now in beta on iOS and Android." />
   <meta name="author" content="Simple Digital Solution LLC" />
   <meta name="theme-color" content="#F2EBD9" />
   <meta name="robots" content="index, follow" />
@@ -12,21 +12,25 @@
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Fixins™" />
-  <meta property="og:title" content="Fixins™ | Meal Planning App for Busy Families" />
-  <meta property="og:description" content="Plan dinners in minutes, auto-build grocery lists, and cook with less stress using Fixins™." />
+  <meta property="og:title" content="Fixins™ | Meal Planning App for the Whole Household" />
+  <meta property="og:description" content="Plan meals for everyone, track your pantry, get a shopping list that writes itself, and cook step by step. Now in beta." />
   <meta property="og:url" content="https://www.fixinsapp.com/" />
-  <meta property="og:image" content="https://www.fixinsapp.com/og-image.svg" />
-  <meta property="og:image:alt" content="Fixins meal planning app branding" />
+  <meta property="og:image" content="https://www.fixinsapp.com/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Fixins meal planning app: plan meals, track the pantry, shop and cook" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Fixins™ | Meal Planning App for Busy Families" />
-  <meta name="twitter:description" content="A free family meal planning app with smart grocery lists, cook mode, and nutrition tracking." />
-  <meta name="twitter:image" content="https://www.fixinsapp.com/og-image.svg" />
-  <meta name="twitter:image:alt" content="Fixins meal planning app branding" />
+  <meta name="twitter:title" content="Fixins™ | Meal Planning App for the Whole Household" />
+  <meta name="twitter:description" content="Plan meals for everyone, track your pantry, get a shopping list that writes itself, and cook step by step. Now in beta." />
+  <meta name="twitter:image" content="https://www.fixinsapp.com/og-image.png" />
+  <meta name="twitter:image:alt" content="Fixins meal planning app: plan meals, track the pantry, shop and cook" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.svg" />
+  <link rel="preload" as="image" href="assets/screens/classic-home.jpg" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -35,8 +39,13 @@
       "applicationCategory": "LifestyleApplication",
       "operatingSystem": "iOS, Android",
       "url": "https://www.fixinsapp.com/",
-      "image": "https://www.fixinsapp.com/og-image.svg",
-      "description": "Fixins™ is a meal planning app that helps families plan dinners, generate grocery lists, and cook with less stress.",
+      "image": "https://www.fixinsapp.com/og-image.png",
+      "screenshot": [
+        "https://www.fixinsapp.com/assets/screens/classic-home.jpg",
+        "https://www.fixinsapp.com/assets/screens/classic-pantry.jpg",
+        "https://www.fixinsapp.com/assets/screens/classic-shopping.jpg"
+      ],
+      "description": "Fixins™ is a household meal planning app: plan meals for everyone at the table, track your pantry, build the shopping list automatically, and cook step by step.",
       "creator": {
         "@type": "Organization",
         "name": "Simple Digital Solution LLC",
@@ -53,1926 +62,776 @@
       ]
     }
   </script>
+  <script>
+    // Mark JS as available (enables reveal animations) and restore the
+    // visitor's chosen look before first paint to avoid a flash.
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      try {
+        var saved = localStorage.getItem('fixins-look');
+        if (saved === 'inverted' || saved === 'classic') d.setAttribute('data-look', saved);
+      } catch (e) { /* storage unavailable: default look */ }
+    })();
+  </script>
   <style>
+    /* ---------- Tokens ---------- */
     :root {
-      --paper: #F2EBD9;
-      --paper-dark: #E8DFC8;
-      --paper-deep: #DDD0B4;
-      --paper-edge: #C8BA98;
+      --bg: #F2EBD9;
+      --bg-2: #E8DFC8;
+      --surface: #FBF7EE;
+      --surface-2: #F6F0E2;
       --ink: #2A2318;
-      --ink-mid: #4A3D2C;
-      --ink-faded: rgba(42,35,24,0.45);
-      --ink-ghost: rgba(42,35,24,0.18);
-      --tomato: #C13B2A;
-      --tomato-dim: rgba(193,59,42,0.12);
-      --olive: #5C6B2E;
-      --olive-pale: rgba(92,107,46,0.12);
-      --mustard: #B8860B;
-      --mustard-pale: rgba(184,134,11,0.12);
-      --terra: #B8685A;
-      --sage: #5A6B52;
-      --rule: rgba(42,35,24,0.12);
-      --rule-dark: rgba(42,35,24,0.22);
-      --serif: 'Playfair Display', Georgia, serif;
-      --sans: 'Lato', system-ui, sans-serif;
-      --shadow-soft: 0 16px 34px rgba(44,31,18,0.12);
-      --shadow-card: 0 14px 22px rgba(44,31,18,0.08);
+      --ink-2: #4A3D2C;
+      --muted: #5E513E;
+      --accent: #C13B2A;          /* tomato */
+      --accent-hover: #A93222;
+      --accent-ink: #FFFFFF;
+      --accent-soft: rgba(193,59,42,0.12);
+      --green: #4F5D25;           /* olive, darkened for text contrast */
+      --green-soft: rgba(92,107,46,0.14);
+      --gold: #6B4D05;            /* mustard, darkened for text contrast */
+      --gold-soft: rgba(184,134,11,0.15);
+      --rule: rgba(42,35,24,0.14);
+      --rule-strong: rgba(42,35,24,0.26);
+      --shadow: 0 24px 48px -18px rgba(44,31,18,0.35);
+      --shadow-sm: 0 10px 24px -12px rgba(44,31,18,0.3);
+      --focus: #1F5FBF;
+      --phone-glow: rgba(193,59,42,0.22);
+      --head-font: 'Playfair Display', Georgia, serif;
+      --sans: 'Lato', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --head-transform: none;
+      --head-weight: 700;
+      --head-tracking: -0.015em;
+      --radius: 22px;
+      color-scheme: light;
     }
 
-    * { box-sizing: border-box; }
+    /* The "inverted" look mirrors the app's dark skin: void black + acid lime. */
+    :root[data-look="inverted"] {
+      --bg: #0A0C09;
+      --bg-2: #111410;
+      --surface: #1A1E17;
+      --surface-2: #151913;
+      --ink: #F2F4EE;
+      --ink-2: #DCE0D5;
+      --muted: #AEB4A6;
+      --accent: #C8F135;
+      --accent-hover: #D7FA5C;
+      --accent-ink: #0A0C09;
+      --accent-soft: rgba(200,241,53,0.12);
+      --green: #C8F135;
+      --green-soft: rgba(200,241,53,0.1);
+      --gold: #F0A832;
+      --gold-soft: rgba(240,168,50,0.14);
+      --rule: rgba(255,255,255,0.1);
+      --rule-strong: rgba(255,255,255,0.22);
+      --shadow: 0 24px 60px -18px rgba(0,0,0,0.8);
+      --shadow-sm: 0 10px 24px -12px rgba(0,0,0,0.7);
+      --focus: #C8F135;
+      --phone-glow: rgba(200,241,53,0.2);
+      --head-font: 'Lato', system-ui, sans-serif;
+      --head-transform: uppercase;
+      --head-weight: 900;
+      --head-tracking: -0.01em;
+      color-scheme: dark;
+    }
 
-    html, body {
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+      body, .card, .nav, .phone, .chip, .btn { transition: background-color .45s ease, color .45s ease, border-color .45s ease; }
+    }
+    body {
       margin: 0;
-      padding: 0;
-      background: var(--paper);
+      background: var(--bg);
       color: var(--ink);
       font-family: var(--sans);
-      scroll-behavior: smooth;
+      font-size: 17px;
+      line-height: 1.6;
+      overflow-x: clip;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+
+    .skip-link {
+      position: absolute; left: 12px; top: -60px; z-index: 1000;
+      background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px;
+      font-weight: 700; text-decoration: none;
+    }
+    .skip-link:focus { top: 12px; }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 100;
-      opacity: 0.028;
-      mix-blend-mode: multiply;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.87' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.72'/%3E%3C/svg%3E");
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .container {
-      width: min(1160px, calc(100% - 48px));
-      margin-inline: auto;
-    }
-
-    .section { padding: 104px 0; }
+    .container { width: min(1180px, calc(100% - 32px)); margin-inline: auto; }
+    .section { padding: clamp(72px, 10vw, 128px) 0; position: relative; }
 
     .eyebrow {
-      display: inline-block;
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--mustard);
-      margin-bottom: 14px;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--gold); margin: 0 0 14px;
     }
-
     .h2 {
-      margin: 0;
-      font-family: var(--serif);
-      font-size: clamp(34px, 4vw, 54px);
-      line-height: 1.08;
-      letter-spacing: -0.015em;
-      color: var(--ink);
-    }
-
-    .h2 i { color: var(--tomato); }
-
-    .muted {
-      color: var(--ink-faded);
-      line-height: 1.68;
-      font-size: 18px;
-    }
-
-    .btn {
-      border: 1px solid transparent;
-      border-radius: 14px;
-      padding: 14px 22px;
-      font-weight: 700;
-      font-size: 15px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
-      cursor: pointer;
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-
-    .btn.tomato {
-      background: var(--tomato);
-      color: var(--paper);
-      box-shadow: 0 14px 26px rgba(193,59,42,0.22);
-    }
-
-    .btn.olive {
-      background: var(--olive);
-      color: var(--paper);
-      box-shadow: 0 14px 24px rgba(92,107,46,0.24);
-    }
-
-    .btn.ghost {
-      background: rgba(255,255,255,0.34);
-      border-color: var(--rule-dark);
-      color: var(--ink);
-      backdrop-filter: blur(3px);
-    }
-
-    .btn.block { width: 100%; }
-
-    .fade-up {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .fade-delay-1 { transition-delay: 0.1s; }
-    .fade-delay-2 { transition-delay: 0.2s; }
-    .fade-delay-3 { transition-delay: 0.3s; }
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 90;
-      border-bottom: 1px solid transparent;
-      transition: background-color 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
-    }
-
-    .navbar.scrolled {
-      background: rgba(242,235,217,0.88);
-      border-color: var(--rule);
-      backdrop-filter: blur(16px);
-    }
-
-    .nav-inner {
-      height: 78px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-
-    .logo-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: var(--tomato);
-      color: var(--paper);
-      display: grid;
-      place-items: center;
-      font-family: var(--serif);
-      font-weight: 700;
-      font-size: 24px;
-      position: relative;
-      box-shadow: 0 10px 20px rgba(193,59,42,0.28);
-    }
-
-    .logo-mark::after {
-      content: "";
-      position: absolute;
-      left: 4px;
-      right: 4px;
-      bottom: 2px;
-      height: 2px;
-      border-radius: 10px;
-      background: var(--mustard);
-    }
-
-    .logo-word {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 30px;
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-
-    .logo-word .ins { color: var(--tomato); }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 26px;
-      color: var(--ink-mid);
-      font-weight: 600;
-    }
-
-    .nav-links a:hover { color: var(--ink); }
-
-    .nav-ctas {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hamburger {
-      display: none;
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 1px solid var(--rule-dark);
-      background: rgba(255,255,255,0.3);
-      position: relative;
-    }
-
-    .hamburger span {
-      position: absolute;
-      left: 10px;
-      right: 10px;
-      height: 2px;
-      background: var(--ink);
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-
-    .hamburger span:nth-child(1) { top: 14px; }
-    .hamburger span:nth-child(2) { top: 20px; }
-    .hamburger span:nth-child(3) { top: 26px; }
-
-    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-    .mobile-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 89;
-      background: rgba(42,35,24,0.44);
-      backdrop-filter: blur(8px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-
-    .mobile-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .mobile-panel {
-      position: absolute;
-      inset: 0;
-      background: var(--paper);
-      display: grid;
-      place-items: center;
-      transform: translateY(100%);
-      transition: transform 0.35s ease;
-    }
-
-    .mobile-overlay.open .mobile-panel { transform: translateY(0); }
-
-    .mobile-menu {
-      width: min(420px, calc(100% - 32px));
-      display: grid;
-      gap: 12px;
-      text-align: center;
-    }
-
-    .mobile-menu a.link {
-      padding: 16px;
-      border-radius: 14px;
-      border: 1px solid var(--rule);
-      background: rgba(255,255,255,0.42);
-      font-weight: 700;
-      color: var(--ink-mid);
-    }
-
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      background: var(--paper);
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .paper-lines {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background-image: repeating-linear-gradient(
-        to bottom,
-        rgba(42,35,24,0.035) 0,
-        rgba(42,35,24,0.035) 1px,
-        transparent 1px,
-        transparent 13px
-      );
-      opacity: 0.35;
-    }
-
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(2px);
-      animation: blobFloat 14s ease-in-out infinite;
-      pointer-events: none;
-      opacity: 0.6;
-    }
-
-    .blob-1 {
-      width: 480px;
-      height: 480px;
-      top: -140px;
-      right: -120px;
-      background: radial-gradient(circle at 34% 36%, rgba(184,134,11,0.24), rgba(184,134,11,0));
-      animation-duration: 14s;
-    }
-
-    .blob-2 {
-      width: 420px;
-      height: 420px;
-      right: 18%;
-      bottom: -160px;
-      background: radial-gradient(circle at 40% 35%, rgba(193,59,42,0.20), rgba(193,59,42,0));
-      animation-duration: 11s;
-      animation-delay: -4s;
-    }
-
-    .blob-3 {
-      width: 390px;
-      height: 390px;
-      left: -150px;
-      top: 30%;
-      background: radial-gradient(circle at 50% 48%, rgba(92,107,46,0.2), rgba(92,107,46,0));
-      animation-duration: 16s;
-      animation-delay: -8s;
-    }
-
-    @keyframes blobFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      33% { transform: translateY(-22px) rotate(3deg); }
-      66% { transform: translateY(14px) rotate(-2deg); }
-    }
-
-    .hero-food {
-      position: absolute;
-      right: 4%;
-      top: 17%;
-      width: min(34vw, 390px);
-      height: 68vh;
-      pointer-events: none;
-    }
-
-    .hero-food span {
-      position: absolute;
-      font-size: clamp(22px, 2.2vw, 34px);
-      opacity: 0.14;
-      filter: saturate(0.4);
-      animation: foodFloat 8s ease-in-out infinite;
-    }
-
-    .hero-food span:nth-child(1) { left: 8%; top: 6%; animation-duration: 8s; }
-    .hero-food span:nth-child(2) { left: 42%; top: 2%; animation-duration: 7.4s; animation-delay: -1.2s; }
-    .hero-food span:nth-child(3) { left: 73%; top: 13%; animation-duration: 8.8s; animation-delay: -2.6s; }
-    .hero-food span:nth-child(4) { left: 18%; top: 37%; animation-duration: 9.1s; animation-delay: -3.1s; }
-    .hero-food span:nth-child(5) { left: 56%; top: 43%; animation-duration: 7.8s; animation-delay: -1.8s; }
-    .hero-food span:nth-child(6) { left: 70%; top: 64%; animation-duration: 8.3s; animation-delay: -2.8s; }
-    .hero-food span:nth-child(7) { left: 28%; top: 74%; animation-duration: 9.2s; animation-delay: -3.9s; }
-
-    @keyframes foodFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      width: min(640px, 100%);
-      padding-top: 88px;
-      padding-bottom: 40px;
-    }
-
-    .hero-burst {
-      --burst-red: #C8241D;
-      position: relative;
-      width: min(300px, 100%);
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      text-decoration: none;
-      text-transform: uppercase;
-      color: #fff5ee;
-      font-family: var(--sans);
-      font-weight: 800;
-      letter-spacing: 0.03em;
-      padding: 26px 30px 24px;
-      min-height: 132px;
-      text-align: center;
-      isolation: isolate;
-      filter: drop-shadow(0 10px 20px rgba(120,26,19,0.25));
-    }
-
-    .hero-burst::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, #d32d22 0%, var(--burst-red) 60%, #a71914 100%);
-      clip-path: polygon(50% 0%, 55% 9%, 62% 1%, 65% 11%, 73% 3%, 74% 14%, 83% 7%, 82% 18%, 92% 12%, 89% 22%, 99% 19%, 94% 29%, 100% 29%, 93% 38%, 99% 41%, 90% 48%, 95% 54%, 85% 59%, 89% 67%, 78% 70%, 81% 79%, 70% 79%, 71% 89%, 61% 87%, 60% 97%, 50% 92%, 40% 97%, 39% 87%, 29% 89%, 30% 79%, 19% 79%, 22% 70%, 11% 67%, 15% 59%, 5% 54%, 10% 48%, 1% 41%, 7% 38%, 0% 29%, 6% 29%, 1% 19%, 11% 22%, 8% 12%, 18% 18%, 17% 7%, 26% 14%, 27% 3%, 35% 11%, 38% 1%, 45% 9%);
-      z-index: -2;
-    }
-
-    .hero-burst::after {
-      content: "";
-      position: absolute;
-      inset: 16px 28px;
-      border: 1px dashed rgba(255,239,214,0);
-      border-radius: 999px;
-      z-index: -1;
-    }
-
-    .hero-burst strong {
-      font-size: 34px;
-      line-height: 1;
-      font-family: var(--serif);
-      margin-bottom: 2px;
-    }
-
-    .hero-burst span {
-      font-size: 28px;
-      font-family: var(--serif);
-      line-height: 1;
-    }
-
-    .hero-burst:hover::before {
-      background: radial-gradient(circle at center, #db3428 0%, #ca241b 62%, #a31712 100%);
-    }
-
-    @media (max-width: 767px) {
-      .hero-burst {
-        width: min(250px, 100%);
-        padding: 22px 24px 20px;
-        min-height: 114px;
-      }
-
-      .hero-burst strong { font-size: 28px; }
-      .hero-burst span { font-size: 22px; }
-    }
-
-    .hero h1 {
-      margin: 18px 0 16px;
-      font-family: var(--serif);
-      font-size: clamp(52px, 9vw, 88px);
-      line-height: 0.96;
-      letter-spacing: -0.03em;
-    }
-
-    .hero h1 i {
-      color: var(--tomato);
-      font-style: italic;
-      font-weight: 700;
-    }
-
-    .hero h1 .olive { color: var(--olive); }
-
-    .hero p {
-      margin: 0;
-      font-size: 20px;
-      color: var(--ink-faded);
-      line-height: 1.62;
-      max-width: 500px;
-    }
-
-    .hero-cta {
-      margin-top: 30px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .hero-hint {
-      margin-top: 12px;
-      color: var(--ink-faded);
-      font-size: 14px;
-      font-weight: 600;
-      display: none;
-    }
-
-    .hero-stats {
-      margin-top: 36px;
-      border-top: 1px solid var(--rule);
-      padding-top: 16px;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      color: var(--ink-mid);
-      font-weight: 600;
-      font-size: 15px;
-    }
-
-    .hero-stats span {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-stats span::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--mustard);
-      opacity: 0.7;
-    }
-
-    .phone-wrap {
-      position: absolute;
-      right: max(4%, calc(50% - 560px));
-      top: 50%;
-      transform: translateY(-50%);
-      width: 320px;
-      z-index: 2;
-      animation: phoneFloat 7s ease-in-out infinite;
-    }
-
-    @keyframes phoneFloat {
-      0%, 100% { transform: translateY(-50%) translateX(0); }
-      50% { transform: translateY(calc(-50% - 14px)) translateX(-6px); }
-    }
-
-    @keyframes phoneFloatMini {
-      0%, 100% { transform: scale(var(--mini-scale, 0.5)) translateY(0); }
-      50% { transform: scale(var(--mini-scale, 0.5)) translateY(-12px); }
-    }
-
-    .phone {
-      background: #1f1c17;
-      border: 2px solid #3d3428;
-      border-radius: 40px;
-      padding: 16px;
-      box-shadow: 0 36px 48px rgba(42,35,24,0.35);
-      position: relative;
-    }
-
-    .phone-notch {
-      width: 40%;
-      height: 20px;
-      border-radius: 12px;
-      background: #0f0d0a;
-      margin: 0 auto 10px;
-    }
-
-    .screen {
-      border-radius: 28px;
-      min-height: 570px;
-      overflow: hidden;
-      background: radial-gradient(circle at 25% 15%, rgba(193,59,42,0.22), transparent 40%), radial-gradient(circle at 80% 18%, rgba(184,134,11,0.2), transparent 42%), radial-gradient(circle at 64% 80%, rgba(92,107,46,0.26), transparent 48%), var(--paper);
-      border: 1px solid rgba(42,35,24,0.1);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 18px;
-    }
-
-    .screen .logo-mini {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      background: var(--tomato);
-      color: var(--paper);
-      display: grid;
-      place-items: center;
-      font-family: var(--serif);
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    .screen h4 {
-      margin: 0 0 8px;
-      font-family: var(--serif);
-      font-size: 34px;
-      line-height: 1;
-      color: var(--ink);
-    }
-
-    .screen p {
       margin: 0 0 18px;
-      color: var(--ink-faded);
-      font-size: 14px;
-      line-height: 1.5;
+      font-family: var(--head-font);
+      font-weight: var(--head-weight);
+      text-transform: var(--head-transform);
+      letter-spacing: var(--head-tracking);
+      font-size: clamp(32px, 4.4vw, 56px);
+      line-height: 1.06;
+      text-wrap: balance;
+    }
+    .h2 i, h1 i { color: var(--accent); }
+    :root[data-look="inverted"] .h2 i, :root[data-look="inverted"] h1 i { font-style: normal; }
+    .lead { font-size: clamp(17px, 1.6vw, 20px); color: var(--ink-2); max-width: 60ch; margin: 0 0 24px; }
+    .muted { color: var(--muted); }
+    .center { text-align: center; margin-inline: auto; }
+    .center .lead { margin-inline: auto; }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      --lift: 0px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 48px; padding: 12px 22px; border-radius: 999px;
+      font-weight: 900; font-size: 16px; letter-spacing: .01em; text-decoration: none;
+      border: 2px solid transparent; cursor: pointer;
+      transform: translateY(var(--lift));
+    }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); box-shadow: var(--shadow-sm); }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-ghost { background: transparent; border-color: var(--rule-strong); color: var(--ink); }
+    .btn-ghost:hover { border-color: var(--ink); }
+    .btn .wiggle { display: inline-block; }
+    @media (prefers-reduced-motion: no-preference) {
+      .btn { transition: transform .18s cubic-bezier(.3,1.6,.5,1), background-color .2s, border-color .2s, box-shadow .2s; }
+      .btn:hover { --lift: -3px; }
+      .btn:active { transform: translateY(0) scale(.96); }
+      .btn:hover .wiggle { animation: wiggle .5s ease-in-out; }
+    }
+    @keyframes wiggle {
+      0%,100% { transform: rotate(0); } 25% { transform: rotate(-14deg) scale(1.15); } 60% { transform: rotate(10deg) scale(1.1); }
+    }
+    .btn[disabled], .btn[aria-disabled="true"] { cursor: not-allowed; }
+
+    /* ---------- Nav ---------- */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: saturate(1.4) blur(12px);
+      -webkit-backdrop-filter: saturate(1.4) blur(12px);
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled { border-bottom-color: var(--rule); }
+    .nav-inner { display: flex; align-items: center; gap: 20px; min-height: 68px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo img { width: 36px; height: 36px; border-radius: 10px; }
+    .logo-word { font-family: 'Playfair Display', Georgia, serif; font-size: 26px; font-weight: 700; letter-spacing: -.02em; }
+    .logo-word span { color: var(--accent); font-style: italic; }
+    .nav-links { display: flex; gap: 4px; margin-left: auto; }
+    .nav-links a {
+      text-decoration: none; font-weight: 700; font-size: 15px; padding: 8px 12px; border-radius: 999px; color: var(--ink-2);
+    }
+    .nav-links a:hover { background: var(--accent-soft); color: var(--ink); }
+    .nav .btn { min-height: 42px; padding: 8px 18px; font-size: 15px; }
+    .hamburger {
+      display: none; margin-left: auto; width: 46px; height: 46px; border-radius: 12px;
+      background: transparent; border: 1px solid var(--rule-strong); cursor: pointer;
+      align-items: center; justify-content: center; flex-direction: column; gap: 5px;
+    }
+    .hamburger span { display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px; }
+    .mobile-menu {
+      display: none; position: fixed; inset: 68px 0 auto 0; z-index: 49;
+      background: var(--bg); border-bottom: 1px solid var(--rule); padding: 12px 16px 20px;
+      box-shadow: var(--shadow);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a:not(.btn) { display: block; padding: 14px 4px; font-size: 19px; font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--rule); }
+    .mobile-menu .btn { margin-top: 16px; width: 100%; }
+    @media (max-width: 900px) {
+      .nav-links, .nav .nav-cta { display: none; }
+      .hamburger { display: inline-flex; }
     }
 
-    .phone-card {
-      margin-top: auto;
-      background: rgba(242,235,217,0.94);
-      border: 1px solid var(--rule);
-      border-radius: 20px;
-      padding: 14px;
-      box-shadow: var(--shadow-card);
+    /* ---------- Look switcher ---------- */
+    .look-switch {
+      display: inline-flex; padding: 4px; gap: 4px; border-radius: 999px;
+      background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--shadow-sm);
+    }
+    .look-switch button {
+      border: 0; background: transparent; cursor: pointer; border-radius: 999px;
+      padding: 8px 14px; font-weight: 900; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2);
+      min-height: 40px;
+    }
+    .look-switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+    .swatch { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,.8); box-shadow: 0 0 0 1px rgba(0,0,0,.25); }
+    .swatch.classic { background: linear-gradient(135deg, #F2EBD9 50%, #C13B2A 50%); }
+    .swatch.inverted { background: linear-gradient(135deg, #0A0C09 50%, #C8F135 50%); }
+    .swatch.redesign { background: linear-gradient(135deg, #FAF6F0 50%, #2D6A4F 50%); }
+    .swatch.editorial { background: linear-gradient(135deg, #1C1208 50%, #E8921A 50%); }
+    .look-label { font-size: 13px; color: var(--muted); font-weight: 700; margin-right: 6px; }
+
+    /* ---------- Phone frame ---------- */
+    .phone {
+      position: relative; width: var(--phone-w, 300px); max-width: 100%;
+      padding: 11px; border-radius: 48px;
+      background: linear-gradient(145deg, #2b2b2e, #0f0f11);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset, 0 0 0 2px #3a3a3e, var(--shadow), 0 40px 120px -30px var(--phone-glow);
+    }
+    .phone::before { /* side buttons */
+      content: ""; position: absolute; right: -3px; top: 22%; width: 3px; height: 70px; border-radius: 0 3px 3px 0; background: #2a2a2d;
+    }
+    .phone::after {
+      content: ""; position: absolute; left: -3px; top: 18%; width: 3px; height: 44px; border-radius: 3px 0 0 3px; background: #2a2a2d;
+      box-shadow: 0 60px 0 #2a2a2d;
+    }
+    .screen {
+      position: relative; overflow: hidden; border-radius: 38px; background: #111;
+      aspect-ratio: 495 / 1100;
+    }
+    .screen img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .island {
+      position: absolute; top: 9px; left: 50%; transform: translateX(-50%); z-index: 3;
+      width: 30%; height: 22px; border-radius: 20px; background: #050505; pointer-events: none;
+    }
+    .stack img { opacity: 0; transform: translateY(18px) scale(.985); }
+    .stack img.on { opacity: 1; transform: none; z-index: 2; }
+    @media (prefers-reduced-motion: no-preference) {
+      .stack img { transition: opacity .45s ease, transform .55s cubic-bezier(.2,.8,.2,1); }
     }
 
-    .phone-actions {
-      display: grid;
-      gap: 8px;
-      margin-top: 8px;
+    /* ---------- Hero ---------- */
+    .hero { position: relative; overflow: clip; padding: clamp(36px, 6vw, 80px) 0 clamp(56px, 8vw, 110px); }
+    .hero::before { /* soft paper glow */
+      content: ""; position: absolute; inset: -20% -10% auto auto; width: 70vw; height: 70vw; max-width: 900px; max-height: 900px;
+      background: radial-gradient(circle, var(--accent-soft), transparent 65%); pointer-events: none;
+    }
+    .hero-grid { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 6px; border-radius: 999px;
+      background: var(--surface); border: 1px solid var(--rule); font-size: 14px; font-weight: 700; color: var(--ink-2); margin-bottom: 22px;
+    }
+    .hero-badge b { background: var(--green); color: var(--bg); padding: 3px 10px; border-radius: 999px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    :root[data-look="inverted"] .hero-badge b { color: #0A0C09; }
+    h1 {
+      margin: 0 0 22px;
+      font-family: var(--head-font); font-weight: var(--head-weight); text-transform: var(--head-transform);
+      font-size: clamp(46px, 7.4vw, 96px); line-height: .98; letter-spacing: -.025em;
+    }
+    h1 .finally { color: var(--green); display: inline-block; }
+    @media (prefers-reduced-motion: no-preference) {
+      .js h1 .finally { animation: pop-in .7s .5s cubic-bezier(.3,1.6,.5,1) both; }
+    }
+    @keyframes pop-in { from { opacity: 0; transform: translateY(20px) rotate(-6deg) scale(.8); } }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 12px; }
+    .hero-hint { font-size: 14px; color: var(--muted); margin: 0 0 24px; }
+    .hero-facts { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
+    .hero-facts li { font-size: 14px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--rule); color: var(--ink-2); }
+
+    .hero-stage { position: relative; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+    .hero-phone-wrap { position: relative; --phone-w: min(310px, 72vw); }
+    .hero-phone-wrap .phone { will-change: transform; }
+    .floaty {
+      position: absolute; z-index: 4; display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 999px; background: var(--surface); color: var(--ink);
+      border: 1px solid var(--rule); box-shadow: var(--shadow-sm); font-weight: 900; font-size: 14px; white-space: nowrap;
+      pointer-events: none;
+    }
+    .floaty.f1 { top: 14%; left: -26%; }
+    .floaty.f2 { top: 46%; right: -24%; }
+    .floaty.f3 { bottom: 12%; left: -18%; }
+    .floaty .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    @media (prefers-reduced-motion: no-preference) {
+      .floaty { animation: bob 5s ease-in-out infinite; }
+      .floaty.f2 { animation-delay: -1.6s; }
+      .floaty.f3 { animation-delay: -3.2s; }
+    }
+    @keyframes bob { 0%,100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+
+    /* Beta burst sticker (kept from the previous site, now on the phone corner). */
+    .burst {
+      position: absolute; z-index: 5; top: -18px; right: -44px; width: 132px; height: 132px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      text-decoration: none; text-transform: uppercase; color: #FFF5EE; font-family: 'Playfair Display', Georgia, serif; font-weight: 700;
+      line-height: 1; isolation: isolate; filter: drop-shadow(0 10px 16px rgba(120,26,19,.3));
+    }
+    .burst::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: radial-gradient(circle at center, #D32D22 0%, #C8241D 60%, #A71914 100%);
+      clip-path: polygon(50% 0%, 55% 9%, 62% 1%, 65% 11%, 73% 3%, 74% 14%, 83% 7%, 82% 18%, 92% 12%, 89% 22%, 99% 19%, 94% 29%, 100% 29%, 93% 38%, 99% 41%, 90% 48%, 95% 54%, 85% 59%, 89% 67%, 78% 70%, 81% 79%, 70% 79%, 71% 89%, 61% 87%, 60% 97%, 50% 92%, 40% 97%, 39% 87%, 29% 89%, 30% 79%, 19% 79%, 22% 70%, 11% 67%, 15% 59%, 5% 54%, 10% 48%, 1% 41%, 7% 38%, 0% 29%, 6% 29%, 1% 19%, 11% 22%, 8% 12%, 18% 18%, 17% 7%, 26% 14%, 27% 3%, 35% 11%, 38% 1%, 45% 9%);
+    }
+    .burst strong { font-size: 22px; }
+    .burst span { font-size: 13px; margin-top: 4px; letter-spacing: .02em; max-width: 90px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .burst::before { animation: spin 24s linear infinite; }
+      .burst { transition: transform .25s cubic-bezier(.3,1.6,.5,1); }
+      .burst:hover { transform: scale(1.08) rotate(-6deg); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-copy { text-align: left; }
+      .floaty.f1 { left: -18%; } .floaty.f2 { right: -16%; } .floaty.f3 { left: -12%; }
+    }
+    @media (max-width: 520px) {
+      .floaty { font-size: 12px; padding: 6px 10px; }
+      .floaty.f1 { left: -10%; } .floaty.f2 { right: -10%; } .floaty.f3 { left: -6%; }
+      .burst { width: 104px; height: 104px; right: -18px; top: -24px; }
+      .burst strong { font-size: 18px; } .burst span { font-size: 11px; }
+      .hero-cta .btn { flex: 1 1 100%; }
     }
 
-    .mini-btn {
-      border: 1px solid transparent;
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-weight: 700;
-      font-size: 13px;
+    /* ---------- Marquee ---------- */
+    .marquee { border-block: 1px solid var(--rule); background: var(--surface-2); overflow: hidden; }
+    .marquee-track { display: flex; gap: 40px; width: max-content; padding: 16px 0; font-weight: 900; font-size: 15px; color: var(--ink-2); letter-spacing: .04em; text-transform: uppercase; }
+    .marquee-track span::after { content: "✦"; margin-left: 40px; color: var(--accent); }
+    @media (prefers-reduced-motion: no-preference) {
+      .marquee-track { animation: marquee 40s linear infinite; }
+      .marquee:hover .marquee-track { animation-play-state: paused; }
     }
+    @keyframes marquee { to { transform: translateX(-50%); } }
 
-    .mini-btn.tomato {
-      background: var(--tomato);
-      color: var(--paper);
+    /* ---------- Scroll tour ---------- */
+    .tour-head { margin-bottom: clamp(24px, 4vw, 48px); }
+    .tour { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 6vw, 96px); }
+    .tour-phone { position: sticky; top: 92px; height: calc(100vh - 120px); max-height: 820px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; }
+    .tour-phone .phone { --phone-w: min(320px, calc((100vh - 220px) * 0.47)); }
+    .tour-progress { display: flex; gap: 8px; padding: 0; margin: 0; list-style: none; }
+    .tour-progress button {
+      width: 12px; height: 12px; padding: 0; border-radius: 999px; border: 0; cursor: pointer; background: var(--rule-strong);
     }
-
-    .mini-btn.ghost {
-      border-color: var(--rule-dark);
-      background: rgba(255,255,255,0.55);
-      color: var(--ink);
-    }
-
-    .phone-tabs {
-      margin-top: 14px;
-      display: flex;
-      justify-content: space-between;
-      color: var(--ink-faded);
-      font-size: 16px;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 18px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 7px;
-      color: var(--ink-faded);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .scroll-line {
-      width: 2px;
-      height: 34px;
-      background: var(--ink-mid);
-      border-radius: 20px;
-      transform-origin: top;
-      animation: scrollPulse 2.2s ease-in-out infinite;
-      opacity: 0.35;
-    }
-
-    @keyframes scrollPulse {
-      0%, 100% { transform: scaleY(0.35); opacity: 0.35; }
-      50% { transform: scaleY(1); opacity: 0.8; }
-    }
-
-    .features {
-      background: var(--paper-dark);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .center-head {
-      text-align: center;
-      max-width: 860px;
-      margin: 0 auto 44px;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      border: 1px solid var(--rule);
-      border-radius: 22px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.34);
-    }
-
-    .feature-card {
-      padding: 40px 36px;
-      border-right: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      position: relative;
-      transition: background-color 0.2s ease;
-    }
-
-    .feature-card:nth-child(3n) { border-right: 0; }
-    .feature-card:nth-last-child(-n + 3) { border-bottom: 0; }
-
-    .feature-card:hover { background: rgba(255,255,255,0.45); }
-
-    .accent {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2.5px;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-
-    .feature-card:hover .accent { opacity: 1; }
-
-    .icon-box {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      font-size: 22px;
-      margin-bottom: 16px;
-    }
-
-    .feature-card h3 {
-      margin: 0 0 10px;
-      font-family: var(--serif);
-      font-size: 28px;
-      line-height: 1.15;
-    }
-
-    .feature-card p {
-      margin: 0;
-      color: var(--ink-faded);
-      line-height: 1.65;
-      font-size: 17px;
-    }
-
-    .steps {
-      position: relative;
-      margin-top: 46px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .steps::before {
-      content: "";
-      position: absolute;
-      left: 12%;
-      right: 12%;
-      top: 26px;
-      height: 1px;
-      background: var(--rule-dark);
-      z-index: 0;
-    }
-
+    .tour-progress button[aria-current="step"] { width: 34px; background: var(--accent); }
+    @media (prefers-reduced-motion: no-preference) { .tour-progress button { transition: width .3s ease, background-color .3s; } }
+    .tour-progress li { display: flex; }
+    .tour-steps { display: flex; flex-direction: column; }
     .step {
-      text-align: center;
-      padding: 4px 14px 0;
-      position: relative;
-      z-index: 1;
+      min-height: 78vh; display: flex; flex-direction: column; justify-content: center; padding: 24px 0;
     }
-
     .step-num {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      margin: 0 auto 16px;
-      border: 1px solid var(--rule-dark);
-      background: rgba(255,255,255,0.4);
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-      color: var(--ink-mid);
-      font-size: 17px;
+      display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 14px;
+      background: var(--accent-soft); color: var(--accent); font-weight: 900; font-size: 18px; margin-bottom: 16px;
     }
-
-    .step.active .step-num {
-      background: var(--tomato);
-      color: var(--paper);
-      border-color: transparent;
-      box-shadow: 0 0 0 7px rgba(193,59,42,0.14);
-    }
-
+    :root:not([data-look="inverted"]) .step-num { color: #A93222; }
+    .step.active .step-num, :root:not([data-look="inverted"]) .step.active .step-num { background: var(--accent); color: var(--accent-ink); transform: rotate(-6deg) scale(1.08); }
     .step h3 {
-      margin: 0 0 8px;
-      font-family: var(--serif);
-      font-size: 30px;
-      line-height: 1.15;
+      margin: 0 0 12px; font-family: var(--head-font); font-weight: var(--head-weight); text-transform: var(--head-transform);
+      font-size: clamp(28px, 3.2vw, 42px); line-height: 1.08; letter-spacing: var(--head-tracking);
+    }
+    .step p { margin: 0 0 16px; color: var(--ink-2); max-width: 52ch; }
+    .ticks { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 10px; }
+    .ticks li { display: flex; gap: 12px; align-items: flex-start; font-weight: 700; color: var(--ink); }
+    .ticks li::before {
+      content: "✓"; flex: none; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--green-soft); color: var(--green); font-size: 14px; font-weight: 900; margin-top: 1px;
+    }
+    .step-shot { display: none; }
+    .step .look-switch { margin-top: 20px; align-self: flex-start; }
+    .looks-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; padding: 0; list-style: none; }
+    .looks-row li { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--rule); background: var(--surface); font-weight: 700; font-size: 14px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .step-num { transition: transform .35s cubic-bezier(.3,1.6,.5,1), background-color .3s, color .3s; }
+    }
+    @media (max-width: 900px) {
+      .tour { grid-template-columns: 1fr; }
+      .tour-phone { display: none; }
+      .step { min-height: 0; padding: 28px 0 40px; border-top: 1px solid var(--rule); }
+      .step-shot { display: flex; justify-content: center; margin: 8px 0 24px; order: -1; }
+      .step-shot .phone { --phone-w: min(260px, 70vw); }
     }
 
-    .step p {
-      margin: 0;
-      color: var(--ink-faded);
-      line-height: 1.62;
-      font-size: 17px;
+    /* ---------- Demo ---------- */
+    .demo { background: var(--bg-2); border-block: 1px solid var(--rule); }
+    .demo-tag {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px;
+      background: var(--gold-soft); color: var(--gold); font-weight: 900; font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
     }
-
-    .quote-strip {
-      position: relative;
-      overflow: hidden;
-      background: var(--ink);
-      color: var(--paper);
-      padding: 96px 0;
+    .demo-grid { display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 20px; margin-top: 36px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow-sm);
+      min-width: 0;
     }
-
-    .quote-glow-1,
-    .quote-glow-2 {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      filter: blur(6px);
+    .card h3 { margin: 0 0 4px; font-size: 20px; font-weight: 900; }
+    .card .sub { margin: 0 0 16px; font-size: 14px; color: var(--muted); }
+    .recipe-list { display: grid; gap: 10px; }
+    .recipe {
+      display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; cursor: pointer;
+      padding: 12px 14px; border-radius: 16px; border: 2px solid var(--rule); background: var(--surface-2);
     }
-
-    .quote-glow-1 {
-      width: 320px;
-      height: 320px;
-      left: 10%;
-      top: -110px;
-      background: radial-gradient(circle at center, rgba(193,59,42,0.34), rgba(193,59,42,0));
+    .recipe .emo { font-size: 26px; line-height: 1; }
+    .recipe .t { flex: 1; min-width: 0; }
+    .recipe .t b { display: block; font-size: 16px; }
+    .recipe .t small { color: var(--muted); font-size: 13px; }
+    .recipe .state {
+      flex: none; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--rule-strong);
+      display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; color: transparent;
     }
-
-    .quote-glow-2 {
-      width: 360px;
-      height: 360px;
-      right: 6%;
-      bottom: -130px;
-      background: radial-gradient(circle at center, rgba(92,107,46,0.34), rgba(92,107,46,0));
+    .recipe[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+    .recipe[aria-pressed="true"] .state { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      cursor: pointer; border-radius: 999px; padding: 8px 14px; min-height: 40px; font-size: 15px; font-weight: 700;
+      border: 2px dashed var(--rule-strong); background: transparent; color: var(--ink);
     }
-
-    .quote-wrap {
-      position: relative;
-      max-width: 780px;
-      margin: 0 auto;
-      text-align: center;
+    .chip::before { content: "+ "; }
+    .chip[aria-pressed="true"] { border-style: solid; border-color: var(--green); background: var(--green-soft); }
+    .chip[aria-pressed="true"]::before { content: "✓ "; color: var(--green); font-weight: 900; }
+    @media (prefers-reduced-motion: no-preference) {
+      .recipe, .chip { transition: transform .18s cubic-bezier(.3,1.6,.5,1), background-color .2s, border-color .2s; }
+      .recipe:active, .chip:active { transform: scale(.95); }
+      .chip.bump { animation: bump .35s cubic-bezier(.3,1.6,.5,1); }
     }
-
-    .quote-mark {
-      font-family: var(--serif);
-      color: var(--tomato);
-      font-size: 80px;
-      line-height: 0.8;
-      margin-bottom: 10px;
+    @keyframes bump { 50% { transform: scale(1.14) rotate(-3deg); } }
+    .list-card { display: flex; flex-direction: column; }
+    .list-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .count { font-family: var(--head-font); font-weight: var(--head-weight); font-size: 44px; line-height: 1; color: var(--accent); }
+    :root:not([data-look="inverted"]) .count { color: #A93222; }
+    .summary { font-size: 14px; color: var(--muted); margin: 6px 0 14px; min-height: 22px; }
+    .list-section { margin: 0 0 12px; }
+    .list-section h4 { margin: 0 0 6px; font-size: 12px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+    .list-section ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+    .list-item label {
+      display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--rule); cursor: pointer;
     }
-
-    .quote-text {
-      margin: 0;
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: clamp(22px, 3.4vw, 34px);
-      line-height: 1.45;
-      letter-spacing: -0.01em;
+    .list-item input { width: 20px; height: 20px; accent-color: var(--accent); flex: none; margin: 0; }
+    .list-item .name { flex: 1; font-weight: 700; min-width: 0; }
+    .list-item .for { font-size: 12px; color: var(--muted); text-align: right; }
+    .list-item input:checked ~ .name { text-decoration: line-through; color: var(--muted); }
+    @media (prefers-reduced-motion: no-preference) {
+      .list-item.new { animation: slide-in .45s cubic-bezier(.2,1.4,.4,1); }
     }
+    @keyframes slide-in { from { opacity: 0; transform: translateX(24px) scale(.96); } }
+    .empty { text-align: center; padding: 24px 10px; color: var(--ink-2); font-weight: 700; }
+    .empty .big { font-size: 40px; display: block; margin-bottom: 6px; }
+    .covered { margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--rule-strong); font-size: 14px; color: var(--muted); }
+    .covered b { color: var(--green); }
+    .demo-foot { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-top: 18px; font-size: 14px; color: var(--muted); }
+    .linkish { background: none; border: 0; padding: 6px 0; cursor: pointer; font-weight: 900; text-decoration: underline; text-underline-offset: 3px; color: var(--ink); }
+    .confetti { position: fixed; pointer-events: none; z-index: 60; font-size: 22px; }
+    @media (max-width: 1000px) { .demo-grid { grid-template-columns: 1fr 1fr; } .list-card { grid-column: 1 / -1; } }
+    @media (max-width: 640px) { .demo-grid { grid-template-columns: 1fr; } }
 
-    .quote-attr {
-      margin-top: 18px;
-      color: rgba(242,235,217,0.72);
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .download {
-      background: var(--paper-dark);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .download-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 36px;
-      align-items: start;
-    }
-
-    .store-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: min(300px, 100%);
-      margin-top: 22px;
-    }
-
+    /* ---------- Beta / download ---------- */
+    .beta-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+    .store-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
     .store-btn {
-      position: relative;
-      border-radius: 16px;
-      border: 1px solid transparent;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--paper);
-      font-size: 14px;
-      cursor: pointer;
-      text-align: left;
-      transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+      display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 18px 8px 14px; border-radius: 14px;
+      background: #111; color: #fff; border: 1px solid #333; text-align: left; cursor: pointer;
     }
+    .store-btn .icon { width: 26px; height: 26px; display: inline-flex; }
+    .store-btn .icon svg { width: 26px; height: 26px; }
+    .store-btn small { display: block; font-size: 11px; opacity: .85; line-height: 1.2; }
+    .store-btn strong { display: block; font-size: 18px; line-height: 1.15; }
+    .store-btn.coming-soon { opacity: .72; cursor: not-allowed; }
+    .store-note { font-size: 14px; color: var(--muted); margin: 10px 0 0; }
+    .beta-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    .beta-list li { display: flex; gap: 12px; align-items: center; padding: 12px 16px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--rule); font-weight: 700; }
+    .beta-list .e { font-size: 22px; }
+    .note { margin: 16px 0 0; font-size: 14px; color: var(--muted); }
+    @media (max-width: 900px) { .beta-grid { grid-template-columns: 1fr; } }
 
-    .store-btn:hover { transform: translateY(-2px); }
-
-    .store-btn .icon {
-      width: 20px;
-      height: 22px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+    /* ---------- Gardnz ---------- */
+    .gardnz {
+      display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center;
+      padding: clamp(22px, 4vw, 36px); border-radius: 28px;
+      background: linear-gradient(135deg, var(--green-soft), var(--gold-soft)); border: 1px solid var(--rule);
     }
-
-    .store-btn .icon svg {
-      width: 20px;
-      height: 22px;
-      display: block;
+    .gardnz .sprout { font-size: 56px; line-height: 1; }
+    @media (prefers-reduced-motion: no-preference) {
+      .gardnz:hover .sprout { animation: grow .8s cubic-bezier(.3,1.6,.5,1); }
     }
+    @keyframes grow { 40% { transform: scale(1.25) rotate(-8deg); } }
+    .gardnz h2 { margin: 0 0 6px; font-family: var(--head-font); font-weight: var(--head-weight); text-transform: var(--head-transform); font-size: clamp(24px, 3vw, 34px); line-height: 1.1; }
+    .gardnz p { margin: 0; color: var(--ink-2); }
+    .soon { display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px; font-family: var(--sans); font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; background: var(--surface); color: var(--gold); border: 1px solid var(--rule); vertical-align: middle; }
+    @media (max-width: 760px) { .gardnz { grid-template-columns: 1fr; text-align: left; } }
 
-    .store-btn.coming-soon {
-      cursor: default;
-      opacity: 0.96;
-    }
+    /* ---------- About ---------- */
+    .about-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+    .about-cards { display: grid; gap: 14px; }
+    .about-card { display: flex; gap: 16px; align-items: flex-start; }
+    .about-card .ic { flex: none; width: 48px; height: 48px; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 22px; background: var(--accent-soft); }
+    .about-card h3 { margin: 0 0 4px; font-size: 18px; font-weight: 900; }
+    .about-card p { margin: 0; color: var(--ink-2); font-size: 15px; }
+    .tag-pill { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 10px 16px; border-radius: 999px; background: var(--surface); border: 1px solid var(--rule); font-size: 14px; }
+    .tag-pill a { font-weight: 900; }
+    @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
 
-    .store-btn.coming-soon::after {
-      content: "In beta testing";
-      position: absolute;
-      top: -8px;
-      right: -5px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #1f130b;
-      background: linear-gradient(135deg, #ffd980, #ffb960);
-      border: 1px solid rgba(255,255,255,0.45);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
-      pointer-events: none;
-    }
-
-    .store-btn.coming-soon:disabled {
-      opacity: 0.96;
-    }
-
-    .store-btn small {
-      display: block;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      opacity: 0.8;
-    }
-
-    .store-btn strong {
-      display: block;
-      font-size: 18px;
-      letter-spacing: 0.01em;
-    }
-
-    .store-ios { background: var(--ink); box-shadow: 0 14px 24px rgba(42,35,24,0.27); }
-    .store-android { background: var(--olive); box-shadow: 0 14px 24px rgba(92,107,46,0.22); }
-
-    .scan-divider {
-      margin: 18px 0 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--ink-faded);
-      font-size: 13px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .scan-divider::before,
-    .scan-divider::after {
-      content: "";
-      height: 1px;
-      background: var(--rule-dark);
-      flex: 1;
-    }
-
-    .qr-box {
-      width: 170px;
-      border: 1px dashed var(--rule-dark);
-      border-radius: 16px;
-      padding: 12px;
-      background: rgba(255,255,255,0.42);
-      text-align: center;
-    }
-
-    .qr-grid {
-      width: 100px;
-      margin: 4px auto 8px;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 4px;
-    }
-
-    .qr-grid span {
-      width: 100%;
-      padding-top: 100%;
-      display: block;
-      border-radius: 2px;
-      background: rgba(42,35,24,0.09);
-    }
-
-    .qr-grid span.dark { background: var(--ink); }
-
-    .qr-label {
-      font-size: 11px;
-      color: var(--ink-faded);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .download-right .ital {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 30px;
-      margin: 4px 0 18px;
-    }
-
-    .pill-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .pill {
-      border: 1px solid var(--rule);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.42);
-      padding: 12px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      transition: transform 0.2s ease;
-    }
-
-    .pill:hover { transform: translateX(4px); }
-
-    .pill .left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--ink-mid);
-      font-weight: 600;
-    }
-
-    .pill .check {
-      color: var(--olive);
-      font-weight: 700;
-    }
-
-    .note-box {
-      margin-top: 14px;
-      border: 1px solid var(--rule);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.34);
-      padding: 14px;
-      color: var(--ink-faded);
-      font-weight: 600;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 34px;
-      align-items: start;
-    }
-
-    .tag-pill {
-      margin-top: 22px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      border-radius: 999px;
-      border: 1px solid var(--rule);
-      background: rgba(255,255,255,0.45);
-      padding: 10px 14px;
-      color: var(--ink-mid);
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .tag-pill .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--olive);
-    }
-
-    .about-cards {
-      display: grid;
-      gap: 14px;
-    }
-
-    .about-card {
-      border: 1px solid var(--rule);
-      border-radius: 18px;
-      background: rgba(255,255,255,0.42);
-      padding: 16px;
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-    }
-
-    .about-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      font-size: 22px;
-      flex-shrink: 0;
-    }
-
-    .about-card h4 {
-      margin: 0 0 6px;
-      font-family: var(--serif);
-      font-size: 24px;
-    }
-
-    .about-card p {
-      margin: 0;
-      color: var(--ink-faded);
-      line-height: 1.62;
-      font-size: 16px;
-    }
-
-    .contact {
-      background: var(--paper-dark);
-      border-top: 1px solid var(--rule);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 34px;
-      align-items: start;
-    }
-
-    .contact-links {
-      display: grid;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .contact-link {
-      border: 1px solid var(--rule);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.44);
-      padding: 13px 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .contact-link:hover {
-      transform: translateY(-1px);
-      border-color: var(--rule-dark);
-    }
-
-    .contact-link.soon {
-      opacity: 0.82;
-      cursor: default;
-    }
-
-    .contact-link.soon:hover {
-      transform: none;
-      border-color: var(--rule);
-    }
-
-    .contact-link .icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      background: rgba(193,59,42,0.1);
-    }
-
-    .contact-link .meta {
-      display: grid;
-      gap: 2px;
-    }
-
-    .contact-link .meta small {
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-faded);
-      font-weight: 700;
-    }
-
-    .contact-link .meta strong {
-      color: var(--ink-mid);
-      font-size: 15px;
-    }
-
-    .social-coming-note {
-      margin: 10px 2px 0;
-      color: var(--ink-faded);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .form-card {
-      border: 1px solid var(--rule);
-      border-radius: 24px;
-      background: var(--paper);
-      box-shadow: var(--shadow-soft);
-      padding: 24px;
-    }
-
-    .form-title {
-      margin: 0 0 14px;
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 34px;
-      color: var(--ink);
-    }
-
-    .inquiry-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .inq-btn {
-      border: 1px solid var(--rule-dark);
-      border-radius: 12px;
-      background: rgba(255,255,255,0.5);
-      color: var(--ink-mid);
-      font-weight: 700;
-      padding: 10px 12px;
-      text-align: left;
-      font-size: 14px;
-      cursor: pointer;
-      transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-    }
-
-    .inq-btn.active {
-      background: var(--tomato-dim);
-      border-color: rgba(193,59,42,0.4);
-      color: var(--tomato);
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
+    /* ---------- Contact ---------- */
+    .contact { background: var(--bg-2); border-top: 1px solid var(--rule); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+    .contact-links { display: grid; gap: 10px; margin-top: 24px; }
+    .contact-link { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 16px; background: var(--surface); border: 1px solid var(--rule); text-decoration: none; min-width: 0; }
+    .contact-link:hover { border-color: var(--accent); }
+    .contact-link .icon { font-size: 22px; width: 32px; text-align: center; flex: none; }
+    .contact-link .meta { min-width: 0; }
+    .contact-link small { display: block; color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .contact-link strong { display: block; overflow-wrap: anywhere; }
+    .social-note { font-size: 14px; color: var(--muted); margin-top: 14px; }
+    .form-title { margin: 0 0 16px; font-size: 22px; font-weight: 900; }
+    .inquiry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .inq-btn { cursor: pointer; padding: 10px 12px; border-radius: 12px; border: 2px solid var(--rule); background: var(--surface-2); font-weight: 700; font-size: 15px; min-height: 44px; }
+    .inq-btn.active { border-color: var(--accent); background: var(--accent-soft); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .field { margin-bottom: 10px; }
-
-    .input,
-    .textarea {
-      width: 100%;
-      border: 1px solid var(--rule-dark);
-      background: rgba(255,255,255,0.65);
-      color: var(--ink);
-      border-radius: 12px;
-      font: inherit;
-      padding: 12px 14px;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    .field label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--ink-2); }
+    .input, .textarea {
+      width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--rule-strong); background: var(--surface-2); color: var(--ink); font: inherit; font-size: 16px;
     }
+    .textarea { min-height: 130px; resize: vertical; }
+    .input.invalid, .textarea.invalid { border-color: #C0281A; box-shadow: 0 0 0 3px rgba(192,40,26,.15); }
+    .btn.block { width: 100%; }
+    .privacy { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+    .success { display: none; text-align: center; padding: 20px 6px; }
+    .success .emoji { font-size: 44px; }
+    .success h3 { margin: 8px 0; font-size: 24px; }
+    .success p { color: var(--ink-2); }
+    @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .form-row, .inquiry-grid { grid-template-columns: 1fr; } }
 
-    .textarea {
-      min-height: 132px;
-      resize: vertical;
-      line-height: 1.55;
+    /* ---------- Footer ---------- */
+    .footer { background: #1E1912; color: #EDE5D3; padding: 64px 0 28px; }
+    .footer a { color: #F5EEDD; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
+    .footer .logo-word span { color: #F08A7A; }
+    .footer h2 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #E7C27A; margin: 0 0 14px; }
+    .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .footer ul a { text-decoration: none; }
+    .footer ul a:hover { text-decoration: underline; }
+    .footer p { color: #CFC5B0; font-size: 15px; }
+    .socials { display: flex; gap: 8px; margin-top: 12px; }
+    .social-soon { width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; background: rgba(255,255,255,.07); opacity: .75; }
+    .store-badge { display: inline-flex; align-items: center; gap: 10px; padding: 6px 12px; border-radius: 10px; background: #000; border: 1px solid #444; opacity: .7; }
+    .store-badge small { display: block; font-size: 10px; }
+    .store-badge strong { display: block; font-size: 15px; line-height: 1.1; }
+    .pill-soon { display: inline-block; margin-top: 4px; font-size: 12px; color: #CFC5B0; }
+    .footer-bottom { margin-top: 44px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.12); display: grid; grid-template-columns: auto 1fr auto; gap: 18px; font-size: 13px; color: #CFC5B0; align-items: center; }
+    .footer-bottom .links { display: flex; gap: 16px; }
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-bottom { grid-template-columns: 1fr; }
     }
+    @media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; } }
 
-    .input:focus,
-    .textarea:focus {
-      border-color: var(--mustard);
-      box-shadow: 0 0 0 3px rgba(184,134,11,0.14);
-    }
-
-    .invalid { border-color: var(--tomato) !important; box-shadow: 0 0 0 3px rgba(193,59,42,0.14) !important; }
-
-    .privacy {
-      margin: 8px 0 0;
-      text-align: center;
-      color: var(--ink-faded);
-      font-size: 11px;
-      line-height: 1.5;
-      letter-spacing: 0.02em;
-    }
-
-    .success {
-      display: none;
-      text-align: center;
-      padding: 34px 12px 24px;
-    }
-
-    .success .emoji {
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
-
-    .success h3 {
-      margin: 0 0 6px;
-      font-family: var(--serif);
-      font-size: 36px;
-    }
-
-    .success p {
-      margin: 0 0 20px;
-      color: var(--ink-faded);
-      line-height: 1.62;
-      font-size: 17px;
-    }
-
-    .footer {
-      position: relative;
-      overflow: hidden;
-      background: var(--ink);
-      color: var(--paper);
-      padding: 88px 0 22px;
-    }
-
-    .footer-glow-1,
-    .footer-glow-2 {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      filter: blur(6px);
-    }
-
-    .footer-glow-1 {
-      width: 300px;
-      height: 300px;
-      right: 14%;
-      top: -130px;
-      background: radial-gradient(circle at center, rgba(193,59,42,0.32), rgba(193,59,42,0));
-    }
-
-    .footer-glow-2 {
-      width: 290px;
-      height: 290px;
-      left: 8%;
-      bottom: -130px;
-      background: radial-gradient(circle at center, rgba(92,107,46,0.3), rgba(92,107,46,0));
-    }
-
-    .footer-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 22px;
-    }
-
-    .footer-brand .logo { margin-bottom: 14px; }
-
-    .footer-brand .name {
-      margin: 0;
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 38px;
-      color: var(--paper);
-    }
-
-    .footer-brand p {
-      margin: 8px 0 12px;
-      color: rgba(242,235,217,0.7);
-      max-width: 430px;
-      line-height: 1.66;
-      font-size: 16px;
-    }
-
-    .socials {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .socials a {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      border: 1px solid rgba(242,235,217,0.24);
-      display: grid;
-      place-items: center;
-      color: var(--paper);
-      transition: transform 0.2s ease, background-color 0.2s ease;
-      background: rgba(255,255,255,0.03);
-    }
-
-    .socials a:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.1);
-    }
-
-    .socials .social-soon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      border: 1px dashed rgba(242,235,217,0.32);
-      display: grid;
-      place-items: center;
-      color: rgba(242,235,217,0.7);
-      background: rgba(255,255,255,0.02);
-      cursor: default;
-    }
-
-    .footer-col h4 {
-      margin: 0 0 12px;
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .footer-col ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 9px;
-    }
-
-    .app-store-links {
-      gap: 10px;
-    }
-
-    .store-badge-wrap {
-      position: relative;
-    }
-
-    .store-badge {
-      width: 100%;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      min-height: 50px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.22);
-      background: #000;
-      color: #fff;
-      text-decoration: none;
-      pointer-events: none;
-      opacity: 0.94;
-    }
-
-    .store-badge svg {
-      flex-shrink: 0;
-    }
-
-    .store-badge-text {
-      display: inline-flex;
-      flex-direction: column;
-      line-height: 1.1;
-      gap: 2px;
-    }
-
-    .store-badge-text small {
-      font-size: 10px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .store-badge-text strong {
-      font-size: 15px;
-      color: #fff;
-      font-weight: 700;
-    }
-
-    .coming-soon-pill {
-      position: absolute;
-      top: -7px;
-      right: -4px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #1f130b;
-      background: linear-gradient(135deg, #ffd980, #ffb960);
-      border: 1px solid rgba(255,255,255,0.45);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
-      pointer-events: none;
-    }
-
-    .footer-col li a {
-      color: rgba(242,235,217,0.76);
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    .footer-col li a:hover { color: var(--paper); }
-
-    .footer-col.tomato h4 { color: var(--tomato); }
-    .footer-col.olive h4 { color: var(--olive); }
-    .footer-col.mustard h4 { color: var(--mustard); }
-
-    .partner-tile {
-      margin: 0 0 14px;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(242,235,217,0.2);
-      background: rgba(255,255,255,0.03);
-    }
-
-    .partner-tile-label {
-      font-size: 11px;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: rgba(242,235,217,0.6);
-      margin-bottom: 6px;
-    }
-
-    .partner-tile a {
-      color: var(--paper);
-      font-size: 15px;
-      font-weight: 700;
-    }
-
-    .footer-bottom {
-      position: relative;
-      margin-top: 30px;
-      border-top: 1px solid rgba(242,235,217,0.16);
-      padding-top: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      color: rgba(242,235,217,0.64);
-      font-size: 13px;
-    }
-
-    .footer-center-note {
-      width: 100%;
-      text-align: center;
-      color: rgba(242,235,217,0.78);
-      line-height: 1.62;
-    }
-
-    .footer-center-note a {
-      color: var(--paper);
-      font-weight: 700;
-    }
-
-    .footer-bottom .links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .footer-bottom a:hover { color: var(--paper); }
-
-    @media (max-width: 1023px) {
-      .section { padding: 88px 0; }
-      .hero-food { display: none; }
-      /* Compact hero: top-align content instead of centering in 100vh */
-      .hero { min-height: auto; align-items: flex-start; }
-      .scroll-hint { display: none; }
-      /* Mini phone fills the hero dead space on scaled screens */
-      .phone-wrap {
-        --mini-scale: 0.5;
-        width: 320px;
-        right: 16px;
-        top: 100px;
-        transform: scale(var(--mini-scale));
-        transform-origin: top right;
-        animation: phoneFloatMini 7s ease-in-out infinite;
-        pointer-events: none;
-      }
-      .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .feature-card:nth-child(3n) { border-right: 1px solid var(--rule); }
-      .feature-card:nth-child(2n) { border-right: 0; }
-      .feature-card:nth-last-child(-n + 3) { border-bottom: 1px solid var(--rule); }
-      .feature-card:nth-last-child(-n + 2) { border-bottom: 0; }
-      .download-grid,
-      .about-grid,
-      .contact-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 767px) {
-      .container { width: calc(100% - 32px); }
-      .section { padding: 72px 0; }
-      .phone-wrap { --mini-scale: 0.44; right: 10px; top: 96px; }
-      .nav-links,
-      .nav-ctas { display: none; }
-      .hamburger { display: block; }
-      .hero-inner { padding-top: 96px; }
-      .hero p { font-size: 18px; }
-      .feature-grid { grid-template-columns: 1fr; }
-      .feature-card { border-right: 0 !important; border-bottom: 1px solid var(--rule) !important; }
-      .feature-card:last-child { border-bottom: 0 !important; }
-      .steps { grid-template-columns: 1fr; gap: 24px; }
-      .steps::before { display: none; }
-      .step { text-align: left; }
-      .step .step-num { margin-left: 0; }
-      .form-row { grid-template-columns: 1fr; }
-      .inquiry-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .footer-brand { margin-bottom: 12px; }
-      .footer-bottom { flex-direction: column; align-items: center; }
-    }
-
-    @media (max-width: 479px) {
-      .phone-wrap { display: none; }
-      .hero-cta { flex-direction: column; }
-      .hero-cta .btn,
-      .store-btn { width: 100%; }
-      .store-stack { width: 100%; max-width: none; }
-      .qr-box { width: 100%; max-width: 240px; }
+    /* ---------- Reveal on scroll (JS only) ---------- */
+    @media (prefers-reduced-motion: no-preference) {
+      .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+      .js .reveal.visible { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
-  <header class="navbar" id="navbar">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav" id="navbar">
     <div class="container nav-inner">
       <a href="#top" class="logo" aria-label="Fixins™ home">
-        <span class="logo-mark">F</span>
-        <span class="logo-word">Fix<span class="ins">ins</span></span>
+        <img src="favicon.svg" alt="" width="36" height="36" />
+        <span class="logo-word">Fix<span>ins</span></span>
       </a>
-
       <nav class="nav-links" aria-label="Primary">
-        <a href="#features">Features</a>
-        <a href="#download">Download</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#try">Try it</a>
+        <a href="#download">Beta</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
-
-      <div class="nav-ctas">
-        <a href="#download" class="btn ghost">Get the App</a>
-        <a href="#download" class="btn tomato">Download App</a>
-      </div>
-
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+      <a href="#download" class="btn btn-primary nav-cta">Get the beta</a>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <div class="mobile-overlay" id="mobileMenu">
-    <div class="mobile-panel">
-      <div class="mobile-menu">
-        <a class="link" href="#features" onclick="toggleMenu(false)">Features</a>
-        <a class="link" href="#download" onclick="toggleMenu(false)">Download</a>
-        <a class="link" href="#about" onclick="toggleMenu(false)">About</a>
-        <a class="link" href="#contact" onclick="toggleMenu(false)">Contact</a>
-        <a class="btn ghost" href="#download" onclick="toggleMenu(false)">Get the App</a>
-        <a class="btn tomato" href="#download" onclick="toggleMenu(false)">Download App</a>
-      </div>
-    </div>
-  </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+    <a href="#how-it-works" onclick="toggleMenu(false)">How it works</a>
+    <a href="#try" onclick="toggleMenu(false)">Try it</a>
+    <a href="#download" onclick="toggleMenu(false)">Beta</a>
+    <a href="#about" onclick="toggleMenu(false)">About</a>
+    <a href="#contact" onclick="toggleMenu(false)">Contact</a>
+    <a class="btn btn-primary" href="#download" onclick="toggleMenu(false)">Get the beta</a>
+  </nav>
 
-  <main id="top">
-    <section class="hero">
-      <div class="paper-lines"></div>
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="blob blob-3"></div>
-
-      <div class="hero-food" aria-hidden="true">
-        <span>🍅</span>
-        <span>🥕</span>
-        <span>🧄</span>
-        <span>🫙</span>
-        <span>🌿</span>
-        <span>🫒</span>
-        <span>🍋</span>
-      </div>
-
-      <div class="phone-wrap" aria-hidden="true">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="screen">
-            <div>
-              <div class="logo-mini">F</div>
-              <h4>Fixins™</h4>
-              <p>What is for dinner? Already solved.</p>
-            </div>
-            <div class="phone-card">
-              <div style="font-weight:700;color:var(--ink-mid);margin-bottom:6px;">Tonight</div>
-              <div style="font-family:var(--serif);font-size:22px;margin-bottom:10px;">Roasted Veggie Pasta</div>
-              <div class="phone-actions">
-                <div class="mini-btn tomato">Meal Planning</div>
-                <div class="mini-btn ghost">Shopping List</div>
-              </div>
-              <div class="phone-tabs" aria-hidden="true"><span>🍽️</span><span>🛒</span><span>⏱️</span><span>👨‍👩‍👧</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="hero-inner fade-up visible">
-          <a class="hero-burst js-beta-link" href="#contact" aria-label="Sign up to be a beta tester">
-            <strong>Sign Up</strong>
-            <span>To Be A Beta Tester</span>
-          </a>
-          <h1>
-            Dinner's<br />
-            <i>figured out.</i><br />
-            <span class="olive">Finally.</span>
-          </h1>
-          <p>Fixins™ builds your weekly meal plan with AI, turns it into a smart grocery list, compares store prices near you, and walks you through cooking — all in one app. Now in beta on iOS and Android.</p>
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="hero-badge"><b>Beta</b> iOS + Android · by Aerion Health</p>
+          <h1 id="hero-title">Dinner's <i>figured out.</i><br /><span class="finally">Finally.</span></h1>
+          <p class="lead">Fixins™ plans meals for everyone at your table, keeps track of what's already in your pantry, writes the shopping list for you, and walks you through cooking one step at a time.</p>
           <div class="hero-cta">
-            <a class="btn tomato js-beta-link" id="heroBetaCta" href="#contact">✉️ Become a Beta Tester</a>
-            <a class="btn ghost" id="heroSecondaryCta" href="#how-it-works">See How It Works</a>
+            <a class="btn btn-primary js-beta-link" id="heroBetaCta" href="#contact"><span class="wiggle" aria-hidden="true">✉️</span> Become a Beta Tester</a>
+            <a class="btn btn-ghost" id="heroSecondaryCta" href="#how-it-works">See how it works <span class="wiggle" aria-hidden="true">↓</span></a>
           </div>
           <p class="hero-hint" id="deviceHint">Tapping opens your email app — or write to <span class="js-beta-email">admin [at] simpledigitalsolution.com</span></p>
-          <div class="hero-stats">
-            <span>iOS + Android</span>
-            <span>AI Meal Plans</span>
-            <span>Store Price Compare</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="scroll-hint" aria-hidden="true">
-        <span>Scroll</span>
-        <div class="scroll-line"></div>
-      </div>
-    </section>
-
-    <section class="section features" id="features">
-      <div class="container">
-        <div class="center-head fade-up">
-          <div class="eyebrow">What You Get</div>
-          <h2 class="h2">Everything the kitchen needs. <i>Nothing it doesn't.</i></h2>
+          <ul class="hero-facts" aria-label="Highlights">
+            <li>Diet variants per person</li>
+            <li>Pantry-aware lists</li>
+            <li>Cook mode with safe temps</li>
+          </ul>
         </div>
 
-        <div class="feature-grid">
-          <article class="feature-card fade-up">
-            <div class="accent" style="background:var(--tomato);"></div>
-            <div class="icon-box" style="background:var(--tomato-dim);">📅</div>
-            <h3>AI Weekly Meal Planner</h3>
-            <p>AI builds your week of dinners around what's already in your pantry, with a calendar view the whole household can see.</p>
-          </article>
-
-          <article class="feature-card fade-up fade-delay-1">
-            <div class="accent" style="background:var(--olive);"></div>
-            <div class="icon-box" style="background:var(--olive-pale);">🛒</div>
-            <h3>Auto Grocery Lists</h3>
-            <p>Your meal plan becomes a shoppable list instantly, so the store trip is faster and nothing gets forgotten.</p>
-          </article>
-
-          <article class="feature-card fade-up fade-delay-2">
-            <div class="accent" style="background:var(--mustard);"></div>
-            <div class="icon-box" style="background:var(--mustard-pale);">💰</div>
-            <h3>Store Price Comparison</h3>
-            <p>See nearby store prices for your list and spot the savings before you leave the house.</p>
-          </article>
-
-          <article class="feature-card fade-up">
-            <div class="accent" style="background:var(--terra);"></div>
-            <div class="icon-box" style="background:rgba(184,104,90,0.12);">🧑‍🍳</div>
-            <h3>Step-by-Step Cooking Guides</h3>
-            <p>Follow each recipe step by step with built-in timers, so dinner comes together without guesswork.</p>
-          </article>
-
-          <article class="feature-card fade-up fade-delay-1">
-            <div class="accent" style="background:var(--sage);"></div>
-            <div class="icon-box" style="background:rgba(90,107,82,0.12);">📸</div>
-            <h3>Scan &amp; Upload Pantry</h3>
-            <p>Snap a receipt, scan a barcode, or photograph your shelf — Fixins™ fills your pantry and suggests meals from what you have.</p>
-          </article>
-
-          <article class="feature-card fade-up fade-delay-2">
-            <div class="accent" style="background:var(--tomato);"></div>
-            <div class="icon-box" style="background:var(--tomato-dim);">👨‍👩‍👧</div>
-            <h3>Shared Household Plans</h3>
-            <p>Invite your household, vote on meals, and keep plans and lists synced without endless text threads.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="how-it-works">
-      <div class="container">
-        <div class="center-head fade-up">
-          <div class="eyebrow" style="color:var(--olive);">How It Works</div>
-          <h2 class="h2">Plan less. Cook better. <i>Enjoy dinner again.</i></h2>
-        </div>
-
-        <div class="steps">
-          <article class="step active fade-up">
-            <div class="step-num">1</div>
-            <h3>Plan Your Week</h3>
-            <p>Let AI suggest a week of meals from your pantry and preferences, then tweak it in minutes.</p>
-          </article>
-          <article class="step fade-up fade-delay-1">
-            <div class="step-num">2</div>
-            <h3>Shop with Confidence</h3>
-            <p>Your grocery list builds itself, and price comparison shows where nearby stores can save you money.</p>
-          </article>
-          <article class="step fade-up fade-delay-2">
-            <div class="step-num">3</div>
-            <h3>Cook Without Guessing</h3>
-            <p>Step-by-step cooking guides with timers walk you from prep to table, one step at a time.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="quote-strip">
-      <div class="quote-glow-1"></div>
-      <div class="quote-glow-2"></div>
-      <div class="container">
-        <div class="quote-wrap fade-up">
-          <div class="quote-mark">"</div>
-          <p class="quote-text">Fixins™ turned Sunday dread into something we actually look forward to. The grocery list alone saved us an hour every week.</p>
-          <div class="quote-attr">- Fixins™ Beta Family - Family of 4 - Minneapolis, MN</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section download" id="download">
-      <div class="container">
-        <div class="download-grid">
-          <div class="fade-up">
-            <div class="eyebrow" style="color:var(--tomato);">Get the App</div>
-            <h2 class="h2">Ready when <i>you are.</i></h2>
-            <p class="muted">Fixins™ is in beta on iOS and Android. Request an invite and we'll get you set up through TestFlight or Google Play testing. Free to start, with premium features arriving as the product grows.</p>
-
-            <a class="btn tomato js-beta-link" id="downloadBetaCta" href="#contact" style="margin-bottom:22px;">✉️ Request a Beta Invite</a>
-
-            <div class="store-stack">
-              <button class="store-btn store-ios coming-soon" id="primary-store-btn" type="button" data-url="https://apps.apple.com/app/fixins" aria-disabled="true" disabled>
-                <span class="icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M17.62 12.96c.01 2.18 1.9 2.91 1.92 2.92-.02.05-.3 1.03-.98 2.02-.59.86-1.21 1.71-2.17 1.72-.95.02-1.26-.56-2.35-.56-1.09 0-1.43.54-2.33.58-.93.04-1.64-.94-2.24-1.8-1.22-1.77-2.15-5-1.1-6.85.52-.9 1.45-1.47 2.46-1.49.77-.01 1.5.51 1.97.51.47 0 1.36-.63 2.29-.54.39.02 1.49.16 2.2 1.19-.05.03-1.31.77-1.3 2.3z" fill="#fff"/>
-                    <path d="M15.37 3.5c.44-.5 1.17-.88 1.77-.9.08.7-.2 1.41-.63 1.91-.41.51-1.1.9-1.78.85-.09-.69.25-1.41.64-1.86z" fill="#fff"/>
-                  </svg>
-                </span>
-                <span><small>Download on the</small><strong>App Store</strong></span>
-              </button>
-              <button class="store-btn store-android coming-soon" id="secondary-store-btn" type="button" data-url="https://play.google.com/store/apps/fixins" aria-disabled="true" disabled>
-                <span class="icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M3.2 2.4c.2-.11.45-.11.65 0l10.65 6.07-2.49 2.51L3.2 2.4z" fill="#00D18F"/>
-                    <path d="M3.2 2.4l8.81 8.58-8.81 8.58A.75.75 0 0 1 2.8 19V3a.75.75 0 0 1 .4-.6z" fill="#00A3FF"/>
-                    <path d="M12.01 10.98l2.49 2.51L3.85 19.56l8.16-8.58z" fill="#FFD54F"/>
-                    <path d="M16.16 9.6l2.57 1.46c.7.4.7 1.42 0 1.82l-2.57 1.46-2.66-2.53 2.66-2.21z" fill="#FF6E6E"/>
-                  </svg>
-                </span>
-                <span><small>Get it on</small><strong>Google Play</strong></span>
-              </button>
-            </div>
-
-            <div class="scan-divider">store listings</div>
-            <p class="muted" style="font-size:14px;">App Store and Google Play listings go live at public launch. Beta testers get access first.</p>
-          </div>
-
-          <div class="download-right fade-up fade-delay-1">
-            <div class="ital">In the beta today:</div>
-            <div class="pill-list">
-              <div class="pill"><div class="left"><span>🤖</span>AI weekly meal plans from your pantry</div><div class="check">✓</div></div>
-              <div class="pill"><div class="left"><span>🛒</span>Auto-generated shopping list</div><div class="check">✓</div></div>
-              <div class="pill"><div class="left"><span>💰</span>Nearby store price comparison</div><div class="check">✓</div></div>
-              <div class="pill"><div class="left"><span>🧑‍🍳</span>Step-by-step cooking guides with timers</div><div class="check">✓</div></div>
-              <div class="pill"><div class="left"><span>📸</span>Receipt, barcode &amp; photo pantry scan</div><div class="check">✓</div></div>
-              <div class="pill"><div class="left"><span>👨‍👩‍👧</span>Shared household plans &amp; meal voting</div><div class="check">✓</div></div>
-            </div>
-            <div class="note-box">Free during beta. Premium features arrive with the public launch.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="about">
-      <div class="container">
-        <div class="about-grid">
-          <div class="fade-up">
-            <div class="eyebrow" style="color:var(--olive);">About Fixins™</div>
-            <h2 class="h2">Built for the kitchen counter, <i>not the app store.</i></h2>
-            <p class="muted">Fixins™ started with one question: why is planning dinner still the hardest part of family life? We built it to turn that nightly stress into a simple system that works for real households, not ideal schedules.</p>
-            <p class="muted">The core idea is straightforward: if planning is easier, food gets better. Better food means better energy, less waste, and calmer evenings for everyone at the table.</p>
-            <div class="tag-pill">
-              <span class="dot"></span>
-              A product by <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer"><strong>Aerion Health</strong></a> · <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer"><strong>Simple Digital Solution LLC</strong></a>
-            </div>
-          </div>
-
-          <div class="about-cards fade-up fade-delay-1">
-            <article class="about-card">
-              <div class="about-icon" style="background:var(--tomato-dim);">❤️</div>
-              <div>
-                <h4>Family-First Design</h4>
-                <p>Every feature starts with real routines, picky eaters, and packed weekday calendars.</p>
+        <div class="hero-stage">
+          <div class="hero-phone-wrap" id="heroPhone">
+            <a class="burst js-beta-link" href="#contact" aria-label="Sign up to be a beta tester">
+              <strong>Sign up</strong>
+              <span>to be a beta tester</span>
+            </a>
+            <span class="floaty f1" aria-hidden="true">🍅 Tomatoes added</span>
+            <span class="floaty f2" aria-hidden="true"><span class="dot"></span> 5 items to buy</span>
+            <span class="floaty f3" aria-hidden="true">🧑‍🍳 Step 2 of 6</span>
+            <div class="phone">
+              <div class="screen">
+                <span class="island" aria-hidden="true"></span>
+                <img class="js-screen" data-screen="home" src="assets/screens/classic-home.jpg" width="495" height="1100" fetchpriority="high"
+                     alt="Fixins home screen: today's date, breakfast, lunch and dinner slots, and nutrition for the day" />
               </div>
-            </article>
-            <article class="about-card">
-              <div class="about-icon" style="background:var(--olive-pale);">🔒</div>
-              <div>
-                <h4>Privacy-Aware</h4>
-                <p>We collect only what is needed to make the app useful, and never sell personal data.</p>
+            </div>
+          </div>
+          <div class="look-switch" role="group" aria-label="App look">
+            <span class="look-label sr-only">App look:</span>
+            <button type="button" data-look-btn="classic" aria-pressed="true"><span class="swatch classic" aria-hidden="true"></span>Classic</button>
+            <button type="button" data-look-btn="inverted" aria-pressed="false"><span class="swatch inverted" aria-hidden="true"></span>Inverted</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Plan the week</span><span>Scan a receipt</span><span>Snap the pantry</span><span>Quick-add staples</span><span>Shopping list, done</span><span>Nearby price estimates</span><span>Cook step by step</span><span>Safe cooking temps</span><span>Vote on dinner</span>
+        <span>Plan the week</span><span>Scan a receipt</span><span>Snap the pantry</span><span>Quick-add staples</span><span>Shopping list, done</span><span>Nearby price estimates</span><span>Cook step by step</span><span>Safe cooking temps</span><span>Vote on dinner</span>
+      </div>
+    </div>
+
+    <!-- ================= SCROLL TOUR ================= -->
+    <section class="section" id="how-it-works" aria-labelledby="tour-title">
+      <span id="features"></span>
+      <div class="container">
+        <div class="tour-head center reveal">
+          <p class="eyebrow">How it works</p>
+          <h2 class="h2" id="tour-title">From "what's for dinner?" to <i>dinner.</i></h2>
+          <p class="lead">Scroll through the real app. Flip the look any time.</p>
+        </div>
+
+        <div class="tour">
+          <div class="tour-phone">
+            <div class="phone">
+              <div class="screen stack" id="tourStack">
+                <span class="island" aria-hidden="true"></span>
+                <img class="js-screen on" data-screen="meals" data-step="0" src="assets/screens/classic-meals.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Meal Plans hub with plans, calendar and favourites, plus buttons to create a plan or cook from the pantry" />
+                <img class="js-screen" data-screen="pantry" data-step="1" src="assets/screens/classic-pantry.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Pantry screen with an add field, quick-add chips like garlic powder and paprika, and a Scan a receipt button" />
+                <img class="js-screen" data-screen="shopping" data-step="2" src="assets/screens/classic-shopping.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Shopping list grouped into produce, dairy and pantry, with an item count and estimated total" />
+                <img class="js-screen" data-screen="cook" data-step="3" src="assets/screens/classic-cook.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Cook mode: pick a recipe, step through it with Prev and Next, and open Safe Cooking Temperatures" />
+                <img class="js-screen" data-screen="household" data-step="4" src="assets/screens/classic-household.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Home screen showing today's meals and household votes for breakfast, lunch and dinner" />
+                <img class="js-screen" data-screen="settings" data-step="5" src="assets/screens/classic-settings.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Settings with the Appearance picker: classic, redesign, inverted and editorial" />
               </div>
+            </div>
+            <ol class="tour-progress" id="tourDots" aria-label="Tour steps">
+              <li><button type="button" data-go="0" aria-label="Step 1: Plan" aria-current="step"></button></li>
+              <li><button type="button" data-go="1" aria-label="Step 2: Pantry"></button></li>
+              <li><button type="button" data-go="2" aria-label="Step 3: Shop"></button></li>
+              <li><button type="button" data-go="3" aria-label="Step 4: Cook"></button></li>
+              <li><button type="button" data-go="4" aria-label="Step 5: Household"></button></li>
+              <li><button type="button" data-go="5" aria-label="Step 6: Looks"></button></li>
+            </ol>
+          </div>
+
+          <div class="tour-steps">
+            <article class="step active" data-step="0" id="step-plan">
+              <figure class="step-shot"><div class="phone"><div class="screen"><span class="island" aria-hidden="true"></span>
+                <img class="js-screen" data-screen="meals" src="assets/screens/classic-meals.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Meal Plans hub with plans, calendar and favourites" />
+              </div></div></figure>
+              <span class="step-num" aria-hidden="true">1</span>
+              <h3>Plan for everyone at the table</h3>
+              <p>Set how many people you're feeding and give each person their own diet and restrictions. One plan, with variants that fit everyone, so nobody gets a separate dinner by accident.</p>
+              <ul class="ticks">
+                <li>Day, week or month plans</li>
+                <li>Per-person diet variants</li>
+                <li>Save plans and switch between them</li>
+              </ul>
             </article>
-            <article class="about-card">
-              <div class="about-icon" style="background:var(--mustard-pale);">🌱</div>
-              <div>
-                <h4>Part of a Bigger Ecosystem</h4>
-                <p>Fixins™ connects with Gardnz around one vision: grow it, cook it, track it.</p>
+
+            <article class="step" data-step="1" id="step-pantry">
+              <figure class="step-shot"><div class="phone"><div class="screen"><span class="island" aria-hidden="true"></span>
+                <img class="js-screen" data-screen="pantry" src="assets/screens/classic-pantry.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Pantry screen with quick-add chips and a Scan a receipt button" />
+              </div></div></figure>
+              <span class="step-num" aria-hidden="true">2</span>
+              <h3>Tell it what you've got</h3>
+              <p>Fixins keeps a running pantry, so plans and lists work around what's already at home. Add things however is quickest.</p>
+              <ul class="ticks">
+                <li>Type it in, or tap quick-add chips</li>
+                <li>Scan a grocery receipt</li>
+                <li>Snap a photo of the pantry shelf</li>
+                <li>"Cook from pantry" when you don't want to shop</li>
+              </ul>
+            </article>
+
+            <article class="step" data-step="2" id="step-shop">
+              <figure class="step-shot"><div class="phone"><div class="screen"><span class="island" aria-hidden="true"></span>
+                <img class="js-screen" data-screen="shopping" src="assets/screens/classic-shopping.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Shopping list grouped by aisle with an item count and estimated total" />
+              </div></div></figure>
+              <span class="step-num" aria-hidden="true">3</span>
+              <h3>A shopping list that writes itself</h3>
+              <p>Your list is built from the recipes in your plan, grouped by aisle, minus what's already in the pantry. Share it with whoever's doing the run.</p>
+              <ul class="ticks">
+                <li>Built from your plan's recipes</li>
+                <li>Price estimates from nearby stores</li>
+                <li>Check things off as you go</li>
+              </ul>
+            </article>
+
+            <article class="step" data-step="3" id="step-cook">
+              <figure class="step-shot"><div class="phone"><div class="screen"><span class="island" aria-hidden="true"></span>
+                <img class="js-screen" data-screen="cook" src="assets/screens/classic-cook.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Cook mode with step navigation and Safe Cooking Temperatures" />
+              </div></div></figure>
+              <span class="step-num" aria-hidden="true">4</span>
+              <h3>Cook one step at a time</h3>
+              <p>Big, readable steps you can follow with flour on your hands. Timers when a step needs one, and safe cooking temperatures a tap away.</p>
+              <ul class="ticks">
+                <li>Step-by-step cook mode</li>
+                <li>Built-in step timers</li>
+                <li>Safe cooking temperature guide</li>
+              </ul>
+            </article>
+
+            <article class="step" data-step="4" id="step-household">
+              <figure class="step-shot"><div class="phone"><div class="screen"><span class="island" aria-hidden="true"></span>
+                <img class="js-screen" data-screen="household" src="assets/screens/classic-household.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Home screen with today's meals and household votes" />
+              </div></div></figure>
+              <span class="step-num" aria-hidden="true">5</span>
+              <h3>Let the house vote</h3>
+              <p>Anyone in the household can suggest a dish and give meals a thumbs up or down. Fewer "I don't care, you pick" conversations.</p>
+              <ul class="ticks">
+                <li>Household dish suggestions</li>
+                <li>Votes for breakfast, lunch and dinner</li>
+                <li>Invite the people you cook for</li>
+              </ul>
+            </article>
+
+            <article class="step" data-step="5" id="step-looks">
+              <figure class="step-shot"><div class="phone"><div class="screen"><span class="island" aria-hidden="true"></span>
+                <img class="js-screen" data-screen="settings" src="assets/screens/classic-settings.jpg" width="495" height="1100" loading="lazy" decoding="async" alt="Settings with the Appearance picker" />
+              </div></div></figure>
+              <span class="step-num" aria-hidden="true">6</span>
+              <h3>Four looks. Pick yours.</h3>
+              <p>Warm painted-food Classic, clean Redesign, dark Inverted with an acid-green accent, or Editorial. Switch in Settings and it changes right away.</p>
+              <ul class="looks-row" aria-label="Available looks">
+                <li><span class="swatch classic" aria-hidden="true"></span>Classic</li>
+                <li><span class="swatch redesign" aria-hidden="true"></span>Redesign</li>
+                <li><span class="swatch inverted" aria-hidden="true"></span>Inverted</li>
+                <li><span class="swatch editorial" aria-hidden="true"></span>Editorial</li>
+              </ul>
+              <div class="look-switch" role="group" aria-label="Preview a look on this page">
+                <button type="button" data-look-btn="classic" aria-pressed="true"><span class="swatch classic" aria-hidden="true"></span>Preview Classic</button>
+                <button type="button" data-look-btn="inverted" aria-pressed="false"><span class="swatch inverted" aria-hidden="true"></span>Preview Inverted</button>
               </div>
             </article>
           </div>
@@ -1980,69 +839,190 @@
       </div>
     </section>
 
-    <section class="section contact" id="contact">
+    <!-- ================= INTERACTIVE DEMO ================= -->
+    <section class="section demo" id="try" aria-labelledby="try-title">
       <div class="container">
-        <div class="contact-grid">
-          <div class="fade-up">
-            <h2 class="h2">Questions? <i>We're real people.</i></h2>
-            <p class="muted">Reach out for bug reports, partnerships, feature ideas, or anything else. We read every message.</p>
+        <div class="center reveal">
+          <p class="demo-tag"><span aria-hidden="true">▶</span> Interactive demo · sample data</p>
+          <h2 class="h2" id="try-title">Try it: <i>watch the list build itself.</i></h2>
+          <p class="lead">Pick some dinners, then tap what's already in your pantry. This is a simplified demo on this page, not your account, but it's the same idea the app runs on.</p>
+        </div>
 
-            <div class="contact-links">
-              <a class="contact-link js-beta-link" href="#contact">
-                <span class="icon">✉️</span>
-                <span class="meta"><small>Email</small><strong class="js-beta-email">admin [at] simpledigitalsolution.com</strong></span>
-              </a>
-              <a class="contact-link" href="https://instagram.com/simpledigiz" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <span class="icon">📸</span>
-                <span class="meta"><small>Instagram</small><strong>@simpledigiz</strong></span>
-              </a>
-              <a class="contact-link" href="https://www.facebook.com/simpledigitalsolution" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                <span class="icon">👥</span>
-                <span class="meta"><small>Facebook</small><strong>facebook.com/simpledigitalsolution</strong></span>
-              </a>
-              <a class="contact-link" href="https://x.com/Simpledigiz" target="_blank" rel="noopener noreferrer" aria-label="X">
-                <span class="icon">𝕏</span>
-                <span class="meta"><small>Twitter/X</small><strong>@Simpledigiz</strong></span>
-              </a>
-            </div>
-            <p class="social-coming-note">Follow our parent brand socials for updates, or email <span class="js-beta-email">admin [at] simpledigitalsolution.com</span>.</p>
+        <noscript><p class="center muted">The demo needs JavaScript. Everything else on this page works without it.</p></noscript>
+
+        <div class="demo-grid reveal" id="demo">
+          <div class="card">
+            <h3>1. This week's dinners</h3>
+            <p class="sub">Tap to add or remove.</p>
+            <div class="recipe-list" id="recipeList"></div>
           </div>
+          <div class="card">
+            <h3>2. Already in your pantry</h3>
+            <p class="sub">Tap what you have. It comes off the list.</p>
+            <div class="chips" id="pantryChips"></div>
+          </div>
+          <div class="card list-card">
+            <div class="list-head">
+              <h3>3. Shopping list</h3>
+              <span class="count" id="listCount" aria-hidden="true">0</span>
+            </div>
+            <p class="summary" id="listSummary" aria-live="polite"></p>
+            <div id="shoppingList"></div>
+            <p class="covered" id="coveredNote"></p>
+          </div>
+        </div>
+        <div class="demo-foot">
+          <span>Sample recipes and items for illustration only.</span>
+          <button type="button" class="linkish" id="demoReset">Reset demo</button>
+        </div>
+      </div>
+    </section>
 
-          <div class="form-card fade-up fade-delay-1">
-            <div id="contactFormWrap">
-              <h3 class="form-title">Send us a message</h3>
-              <form id="contactForm" novalidate>
-                <div class="inquiry-grid" id="inquiryGrid">
-                  <button class="inq-btn active" type="button" data-type="bug" onclick="selectInquiry(this)">🐛 Bug Report</button>
-                  <button class="inq-btn" type="button" data-type="idea" onclick="selectInquiry(this)">💡 Feature Idea</button>
-                  <button class="inq-btn" type="button" data-type="partnership" onclick="selectInquiry(this)">🤝 Partnership</button>
-                  <button class="inq-btn" type="button" data-type="general" onclick="selectInquiry(this)">💬 General</button>
-                </div>
+    <!-- ================= BETA / DOWNLOAD ================= -->
+    <section class="section" id="download" aria-labelledby="download-title">
+      <div class="container beta-grid">
+        <div class="reveal">
+          <p class="eyebrow">Get the app</p>
+          <h2 class="h2" id="download-title">Get in early. <i>Shape what's next.</i></h2>
+          <p class="lead">Fixins™ is in beta on iOS and Android. Ask for an invite and we'll set you up through TestFlight or Google Play testing. Beta testers get access first, and we read every bit of feedback.</p>
+          <a class="btn btn-primary js-beta-link" id="downloadBetaCta" href="#contact"><span class="wiggle" aria-hidden="true">✉️</span> Request a Beta Invite</a>
 
-                <div class="form-row">
-                  <div class="field">
-                    <input class="input" id="name" name="name" type="text" placeholder="Your name" />
-                  </div>
-                  <div class="field">
-                    <input class="input" id="email" name="email" type="email" placeholder="Email address" />
-                  </div>
-                </div>
+          <div class="store-row">
+            <button class="store-btn store-ios coming-soon" id="primary-store-btn" type="button" aria-disabled="true" disabled>
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M17.62 12.96c.01 2.18 1.9 2.91 1.92 2.92-.02.05-.3 1.03-.98 2.02-.59.86-1.21 1.71-2.17 1.72-.95.02-1.26-.56-2.35-.56-1.09 0-1.43.54-2.33.58-.93.04-1.64-.94-2.24-1.8-1.22-1.77-2.15-5-1.1-6.85.52-.9 1.45-1.47 2.46-1.49.77-.01 1.5.51 1.97.51.47 0 1.36-.63 2.29-.54.39.02 1.49.16 2.2 1.19-.05.03-1.31.77-1.3 2.3z" fill="#fff"/><path d="M15.37 3.5c.44-.5 1.17-.88 1.77-.9.08.7-.2 1.41-.63 1.91-.41.51-1.1.9-1.78.85-.09-.69.25-1.41.64-1.86z" fill="#fff"/></svg>
+              </span>
+              <span><small>Download on the</small><strong>App Store</strong></span>
+            </button>
+            <button class="store-btn store-android coming-soon" id="secondary-store-btn" type="button" aria-disabled="true" disabled>
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M3.2 2.4c.2-.11.45-.11.65 0l10.65 6.07-2.49 2.51L3.2 2.4z" fill="#00D18F"/><path d="M3.2 2.4l8.81 8.58-8.81 8.58A.75.75 0 0 1 2.8 19V3a.75.75 0 0 1 .4-.6z" fill="#00A3FF"/><path d="M12.01 10.98l2.49 2.51L3.85 19.56l8.16-8.58z" fill="#FFD54F"/><path d="M16.16 9.6l2.57 1.46c.7.4.7 1.42 0 1.82l-2.57 1.46-2.66-2.53 2.66-2.21z" fill="#FF6E6E"/></svg>
+              </span>
+              <span><small>Get it on</small><strong>Google Play</strong></span>
+            </button>
+          </div>
+          <p class="store-note">App Store and Google Play listings go live at public launch.</p>
+        </div>
 
+        <div class="card reveal">
+          <h3>In the beta today</h3>
+          <p class="sub">Free while we're in beta.</p>
+          <ul class="beta-list">
+            <li><span class="e" aria-hidden="true">📅</span>Household meal plans with per-person variants</li>
+            <li><span class="e" aria-hidden="true">🫙</span>Pantry: type, quick-add, receipt scan or photo</li>
+            <li><span class="e" aria-hidden="true">🛒</span>Shopping list built from your plan</li>
+            <li><span class="e" aria-hidden="true">💰</span>Nearby store price estimates</li>
+            <li><span class="e" aria-hidden="true">🧑‍🍳</span>Step-by-step cook mode with safe temps</li>
+            <li><span class="e" aria-hidden="true">🗳️</span>Household dish suggestions and votes</li>
+            <li><span class="e" aria-hidden="true">🎨</span>Four looks to choose from</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GARDNZ ================= -->
+    <section class="section" style="padding-top:0" aria-labelledby="gardnz-title">
+      <div class="container">
+        <div class="gardnz reveal">
+          <span class="sprout" aria-hidden="true">🌱</span>
+          <div>
+            <h2 id="gardnz-title">Meet Gardnz, our sister app <span class="soon">Coming soon</span></h2>
+            <p>Gardnz is for the garden. The idea: it looks at what you buy in Fixins and suggests what you could grow yourself. We're also planning for one purchase to cover both apps.</p>
+          </div>
+          <a class="btn btn-ghost" href="https://www.gardnzapp.com/" target="_blank" rel="noopener noreferrer">Visit Gardnz <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section class="section" id="about" aria-labelledby="about-title" style="padding-top:0">
+      <div class="container about-grid">
+        <div class="reveal">
+          <p class="eyebrow">About Fixins™</p>
+          <h2 class="h2" id="about-title">Built for the kitchen counter, <i>not the app store.</i></h2>
+          <p class="lead">Fixins™ started with one question: why is planning dinner still the hardest part of family life? We built it to turn that nightly stress into a simple system that works for real households, not ideal schedules.</p>
+          <p class="muted">If planning is easier, food gets better. Better food means more energy, less waste, and calmer evenings for everyone at the table.</p>
+          <p class="tag-pill">
+            A product by <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer">Aerion Health</a> · <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer">Simple Digital Solution LLC</a>
+          </p>
+        </div>
+        <div class="about-cards reveal">
+          <article class="card about-card">
+            <span class="ic" aria-hidden="true">❤️</span>
+            <div><h3>Family-first design</h3><p>Every feature starts with real routines, picky eaters, and packed weekday calendars.</p></div>
+          </article>
+          <article class="card about-card">
+            <span class="ic" aria-hidden="true">🔒</span>
+            <div><h3>Privacy-aware</h3><p>We collect only what's needed to make the app useful, and never sell personal data. <a href="/privacy-policy.html">Read the privacy policy</a>.</p></div>
+          </article>
+          <article class="card about-card">
+            <span class="ic" aria-hidden="true">🌱</span>
+            <div><h3>Part of a bigger picture</h3><p>Fixins™ and Gardnz share one idea: grow it, cook it, track it.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-grid">
+        <div class="reveal">
+          <h2 class="h2" id="contact-title">Questions? <i>We're real people.</i></h2>
+          <p class="lead">Reach out for a beta invite, bug reports, partnerships, feature ideas, or anything else. We read every message.</p>
+          <div class="contact-links">
+            <a class="contact-link js-beta-link" href="#contact">
+              <span class="icon" aria-hidden="true">✉️</span>
+              <span class="meta"><small>Email</small><strong class="js-beta-email">admin [at] simpledigitalsolution.com</strong></span>
+            </a>
+            <a class="contact-link" href="https://instagram.com/simpledigiz" target="_blank" rel="noopener noreferrer">
+              <span class="icon" aria-hidden="true">📸</span>
+              <span class="meta"><small>Instagram</small><strong>@simpledigiz</strong></span>
+            </a>
+            <a class="contact-link" href="https://www.facebook.com/simpledigitalsolution" target="_blank" rel="noopener noreferrer">
+              <span class="icon" aria-hidden="true">👥</span>
+              <span class="meta"><small>Facebook</small><strong>facebook.com/simpledigitalsolution</strong></span>
+            </a>
+            <a class="contact-link" href="https://x.com/Simpledigiz" target="_blank" rel="noopener noreferrer">
+              <span class="icon" aria-hidden="true">𝕏</span>
+              <span class="meta"><small>Twitter/X</small><strong>@Simpledigiz</strong></span>
+            </a>
+          </div>
+          <p class="social-note">Follow our parent brand socials for updates, or email <span class="js-beta-email">admin [at] simpledigitalsolution.com</span>.</p>
+        </div>
+
+        <div class="card reveal">
+          <div id="contactFormWrap">
+            <h3 class="form-title">Send us a message</h3>
+            <form id="contactForm" novalidate>
+              <div class="inquiry-grid" id="inquiryGrid" role="group" aria-label="Message type">
+                <button class="inq-btn active" type="button" data-type="bug" aria-pressed="true" onclick="selectInquiry(this)">🐛 Bug Report</button>
+                <button class="inq-btn" type="button" data-type="idea" aria-pressed="false" onclick="selectInquiry(this)">💡 Feature Idea</button>
+                <button class="inq-btn" type="button" data-type="partnership" aria-pressed="false" onclick="selectInquiry(this)">🤝 Partnership</button>
+                <button class="inq-btn" type="button" data-type="general" aria-pressed="false" onclick="selectInquiry(this)">💬 General</button>
+              </div>
+              <div class="form-row">
                 <div class="field">
-                  <textarea class="textarea" id="message" name="message" placeholder="Tell us what is going on..."></textarea>
+                  <label for="name">Your name</label>
+                  <input class="input" id="name" name="name" type="text" autocomplete="name" />
                 </div>
-
-                <button class="btn tomato block" id="submitBtn" type="submit">Send Message</button>
-                <p class="privacy">By sending this message, you agree we may reply to your email. We do not sell your data.</p>
-              </form>
-            </div>
-
-            <div id="contactSuccess" class="success" aria-live="polite">
-              <div class="emoji">🥘</div>
-              <h3>Almost there!</h3>
-              <p>Your email app should have opened with your message ready — just hit send. If it didn't, email us directly at <strong class="js-beta-email">admin [at] simpledigitalsolution.com</strong>.</p>
-              <button class="btn ghost" type="button" onclick="resetForm()">Send another</button>
-            </div>
+                <div class="field">
+                  <label for="email">Email address</label>
+                  <input class="input" id="email" name="email" type="email" autocomplete="email" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="message">Message</label>
+                <textarea class="textarea" id="message" name="message" placeholder="Tell us what's going on..."></textarea>
+              </div>
+              <button class="btn btn-primary block" id="submitBtn" type="submit">Send Message</button>
+              <p class="privacy">By sending this message, you agree we may reply to your email. We do not sell your data.</p>
+            </form>
+          </div>
+          <div id="contactSuccess" class="success" aria-live="polite">
+            <div class="emoji" aria-hidden="true">🥘</div>
+            <h3>Opening your email app…</h3>
+            <p>Your message should be ready to go — just hit send. If nothing opened, email us directly at <strong class="js-beta-email">admin [at] simpledigitalsolution.com</strong>.</p>
+            <button class="btn btn-ghost" type="button" onclick="resetForm()">Send another</button>
           </div>
         </div>
       </div>
@@ -2050,86 +1030,68 @@
   </main>
 
   <footer class="footer">
-    <div class="footer-glow-1"></div>
-    <div class="footer-glow-2"></div>
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="#top" class="logo" aria-label="Fixins™ top">
-            <span class="logo-mark">F</span>
-            <span class="logo-word">Fix<span class="ins">ins</span></span>
+        <div>
+          <a href="#top" class="logo" aria-label="Fixins™, back to top">
+            <img src="favicon.svg" alt="" width="36" height="36" />
+            <span class="logo-word">Fix<span>ins</span></span>
           </a>
-          <p class="name">Fixins™</p>
-          <p>Meal planning for real families. Plan less, cook better, and make dinner less chaotic.</p>
+          <p>Meal planning for real households. Plan less, cook better, and make dinner less chaotic.</p>
           <div class="socials">
-            <span class="social-soon" aria-label="Instagram coming soon" title="Instagram coming soon">📸</span>
-            <span class="social-soon" aria-label="Facebook coming soon" title="Facebook coming soon">👥</span>
-            <span class="social-soon" aria-label="X coming soon" title="X coming soon">𝕏</span>
-            <span class="social-soon" aria-label="TikTok coming soon" title="TikTok coming soon">🎵</span>
+            <span class="social-soon" role="img" aria-label="Instagram coming soon" title="Instagram coming soon">📸</span>
+            <span class="social-soon" role="img" aria-label="Facebook coming soon" title="Facebook coming soon">👥</span>
+            <span class="social-soon" role="img" aria-label="X coming soon" title="X coming soon">𝕏</span>
+            <span class="social-soon" role="img" aria-label="TikTok coming soon" title="TikTok coming soon">🎵</span>
           </div>
         </div>
-
-        <div class="footer-col tomato">
-          <h4>Get the App</h4>
-          <ul class="app-store-links">
-            <li class="store-badge-wrap">
-              <a class="store-badge" href="#download" aria-label="App Store in beta testing" aria-disabled="true" tabindex="-1">
-                <svg width="20" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M17.62 12.96c.01 2.18 1.9 2.91 1.92 2.92-.02.05-.3 1.03-.98 2.02-.59.86-1.21 1.71-2.17 1.72-.95.02-1.26-.56-2.35-.56-1.09 0-1.43.54-2.33.58-.93.04-1.64-.94-2.24-1.8-1.22-1.77-2.15-5-1.1-6.85.52-.9 1.45-1.47 2.46-1.49.77-.01 1.5.51 1.97.51.47 0 1.36-.63 2.29-.54.39.02 1.49.16 2.2 1.19-.05.03-1.31.77-1.3 2.3z" fill="#fff"/>
-                  <path d="M15.37 3.5c.44-.5 1.17-.88 1.77-.9.08.7-.2 1.41-.63 1.91-.41.51-1.1.9-1.78.85-.09-.69.25-1.41.64-1.86z" fill="#fff"/>
-                </svg>
-                <span class="store-badge-text"><small>Download on the</small><strong>App Store</strong></span>
-              </a>
-              <span class="coming-soon-pill">In beta testing</span>
-            </li>
-            <li class="store-badge-wrap">
-              <a class="store-badge" href="#download" aria-label="Google Play in beta testing" aria-disabled="true" tabindex="-1">
-                <svg width="22" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M3.2 2.4c.2-.11.45-.11.65 0l10.65 6.07-2.49 2.51L3.2 2.4z" fill="#00D18F"/>
-                  <path d="M3.2 2.4l8.81 8.58-8.81 8.58A.75.75 0 0 1 2.8 19V3a.75.75 0 0 1 .4-.6z" fill="#00A3FF"/>
-                  <path d="M12.01 10.98l2.49 2.51L3.85 19.56l8.16-8.58z" fill="#FFD54F"/>
-                  <path d="M16.16 9.6l2.57 1.46c.7.4.7 1.42 0 1.82l-2.57 1.46-2.66-2.53 2.66-2.21z" fill="#FF6E6E"/>
-                </svg>
-                <span class="store-badge-text"><small>Get it on</small><strong>Google Play</strong></span>
-              </a>
-              <span class="coming-soon-pill">In beta testing</span>
-            </li>
-            <li><a href="#download">Smart Download</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col olive">
-          <h4>Features</h4>
+        <div>
+          <h2>Get the app</h2>
           <ul>
-            <li><a href="#features">AI Meal Planning</a></li>
-            <li><a href="#features">Grocery Lists</a></li>
-            <li><a href="#features">Price Comparison</a></li>
-            <li><a href="#features">Cooking Guides</a></li>
-            <li><a href="#features">Pantry Scan</a></li>
-            <li><a href="#features">Household Sharing</a></li>
+            <li>
+              <span class="store-badge" aria-label="App Store, in beta testing">
+                <svg width="18" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.62 12.96c.01 2.18 1.9 2.91 1.92 2.92-.02.05-.3 1.03-.98 2.02-.59.86-1.21 1.71-2.17 1.72-.95.02-1.26-.56-2.35-.56-1.09 0-1.43.54-2.33.58-.93.04-1.64-.94-2.24-1.8-1.22-1.77-2.15-5-1.1-6.85.52-.9 1.45-1.47 2.46-1.49.77-.01 1.5.51 1.97.51.47 0 1.36-.63 2.29-.54.39.02 1.49.16 2.2 1.19-.05.03-1.31.77-1.3 2.3z" fill="#fff"/><path d="M15.37 3.5c.44-.5 1.17-.88 1.77-.9.08.7-.2 1.41-.63 1.91-.41.51-1.1.9-1.78.85-.09-.69.25-1.41.64-1.86z" fill="#fff"/></svg>
+                <span><small>Download on the</small><strong>App Store</strong></span>
+              </span>
+              <span class="pill-soon">In beta testing</span>
+            </li>
+            <li>
+              <span class="store-badge" aria-label="Google Play, in beta testing">
+                <svg width="20" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.2 2.4c.2-.11.45-.11.65 0l10.65 6.07-2.49 2.51L3.2 2.4z" fill="#00D18F"/><path d="M3.2 2.4l8.81 8.58-8.81 8.58A.75.75 0 0 1 2.8 19V3a.75.75 0 0 1 .4-.6z" fill="#00A3FF"/><path d="M12.01 10.98l2.49 2.51L3.85 19.56l8.16-8.58z" fill="#FFD54F"/><path d="M16.16 9.6l2.57 1.46c.7.4.7 1.42 0 1.82l-2.57 1.46-2.66-2.53 2.66-2.21z" fill="#FF6E6E"/></svg>
+                <span><small>Get it on</small><strong>Google Play</strong></span>
+              </span>
+              <span class="pill-soon">In beta testing</span>
+            </li>
+            <li><a href="#download">Request a beta invite</a></li>
           </ul>
         </div>
-
-        <div class="footer-col mustard">
-          <h4>Company</h4>
-          <div class="partner-tile">
-            <div class="partner-tile-label">Partner Project</div>
-            <a href="https://www.gardnzapp.com/" target="_blank" rel="noopener noreferrer">Gardnz 🌱 ↗</a>
-          </div>
+        <div>
+          <h2>Features</h2>
+          <ul>
+            <li><a href="#step-plan">Household meal plans</a></li>
+            <li><a href="#step-pantry">Pantry tracking</a></li>
+            <li><a href="#step-shop">Shopping lists</a></li>
+            <li><a href="#step-cook">Cook mode</a></li>
+            <li><a href="#step-household">Votes &amp; suggestions</a></li>
+            <li><a href="#try">Try the demo</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Company</h2>
           <ul>
             <li><a href="#about">About Fixins™</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="https://www.gardnzapp.com/" target="_blank" rel="noopener noreferrer">Gardnz 🌱 ↗</a></li>
             <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/delete-account.html">Delete Account</a></li>
             <li><a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer">Simple Digital Solution</a></li>
           </ul>
         </div>
       </div>
-
       <div class="footer-bottom">
         <div>© 2026 Simple Digital Solution LLC</div>
-        <div class="footer-center-note">
-          <a href="https://www.fixinsapp.com/" target="_blank" rel="noopener noreferrer">Fixins.com</a>
-          is a partner with
+        <div>
+          <a href="https://www.fixinsapp.com/">Fixins.com</a> is a partner with
           <a href="https://www.gardnzapp.com/" target="_blank" rel="noopener noreferrer">Gardnz.com</a>.
           Both are Aerion Health projects by
           <a href="https://simpledigitalsolution.com" target="_blank" rel="noopener noreferrer">Simple Digital Solution LLC</a>.
@@ -2144,13 +1106,16 @@
   </footer>
 
   <script>
-    const APPLE_URL = 'https://apps.apple.com/app/fixins';
-    const PLAY_URL = 'https://play.google.com/store/apps/fixins';
-    let currentPrimaryStoreUrl = null;
+    /* ---------- Store links (flip STORES_LIVE at public launch) ---------- */
+    const STORES_LIVE = false;
+    const APPLE_URL = 'https://apps.apple.com/app/fixins';            // TODO: real listing URL (…/id<digits>)
+    const PLAY_URL = 'https://play.google.com/store/apps/details?id=TODO'; // TODO: real package id
 
     // Contact email assembled at runtime so Cloudflare email-protection
     // cannot rewrite it and break mailto links (the old beta signup bug).
     const CONTACT_EMAIL = ['admin', 'simpledigitalsolution.com'].join('@');
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     function betaMailtoHref() {
       const subject = encodeURIComponent('Fixins Beta Tester Request');
@@ -2172,22 +1137,35 @@
     }
 
     function toggleMenu(forceState) {
-      const overlay = document.getElementById('mobileMenu');
+      const menu = document.getElementById('mobileMenu');
       const button = document.getElementById('hamburger');
-      const willOpen = typeof forceState === 'boolean' ? forceState : !overlay.classList.contains('open');
-      overlay.classList.toggle('open', willOpen);
-      button.classList.toggle('open', willOpen);
+      const willOpen = typeof forceState === 'boolean' ? forceState : !menu.classList.contains('open');
+      menu.classList.toggle('open', willOpen);
       button.setAttribute('aria-expanded', String(willOpen));
-      document.body.style.overflow = willOpen ? 'hidden' : '';
+      button.setAttribute('aria-label', willOpen ? 'Close menu' : 'Open menu');
     }
 
+    /* ---------- Contact form (mailto) ---------- */
     function selectInquiry(btn) {
-      document.querySelectorAll('#inquiryGrid .inq-btn').forEach((item) => item.classList.remove('active'));
+      document.querySelectorAll('#inquiryGrid .inq-btn').forEach((item) => {
+        item.classList.remove('active');
+        item.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
     }
 
     function clearInvalid() {
-      ['name', 'email', 'message'].forEach((id) => document.getElementById(id).classList.remove('invalid'));
+      ['name', 'email', 'message'].forEach((id) => {
+        const el = document.getElementById(id);
+        el.classList.remove('invalid');
+        el.removeAttribute('aria-invalid');
+      });
+    }
+
+    function markInvalid(el) {
+      el.classList.add('invalid');
+      el.setAttribute('aria-invalid', 'true');
     }
 
     function validateContactForm() {
@@ -2195,25 +1173,15 @@
       const name = document.getElementById('name');
       const email = document.getElementById('email');
       const message = document.getElementById('message');
-      let valid = true;
+      let firstBad = null;
 
-      if (!name.value.trim()) {
-        name.classList.add('invalid');
-        valid = false;
-      }
-
+      if (!name.value.trim()) { markInvalid(name); firstBad = firstBad || name; }
       const emailRx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-      if (!email.value.trim() || !emailRx.test(email.value.trim())) {
-        email.classList.add('invalid');
-        valid = false;
-      }
+      if (!email.value.trim() || !emailRx.test(email.value.trim())) { markInvalid(email); firstBad = firstBad || email; }
+      if (message.value.trim().length < 10) { markInvalid(message); firstBad = firstBad || message; }
 
-      if (message.value.trim().length < 10) {
-        message.classList.add('invalid');
-        valid = false;
-      }
-
-      return valid;
+      if (firstBad) firstBad.focus();
+      return !firstBad;
     }
 
     function handleContactSubmit(e) {
@@ -2244,12 +1212,159 @@
       if (firstInquiry) selectInquiry(firstInquiry);
     }
 
+    /* ---------- Look switcher (classic / inverted) ---------- */
+    const LOOKS = ['classic', 'inverted'];
+    const THEME_COLORS = { classic: '#F2EBD9', inverted: '#0A0C09' };
+
+    function applyLook(look, persist) {
+      if (LOOKS.indexOf(look) === -1) look = 'classic';
+      document.documentElement.setAttribute('data-look', look);
+      document.querySelectorAll('[data-look-btn]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lookBtn === look)));
+      document.querySelectorAll('img.js-screen').forEach((img) => {
+        const next = 'assets/screens/' + look + '-' + img.dataset.screen + '.jpg';
+        if (img.getAttribute('src') !== next) img.setAttribute('src', next);
+      });
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', THEME_COLORS[look]);
+      if (persist) { try { localStorage.setItem('fixins-look', look); } catch (e) { /* ignore */ } }
+    }
+
+    /* ---------- Interactive demo (sample data only) ---------- */
+    const RECIPES = [
+      { id: 'pasta', emoji: '🍋', name: 'Lemon garlic pasta', note: 'Weeknight, 25 min', items: ['pasta', 'lemons', 'garlic', 'spinach', 'parmesan', 'olive oil'] },
+      { id: 'tacos', emoji: '🌮', name: 'Black bean tacos', note: 'Meat-free, 20 min', items: ['tortillas', 'black beans', 'onion', 'avocados', 'limes', 'sour cream'] },
+      { id: 'chicken', emoji: '🍗', name: 'Sheet-pan chicken & veg', note: 'One pan, 40 min', items: ['chicken thighs', 'potatoes', 'carrots', 'onion', 'garlic', 'olive oil'] },
+      { id: 'eggs', emoji: '🍳', name: 'Veggie frittata', note: 'Breakfast-for-dinner', items: ['eggs', 'spinach', 'onion', 'cheddar', 'milk'] }
+    ];
+    const AISLES = [
+      ['Produce', ['lemons', 'garlic', 'spinach', 'onion', 'avocados', 'limes', 'potatoes', 'carrots']],
+      ['Meat', ['chicken thighs']],
+      ['Dairy & eggs', ['parmesan', 'sour cream', 'eggs', 'cheddar', 'milk']],
+      ['Pantry', ['pasta', 'olive oil', 'black beans', 'tortillas']]
+    ];
+    const PANTRY = ['olive oil', 'garlic', 'pasta', 'onion', 'eggs', 'black beans', 'rice', 'potatoes', 'milk'];
+    const DEMO_START = { recipes: ['pasta', 'tacos'], pantry: ['olive oil'] };
+
+    const demo = { recipes: new Set(DEMO_START.recipes), pantry: new Set(DEMO_START.pantry), checked: new Set(), shown: new Set(), wasEmptyBecauseCovered: false };
+
+    function titleCase(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+    function buildDemoControls() {
+      const rl = document.getElementById('recipeList');
+      rl.innerHTML = '';
+      RECIPES.forEach((r) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'recipe';
+        b.dataset.id = r.id;
+        b.setAttribute('aria-pressed', String(demo.recipes.has(r.id)));
+        b.innerHTML = '<span class="emo" aria-hidden="true">' + r.emoji + '</span><span class="t"><b>' + r.name + '</b><small>' + r.note + ' · ' + r.items.length + ' ingredients</small></span><span class="state" aria-hidden="true">✓</span>';
+        b.addEventListener('click', () => {
+          if (demo.recipes.has(r.id)) demo.recipes.delete(r.id); else demo.recipes.add(r.id);
+          b.setAttribute('aria-pressed', String(demo.recipes.has(r.id)));
+          renderList();
+        });
+        rl.appendChild(b);
+      });
+
+      const pc = document.getElementById('pantryChips');
+      pc.innerHTML = '';
+      PANTRY.forEach((p) => {
+        const c = document.createElement('button');
+        c.type = 'button';
+        c.className = 'chip';
+        c.textContent = p;
+        c.setAttribute('aria-pressed', String(demo.pantry.has(p)));
+        c.addEventListener('click', () => {
+          if (demo.pantry.has(p)) demo.pantry.delete(p); else demo.pantry.add(p);
+          c.setAttribute('aria-pressed', String(demo.pantry.has(p)));
+          c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump');
+          renderList(c);
+        });
+        pc.appendChild(c);
+      });
+    }
+
+    function renderList(originEl) {
+      const need = new Map(); // item -> [recipe names]
+      RECIPES.forEach((r) => {
+        if (!demo.recipes.has(r.id)) return;
+        r.items.forEach((it) => {
+          if (!need.has(it)) need.set(it, []);
+        });
+      });
+      const shortName = { pasta: 'pasta', tacos: 'tacos', chicken: 'chicken', eggs: 'frittata' };
+      need.forEach((_, it) => need.set(it, RECIPES.filter((r) => demo.recipes.has(r.id) && r.items.indexOf(it) !== -1).map((r) => shortName[r.id])));
+
+      const toBuy = [...need.keys()].filter((it) => !demo.pantry.has(it));
+      const covered = [...need.keys()].filter((it) => demo.pantry.has(it));
+      const listEl = document.getElementById('shoppingList');
+      listEl.innerHTML = '';
+
+      if (demo.recipes.size === 0) {
+        listEl.innerHTML = '<div class="empty"><span class="big" aria-hidden="true">🍽️</span>Pick a dinner to start your list.</div>';
+      } else if (toBuy.length === 0) {
+        listEl.innerHTML = '<div class="empty"><span class="big" aria-hidden="true">🎉</span>Nothing to buy. Dinner\'s already in the pantry.</div>';
+        if (originEl) celebrate(originEl);
+      } else {
+        AISLES.forEach(([aisle, members]) => {
+          const items = toBuy.filter((it) => members.indexOf(it) !== -1);
+          if (!items.length) return;
+          const sec = document.createElement('div');
+          sec.className = 'list-section';
+          sec.innerHTML = '<h4>' + aisle + '</h4>';
+          const ul = document.createElement('ul');
+          items.forEach((it) => {
+            const li = document.createElement('li');
+            li.className = 'list-item' + (demo.shown.has(it) ? '' : ' new');
+            const id = 'demo-item-' + it.replace(/[^a-z]/g, '-');
+            li.innerHTML = '<label for="' + id + '"><input type="checkbox" id="' + id + '"' + (demo.checked.has(it) ? ' checked' : '') + ' /><span class="name">' + titleCase(it) + '</span><span class="for">' + need.get(it).join(', ') + '</span></label>';
+            li.querySelector('input').addEventListener('change', (ev) => {
+              if (ev.target.checked) demo.checked.add(it); else demo.checked.delete(it);
+            });
+            ul.appendChild(li);
+          });
+          sec.appendChild(ul);
+          listEl.appendChild(sec);
+        });
+      }
+      demo.shown = new Set(toBuy);
+
+      document.getElementById('listCount').textContent = String(toBuy.length);
+      document.getElementById('listSummary').textContent = demo.recipes.size === 0
+        ? 'No dinners picked yet.'
+        : toBuy.length + (toBuy.length === 1 ? ' item' : ' items') + ' to buy for ' + demo.recipes.size + (demo.recipes.size === 1 ? ' dinner' : ' dinners') +
+          (covered.length ? ', ' + covered.length + ' already at home.' : '.');
+      document.getElementById('coveredNote').innerHTML = covered.length
+        ? 'Skipped because it\'s in your pantry: <b>' + covered.join(', ') + '</b>'
+        : 'Tip: tap pantry items to take them off the list.';
+    }
+
+    function celebrate(originEl) {
+      if (reduceMotion.matches || !originEl.getBoundingClientRect) return;
+      const r = originEl.getBoundingClientRect();
+      const bits = ['🍅', '🥕', '🧄', '🍋', '🌿', '✨'];
+      for (let i = 0; i < 14; i++) {
+        const s = document.createElement('span');
+        s.className = 'confetti';
+        s.setAttribute('aria-hidden', 'true');
+        s.textContent = bits[i % bits.length];
+        s.style.left = (r.left + r.width / 2) + 'px';
+        s.style.top = (r.top + r.height / 2) + 'px';
+        document.body.appendChild(s);
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 80 + Math.random() * 120;
+        s.animate([
+          { transform: 'translate(-50%,-50%) scale(.6)', opacity: 1 },
+          { transform: 'translate(calc(-50% + ' + Math.cos(angle) * dist + 'px), calc(-50% + ' + (Math.sin(angle) * dist - 60) + 'px)) rotate(' + (Math.random() * 360) + 'deg) scale(1.1)', opacity: 0 }
+        ], { duration: 900 + Math.random() * 400, easing: 'cubic-bezier(.2,.8,.2,1)' }).onfinish = () => s.remove();
+      }
+    }
+
+    /* ---------- Boot ---------- */
     document.addEventListener('DOMContentLoaded', () => {
-      const APPLE_ICON_HTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.62 12.96c.01 2.18 1.9 2.91 1.92 2.92-.02.05-.3 1.03-.98 2.02-.59.86-1.21 1.71-2.17 1.72-.95.02-1.26-.56-2.35-.56-1.09 0-1.43.54-2.33.58-.93.04-1.64-.94-2.24-1.8-1.22-1.77-2.15-5-1.1-6.85.52-.9 1.45-1.47 2.46-1.49.77-.01 1.5.51 1.97.51.47 0 1.36-.63 2.29-.54.39.02 1.49.16 2.2 1.19-.05.03-1.31.77-1.3 2.3z" fill="#fff"/><path d="M15.37 3.5c.44-.5 1.17-.88 1.77-.9.08.7-.2 1.41-.63 1.91-.41.51-1.1.9-1.78.85-.09-.69.25-1.41.64-1.86z" fill="#fff"/></svg>';
-      const PLAY_ICON_HTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.2 2.4c.2-.11.45-.11.65 0l10.65 6.07-2.49 2.51L3.2 2.4z" fill="#00D18F"/><path d="M3.2 2.4l8.81 8.58-8.81 8.58A.75.75 0 0 1 2.8 19V3a.75.75 0 0 1 .4-.6z" fill="#00A3FF"/><path d="M12.01 10.98l2.49 2.51L3.85 19.56l8.16-8.58z" fill="#FFD54F"/><path d="M16.16 9.6l2.57 1.46c.7.4.7 1.42 0 1.82l-2.57 1.46-2.66-2.53 2.66-2.21z" fill="#FF6E6E"/></svg>';
       const navbar = document.getElementById('navbar');
       const hamburger = document.getElementById('hamburger');
-      const overlay = document.getElementById('mobileMenu');
       const heroSecondaryCta = document.getElementById('heroSecondaryCta');
       const primaryStoreBtn = document.getElementById('primary-store-btn');
       const secondaryStoreBtn = document.getElementById('secondary-store-btn');
@@ -2261,95 +1376,120 @@
       document.querySelectorAll('.js-beta-link').forEach((el) => el.setAttribute('href', betaHref));
       document.querySelectorAll('.js-beta-email').forEach((el) => { el.textContent = CONTACT_EMAIL; });
 
-      window.addEventListener('scroll', () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 14);
-      });
+      const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 14);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
 
       hamburger.addEventListener('click', () => toggleMenu());
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) toggleMenu(false);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && document.getElementById('mobileMenu').classList.contains('open')) {
+          toggleMenu(false);
+          hamburger.focus();
+        }
       });
 
+      // Device-aware hint and store button order.
       const device = detectDevice();
-
-      const setStoreButton = (btn, iconHtml, smallText, strongText, url, className) => {
-        btn.className = 'store-btn ' + className + ' coming-soon';
+      const setStoreButton = (btn, url) => {
         btn.dataset.url = url;
-        btn.setAttribute('aria-disabled', 'true');
-        btn.disabled = true;
-        btn.innerHTML = '<span class="icon">' + iconHtml + '</span><span><small>' + smallText + '</small><strong>' + strongText + '</strong></span>';
+        btn.disabled = !STORES_LIVE;
+        btn.setAttribute('aria-disabled', String(!STORES_LIVE));
+        btn.classList.toggle('coming-soon', !STORES_LIVE);
       };
-
+      setStoreButton(primaryStoreBtn, APPLE_URL);
+      setStoreButton(secondaryStoreBtn, PLAY_URL);
       if (device === 'ios') {
-        currentPrimaryStoreUrl = APPLE_URL;
         hint.innerHTML = (/iPad/.test(navigator.userAgent) ? 'iPad' : 'iPhone') +
           ' detected — beta invites arrive via TestFlight. Tapping opens your email app, or write to <span class="js-beta-email">' + CONTACT_EMAIL + '</span>.';
-        hint.style.display = 'block';
-
-        primaryStoreBtn.style.order = '0';
-        secondaryStoreBtn.style.order = '1';
-        primaryStoreBtn.style.opacity = '1';
-        secondaryStoreBtn.style.opacity = '0.75';
-
-        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Download on the', 'App Store', APPLE_URL, 'store-ios');
-        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Also available on', 'Google Play', APPLE_URL, 'store-android');
       } else if (device === 'android') {
-        currentPrimaryStoreUrl = PLAY_URL;
         hint.innerHTML = 'Android detected — beta invites arrive via Google Play testing. Tapping opens your email app, or write to <span class="js-beta-email">' + CONTACT_EMAIL + '</span>.';
-        hint.style.display = 'block';
-
-        primaryStoreBtn.style.order = '1';
-        secondaryStoreBtn.style.order = '0';
-        primaryStoreBtn.style.opacity = '0.75';
-        secondaryStoreBtn.style.opacity = '1';
-
-        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Also available on', 'App Store', PLAY_URL, 'store-ios');
-        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Get it on', 'Google Play', PLAY_URL, 'store-android');
+        secondaryStoreBtn.style.order = '-1';
       } else {
-        currentPrimaryStoreUrl = null;
         hint.innerHTML = 'Clicking opens your email app — or write to <span class="js-beta-email">' + CONTACT_EMAIL + '</span>.';
-        hint.style.display = 'block';
-
-        primaryStoreBtn.style.order = '0';
-        secondaryStoreBtn.style.order = '1';
-        primaryStoreBtn.style.opacity = '1';
-        secondaryStoreBtn.style.opacity = '1';
-
-        setStoreButton(primaryStoreBtn, APPLE_ICON_HTML, 'Download on the', 'App Store', APPLE_URL, 'store-ios');
-        setStoreButton(secondaryStoreBtn, PLAY_ICON_HTML, 'Get it on', 'Google Play', PLAY_URL, 'store-android');
       }
+      [primaryStoreBtn, secondaryStoreBtn].forEach((btn) => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled || !btn.dataset.url) return;
+          window.open(btn.dataset.url, '_blank', 'noopener,noreferrer');
+        });
+      });
 
       if (heroSecondaryCta) {
         heroSecondaryCta.addEventListener('click', (e) => {
           if (detectDevice() !== 'desktop') {
             e.preventDefault();
-            document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('how-it-works').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth' });
           }
         });
       }
 
-      [primaryStoreBtn, secondaryStoreBtn].forEach((btn) => {
-        btn.addEventListener('click', () => {
-          if (btn.disabled) return;
-          const url = btn.dataset.url || APPLE_URL;
-          window.open(url, '_blank', 'noopener,noreferrer');
-        });
-      });
-
       document.getElementById('contactForm').addEventListener('submit', handleContactSubmit);
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
+      // Look switcher
+      applyLook(document.documentElement.getAttribute('data-look') || 'classic', false);
+      document.querySelectorAll('[data-look-btn]').forEach((b) => b.addEventListener('click', () => applyLook(b.dataset.lookBtn, true)));
 
-      document.querySelectorAll('.fade-up').forEach((el) => {
-        if (!el.classList.contains('visible')) observer.observe(el);
+      // Scroll-driven tour: swap the sticky phone's screen as each step reaches mid-viewport.
+      const steps = Array.from(document.querySelectorAll('.step'));
+      const stackImgs = Array.from(document.querySelectorAll('#tourStack img'));
+      const dots = Array.from(document.querySelectorAll('#tourDots button'));
+      const setStep = (i) => {
+        steps.forEach((s, k) => s.classList.toggle('active', k === i));
+        stackImgs.forEach((img) => img.classList.toggle('on', Number(img.dataset.step) === i));
+        dots.forEach((d, k) => { if (k === i) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current'); });
+      };
+      if ('IntersectionObserver' in window) {
+        const stepObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => { if (entry.isIntersecting) setStep(Number(entry.target.dataset.step)); });
+        }, { rootMargin: '-45% 0px -45% 0px' });
+        steps.forEach((s) => stepObserver.observe(s));
+      }
+      dots.forEach((d) => d.addEventListener('click', () => {
+        const target = steps[Number(d.dataset.go)];
+        target.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'center' });
+        setStep(Number(d.dataset.go));
+      }));
+
+      // Hero phone: gentle tilt toward the pointer (desktop, motion allowed).
+      const heroPhone = document.querySelector('#heroPhone .phone');
+      const heroWrap = document.getElementById('heroPhone');
+      if (heroPhone && window.matchMedia('(pointer: fine)').matches) {
+        heroWrap.closest('.hero').addEventListener('pointermove', (e) => {
+          if (reduceMotion.matches) return;
+          const r = heroWrap.getBoundingClientRect();
+          const dx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+          const dy = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+          heroPhone.style.transform = 'perspective(1200px) rotateY(' + (dx * 14).toFixed(2) + 'deg) rotateX(' + (-dy * 10).toFixed(2) + 'deg)';
+        });
+        heroWrap.closest('.hero').addEventListener('pointerleave', () => { heroPhone.style.transform = ''; });
+      }
+
+      // Demo
+      buildDemoControls();
+      renderList();
+      document.getElementById('demoReset').addEventListener('click', () => {
+        demo.recipes = new Set(DEMO_START.recipes);
+        demo.pantry = new Set(DEMO_START.pantry);
+        demo.checked.clear();
+        demo.shown.clear();
+        buildDemoControls();
+        renderList();
       });
+
+      // Reveal on scroll
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      } else {
+        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+      }
     });
   </script>
 </body>

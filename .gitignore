@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/
+node_modules/
