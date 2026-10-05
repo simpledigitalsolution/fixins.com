@@ -1,0 +1,23 @@
+version: 2
+updates:
+  # GitHub Actions - keeps the SHA-pinned actions in .github/workflows
+  # updatable. Actions here are pinned to full commit SHAs for supply-chain
+  # safety; without Dependabot those pins would never move again.
+  # This is also how the repo stays ahead of runner-image changes such as
+  # the removal of Node 20 from GitHub-hosted runners on 2026-09-16.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: America/New_York
+    open-pull-requests-limit: 3
+    groups:
+      actions:
+        patterns:
+          - "*"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore(actions)"
