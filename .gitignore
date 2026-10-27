@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/
+node_modules/
+
+# --- added 2026-10-27 ---
+# deploy.yml FTPs local-dir ./ to the public web root, excluding only
+# .git*, .github, .env* and README.md. Anything else committed here is
+# published to the live site, so internal working files stay out.
+AUDIT.md
+SUBAGENT-BRIEF.md
+screenshots/

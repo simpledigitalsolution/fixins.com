@@ -1,15 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Fixins social preview image">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Fixins social preview image">
+  <!-- Editable source for og-image.png (render at 1200x630 in a browser; see README). -->
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#F2EBD9"/>
       <stop offset="100%" stop-color="#E8DFC8"/>
     </linearGradient>
+    <clipPath id="screen"><rect x="842" y="58" width="236" height="524" rx="30"/></clipPath>
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="1030" cy="120" r="170" fill="#C13B2A" opacity="0.09"/>
-  <circle cx="120" cy="560" r="230" fill="#5C6B2E" opacity="0.08"/>
-  <text x="90" y="220" fill="#2A2318" font-size="104" font-family="Georgia, 'Times New Roman', serif" font-weight="700">Fixins</text>
-  <text x="90" y="300" fill="#C13B2A" font-size="54" font-family="Arial, sans-serif" font-weight="700">Meal Planning App</text>
-  <text x="90" y="380" fill="#4A3D2C" font-size="40" font-family="Arial, sans-serif">Plan meals. Auto-build lists. Cook with less chaos.</text>
-  <text x="90" y="470" fill="#5C6B2E" font-size="32" font-family="Arial, sans-serif">iOS + Android • Built by Simple Digital Solution</text>
+  <circle cx="960" cy="300" r="300" fill="#C13B2A" opacity="0.10"/>
+  <circle cx="110" cy="590" r="230" fill="#5C6B2E" opacity="0.08"/>
+  <text x="80" y="200" fill="#2A2318" font-size="112" font-family="Georgia, 'Times New Roman', serif" font-weight="700">Fixins</text>
+  <text x="80" y="290" fill="#C13B2A" font-size="54" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-weight="700">Dinner's figured out.</text>
+  <text x="80" y="370" fill="#4A3D2C" font-size="32" font-family="Arial, sans-serif">Plan meals for everyone. Track the pantry.</text>
+  <text x="80" y="414" fill="#4A3D2C" font-size="32" font-family="Arial, sans-serif">Get the shopping list. Cook step by step.</text>
+  <rect x="80" y="470" width="340" height="56" rx="28" fill="#5C6B2E"/>
+  <text x="250" y="507" fill="#F2EBD9" font-size="24" font-family="Arial, sans-serif" font-weight="700" text-anchor="middle">Now in beta · iOS + Android</text>
+  <rect x="830" y="46" width="260" height="548" rx="40" fill="#151517"/>
+  <image x="842" y="58" width="236" height="524" preserveAspectRatio="xMidYMid slice" href="assets/screens/classic-home.jpg" xlink:href="assets/screens/classic-home.jpg" clip-path="url(#screen)"/>
 </svg>
