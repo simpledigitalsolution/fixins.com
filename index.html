@@ -1108,8 +1108,12 @@
   <script>
     /* ---------- Store links (flip STORES_LIVE at public launch) ---------- */
     const STORES_LIVE = false;
-    const APPLE_URL = 'https://apps.apple.com/app/fixins';            // TODO: real listing URL (…/id<digits>)
-    const PLAY_URL = 'https://play.google.com/store/apps/details?id=TODO'; // TODO: real package id
+    // Deliberately empty: Fixins has no App Store or Google Play listing yet, and
+    // a placeholder URL is a 404 waiting to ship. At public launch, paste the real
+    // listing URLs here and flip STORES_LIVE to true - nothing else needs to change.
+    // APPLE_URL goes to the primary (App Store) button, PLAY_URL to the secondary.
+    const APPLE_URL = '';
+    const PLAY_URL = '';
 
     // Contact email assembled at runtime so Cloudflare email-protection
     // cannot rewrite it and break mailto links (the old beta signup bug).
@@ -1391,7 +1395,9 @@
       // Device-aware hint and store button order.
       const device = detectDevice();
       const setStoreButton = (btn, url) => {
-        btn.dataset.url = url;
+        // Never stamp an empty data-url: the click handler treats a missing one as
+        // "no destination", which is what we want while the listings do not exist.
+        if (url) { btn.dataset.url = url; } else { delete btn.dataset.url; }
         btn.disabled = !STORES_LIVE;
         btn.setAttribute('aria-disabled', String(!STORES_LIVE));
         btn.classList.toggle('coming-soon', !STORES_LIVE);
